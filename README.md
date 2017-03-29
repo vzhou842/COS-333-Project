@@ -8,3 +8,11 @@ Team Members:
 - Victor Zhou
 
 Project Status Site: [https://vzhou842.github.io/BringBackTheYak/](https://vzhou842.github.io/BringBackTheYak/)
+
+# Server
+
+Start the server using the following commands:
+```
+cd server/
+npm start
+```

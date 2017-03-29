@@ -1,0 +1,27 @@
+{
+  "name": "cos333server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo 'No tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vzhou842/COS-333-Project.git"
+  },
+  "keywords": [
+    "COS",
+    "333",
+    "princeton"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vzhou842/COS-333-Project/issues"
+  },
+  "homepage": "https://github.com/vzhou842/COS-333-Project#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
