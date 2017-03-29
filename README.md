@@ -11,8 +11,17 @@ Project Status Site: [https://vzhou842.github.io/BringBackTheYak/](https://vzhou
 
 # Server
 
+Make sure you have Node.js and NPM installed.
+You can test if you have them using `node -v` and `npm -v`. You should get something like:
+```
+$ node -v
+v6.9.2
+$ npm -v
+3.10.9
+```
+
 Start the server using the following commands:
 ```
-cd server/
-npm start
+$ cd server/
+$ npm start
 ```
