@@ -1,6 +1,8 @@
 'use strict';
 
 var express = require('express');
+var mongoose = require('mongoose');
+var db = require('./db');
 
 var app = express();
 
