@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/vzhou842/COS-333-Project#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "mongoose": "^4.9.2"
   }
 }
