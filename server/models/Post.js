@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
 		type: String,
 		coordinates: [Number],
 	},
-	radius: { $type: Number },
+	radius: { $type: Number, default: 5 }, //miles
 	num_upvotes: { $type: Number, default: 0 },
 	num_comments: { $type: Number, default: 0 },
 }, { typeKey: '$type' });

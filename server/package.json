@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/vzhou842/COS-333-Project#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "mongoose": "^4.9.2"
+    "mongoose": "^4.9.2",
+    "shortid": "^2.2.8"
   },
   "engines": {
     "node": "~6.9.2",
