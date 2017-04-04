@@ -14,6 +14,9 @@
 		CC9DC0BE1E9070A6004F4C67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9DC0BC1E9070A6004F4C67 /* LaunchScreen.storyboard */; };
 		CC9DC0C91E9070A6004F4C67 /* _33Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0C81E9070A6004F4C67 /* _33Tests.swift */; };
 		CC9DC0D41E9070A6004F4C67 /* _33UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0D31E9070A6004F4C67 /* _33UITests.swift */; };
+		CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */; };
+		CC9DC0E51E9176C8004F4C67 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */; };
+		CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		CC9DC0CF1E9070A6004F4C67 /* 333UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 333UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9DC0D31E9070A6004F4C67 /* _33UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _33UITests.swift; sourceTree = "<group>"; };
 		CC9DC0D51E9070A6004F4C67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,8 @@
 		CC9DC0B21E9070A6004F4C67 /* 333 */ = {
 			isa = PBXGroup;
 			children = (
+				CC9DC0E61E917B61004F4C67 /* View Controllers */,
+				CC9DC0E11E9176A7004F4C67 /* Views */,
 				CC9DC0B31E9070A6004F4C67 /* AppDelegate.swift */,
 				CC9DC0B51E9070A6004F4C67 /* ViewController.swift */,
 				CC9DC0B71E9070A6004F4C67 /* Main.storyboard */,
@@ -123,6 +131,23 @@
 				CC9DC0D51E9070A6004F4C67 /* Info.plist */,
 			);
 			path = 333UITests;
+			sourceTree = "<group>";
+		};
+		CC9DC0E11E9176A7004F4C67 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CC9DC0E61E917B61004F4C67 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */,
+				CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC9DC0B61E9070A6004F4C67 /* ViewController.swift in Sources */,
+				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,
+				CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */,
+				CC9DC0E51E9176C8004F4C67 /* ProfileViewController.swift in Sources */,
 				CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +540,7 @@
 				CC9DC0DA1E9070A6004F4C67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC9DC0DB1E9070A6004F4C67 /* Build configuration list for PBXNativeTarget "333Tests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +549,7 @@
 				CC9DC0DD1E9070A6004F4C67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC9DC0DE1E9070A6004F4C67 /* Build configuration list for PBXNativeTarget "333UITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +558,7 @@
 				CC9DC0E01E9070A6004F4C67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
