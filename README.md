@@ -25,3 +25,6 @@ Start the server using the following commands:
 $ cd server/
 $ npm start
 ```
+# API
+
+See [server/API.md](server/API.md) for the API reference.
