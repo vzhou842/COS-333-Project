@@ -24,5 +24,9 @@
   "dependencies": {
     "express": "^4.15.2",
     "mongoose": "^4.9.2"
+  },
+  "engines": {
+    "node": "~6.9.2",
+    "npm": "~3.10.9"
   }
 }
