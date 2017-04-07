@@ -18,6 +18,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        commentsTableView.delegate = self
+        commentsTableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
