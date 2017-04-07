@@ -9,15 +9,18 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var postCaptionTextView: UITextView!
-    @IBOutlet weak var timeStampTextView: UITextView!
-    @IBOutlet weak var replyCountTextView: UITextView!
+    
+    @IBOutlet weak var postCaptionLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var repliesLabel: UILabel!
+    @IBOutlet weak var replyButton: UIButton!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        replyButton.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
