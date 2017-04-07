@@ -37,6 +37,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 10
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "postDetails", sender: self)
+    }
+    
     @IBAction func onClickHomeButton(_ sender: Any) {
     }
 
