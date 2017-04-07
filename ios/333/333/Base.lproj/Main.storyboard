@@ -295,6 +295,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbv-2q-OK8">
                                                     <rect key="frame" x="285" y="17" width="82" height="30"/>
                                                     <state key="normal" title="Toggle Vote"/>
+                                                    <connections>
+                                                        <action selector="onTouchToggleVote:" destination="wla-t4-oHg" eventType="touchUpInside" id="3eb-uq-jmS"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -307,6 +310,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="bbv-2q-OK8" secondAttribute="trailing" id="ZTY-5g-ape"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="captionLabel" destination="oXl-N4-KSn" id="pIv-ts-Udm"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

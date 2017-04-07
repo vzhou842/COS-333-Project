@@ -9,6 +9,9 @@
 import UIKit
 
 class ReplyTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var captionLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +24,6 @@ class ReplyTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func onTouchToggleVote(_ sender: Any) {
+    }
 }
