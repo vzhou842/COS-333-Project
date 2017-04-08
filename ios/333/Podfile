@@ -1,0 +1,7 @@
+target '333' do
+  
+  use_frameworks!
+
+  pod 'AFNetworking', '3.0.0'
+
+end 
