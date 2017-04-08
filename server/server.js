@@ -1,8 +1,10 @@
 'use strict';
 
 var express = require('express');
-var mongoose = require('mongoose');
 var db = require('./db');
+
+// Use native promises for mongoose.
+require('mongoose').Promise = global.Promise;
 
 var app = express();
 

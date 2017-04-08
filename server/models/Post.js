@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
 	timestamp: { $type: Date },
 	loc: {
 		type: { $type: String, default: 'Point' },
-		coordinates: [Number],
+		coordinates: [Number], // [long, lat]
 	},
 	radius: { $type: Number, default: 5000 }, // meters
 	num_upvotes: { $type: Number, default: 0 },
