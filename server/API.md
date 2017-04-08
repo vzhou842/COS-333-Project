@@ -4,6 +4,10 @@ The base URL for the API is: https://hallowed-moment-163600.appspot.com
 
 All URLs below will be relative URLs with respect to this base URL.
 
+## Status Codes
+
+API calls return status code ```200``` on success, ```400``` if the request was invalid, and ```500``` if a server error occurred.
+
 ## Posts API
 
 ### ```POST /api/posts```
@@ -21,8 +25,6 @@ The request body should be JSON matching the following format:
 }
 ```
 
-Returns status code ```200``` on success, ```400``` if the request was invalid, and ```500``` if an error occurred.
-
 
 ### ```GET /api/posts/new```
 
@@ -39,10 +41,8 @@ The request response will be a JSON array of Posts, where each Post matches the 
     "num_upvotes": 0,
     "radius": 5,
     "loc": {
-        "coordinates": [-1.522, 2.453], // [latitude, longitude]
+        "type": "Point",
+        "coordinates": [-1.522, 2.453], // [longitude, latitude]
     },
 }
 ```
-
-Returns status code ```200``` on success and ```500``` if an error occurred.
-
