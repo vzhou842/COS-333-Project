@@ -1,4 +1,5 @@
-An unnamed COS 333 (Spring 2017) project.
+# Robin
+A COS 333 (Spring 2017) project.
 
 Team Members:
 - Angela Mao
@@ -25,6 +26,13 @@ Start the server using the following commands:
 $ cd server/
 $ npm start
 ```
+
+Run server tests using the following commands:
+```
+$ cd server/
+$ npm test
+```
+
 # API
 
 See [server/API.md](server/API.md) for the API reference.
