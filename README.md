@@ -21,15 +21,19 @@ $ npm -v
 3.10.9
 ```
 
-Start the server using the following commands:
+First, install server dependencies:
 ```
 $ cd server/
+$ npm install
+```
+
+Start the server using:
+```
 $ npm start
 ```
 
-Run server tests using the following commands:
+Run server tests using:
 ```
-$ cd server/
 $ npm test
 ```
 
