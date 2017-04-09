@@ -1,6 +1,6 @@
 'use strict';
 
-var Post = require('../models/Post');
+var Post = require('./models/Post');
 var Utils = require('../Utils');
 
 // Removes private / unneeded fields from a Post object and returns it.
