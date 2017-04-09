@@ -22,4 +22,4 @@ app.get('/ping', function(req, res) {
 });
 
 // Setup the Posts API.
-require('./PostAPI')(app);
+require('./api/PostAPI')(app);
