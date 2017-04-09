@@ -23,3 +23,6 @@ app.get('/ping', function(req, res) {
 
 // Setup the Posts API.
 require('./api/PostAPI')(app);
+
+// Setup the Votes API.
+require('./api/VoteAPI')(app);

@@ -46,3 +46,18 @@ The request response will be a JSON array of Posts, where each Post matches the 
     },
 }
 ```
+
+## Votes API
+
+### ```POST /api/votes```
+
+Creates a vote (either an upvote or a downvote).
+
+The request body should be JSON matching the following format:
+```javascript
+{
+    user_id: "fake user",
+    object_id: "either post_id or comment_id",
+    up: true, // or false
+}
+```
