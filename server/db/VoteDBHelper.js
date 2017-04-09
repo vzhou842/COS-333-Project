@@ -1,6 +1,6 @@
 'use strict';
 
-var Vote = require('../models/Vote');
+var Vote = require('./models/Vote');
 
 // Resolves with a bool depending on whether a vote for the supplied params already exists.
 function checkIfExists(user_id, object_id) {

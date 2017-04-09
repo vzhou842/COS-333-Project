@@ -1,6 +1,6 @@
 'use strict';
 
-var VoteManager = require('../managers/VoteManager');
+var VoteDBHelper = require('../db/VoteDBHelper');
 
 // Sets up the Votes API for a given express app.
 // @param app An express app.
@@ -19,14 +19,14 @@ module.exports = function(app) {
 		var up = data.up;
 
 		// Check if a vote by this user on this object already exists.
-		VoteManager.checkIfExists(user_id, object_id).then(function(exists) {
+		VoteDBHelper.checkIfExists(user_id, object_id).then(function(exists) {
 			if (exists) {
 				res.status(400).send('This vote already exists.');
 				return;
 			}
 
 			// Create a vote.
-			VoteManager.createVote(user_id, object_id, up).then(function() {
+			VoteDBHelper.createVote(user_id, object_id, up).then(function() {
 				// TODO: Modify num_upvotes for the object based on the value of |up|.
 				res.status(200).end();
 			}).catch(function(err) {

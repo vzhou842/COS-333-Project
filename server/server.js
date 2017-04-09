@@ -1,7 +1,9 @@
 'use strict';
 
 var express = require('express');
-var db = require('./db');
+
+// Setup the database.
+var db = require('./db/db');
 
 // Use native promises for mongoose.
 require('mongoose').Promise = global.Promise;

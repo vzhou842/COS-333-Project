@@ -1,6 +1,6 @@
 'use strict';
 
-var PostManager = require('../managers/PostManager');
+var PostDBHelper = require('../db/PostDBHelper');
 
 // Sets up the Posts API for a given express app.
 // @param app An express app.
@@ -14,7 +14,7 @@ module.exports = function(app) {
 			return;
 		}
 
-		PostManager.createPost({
+		PostDBHelper.createPost({
 			text: data.text,
 			image_url: data.image_url,
 			user_id: data.user_id,
@@ -42,7 +42,7 @@ module.exports = function(app) {
 			return;
 		}
 
-		PostManager.getNewPosts(long, lat).then(function(posts) {
+		PostDBHelper.getNewPosts(long, lat).then(function(posts) {
 			res.status(200).send(posts);
 		}, function(err) {
 			console.error('Failed to get new posts', err);
