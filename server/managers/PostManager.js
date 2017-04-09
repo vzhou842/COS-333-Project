@@ -1,7 +1,7 @@
 'use strict';
 
 var Post = require('../models/Post');
-var shortid = require('shortid');
+var Utils = require('../Utils');
 
 // Removes private / unneeded fields from a Post object and returns it.
 function cleanPost(post) {
@@ -17,7 +17,7 @@ function cleanAllPosts(posts) {
 
 // @param data Should contain all necessary user-specified fields for the post.
 function createPost(data) {
-	data.post_id = 'p' + shortid();
+	data.post_id = Utils.genPostID();
 	data.timestamp = new Date();
 	return (new Post(data)).save();
 }
