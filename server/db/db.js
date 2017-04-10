@@ -9,6 +9,7 @@
 var mongoose = require('mongoose');
 var Utils = require('../Utils');
 var PostDBHelper = require('./PostDBHelper');
+var CommentDBHelper = require('./CommentDBHelper');
 
 // Setup the database connection.
 // We don't care that this URL is in the codebase because it's the sandbox development one.
@@ -31,7 +32,7 @@ function updateVotesForObject(object_id, delta) {
 	if (Utils.isPostID(object_id)) {
 		return PostDBHelper.updateVotes(object_id, delta);
 	} else if (Utils.isCommentID(object_id)) {
-		// TODO
+		return CommentDBHelper.updateVotes(object_id, delta);
 	}
 }
 
@@ -39,7 +40,7 @@ function checkIfObjectExists(object_id) {
 	if (Utils.isPostID(object_id)) {
 		return PostDBHelper.checkIfExists(object_id);
 	} else if (Utils.isCommentID(object_id)) {
-		// TODO
+		return CommentDBHelper.checkIfExists(object_id);
 	}
 }
 
