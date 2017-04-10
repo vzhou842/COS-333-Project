@@ -3,7 +3,7 @@
 var Comment = require('./models/Comment');
 var Utils = require('../Utils');
 
-// @param data Should contain all necessary user-specified fields for the post.
+// @param data Should contain all necessary user-specified fields for the comment.
 function createComment(data) {
 	data.comment_id = Utils.genCommentID();
 	data.timestamp = new Date();
@@ -17,14 +17,14 @@ function getNewComments(post_id) {
 	}).sort({ timestamp: -1 }).limit(100).lean().exec().then(cleanAllComments);
 }
 
-// Removes private / unneeded fields from a Post object and returns it.
+// Removes private / unneeded fields from a Comment object and returns it.
 function cleanComment(comment) {
 	delete comment._id;
 	delete comment.__v;
 	return comment;
 }
 
-// Cleans all posts in the array |posts| and returns it.
+// Cleans all comments in the array |comments| and returns it.
 function cleanAllComments(comments) {
 	return comments.map(cleanComment);
 }
