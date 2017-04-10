@@ -78,11 +78,11 @@ The request body should be JSON matching the following format:
 ```
 
 
-### ```GET /api/posts/new```
+### ```GET /api/comments/new```
 
 Gets all new comments.
 
-The request response will be a JSON array of Posts, where each Post matches the following format:
+The request response will be a JSON array of Comments, where each Comment matches the following format:
 ```javascript
 {
     "comment_id": "cAKDkqtmel"
