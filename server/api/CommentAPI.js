@@ -27,12 +27,11 @@ module.exports = function(app) {
 		});
 	});
 
-	// todo: complete
 	// GET NEW COMMENTS
 	// All params are query params.
 	// @param post_id The post id.
 	app.get('/api/comments/new', function(req, res) {
-		var post_id = parseFloat(req.query.post_id);
+		var post_id = req.query.post_id;
 
 		if (!post_id) {
 			res.status(400).send('Missing required query param.');

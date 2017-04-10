@@ -29,23 +29,23 @@ function cleanAllComments(comments) {
 	return comments.map(cleanComment);
 }
 
-// // @param delta The change in num_upvotes to apply.
-// function updateVotes(post_id, delta) {
-// 	return Post.update(
-// 		{ post_id: post_id },
-// 		{ $inc: {num_upvotes: delta} }
-// 	).exec();
-// }
+// @param delta The change in num_upvotes to apply.
+function updateVotes(comment_id, delta) {
+	return Comment.update(
+		{ comment_id: comment_id },
+		{ $inc: {num_upvotes: delta} }
+	).exec();
+}
 
-// function checkIfExists(post_id) {
-// 	return Post.count({ post_id: post_id }).then(function(count) {
-// 		return count > 0;
-// 	});
-// }
+function checkIfExists(comment_id) {
+	return Comment.count({ comment_id: comment_id }).then(function(count) {
+		return count > 0;
+	});
+}
 
 module.exports = {
 	createComment: createComment,
 	getNewComments: getNewComments,
-	// updateVotes: updateVotes,
-	// checkIfExists: checkIfExists,
+	updateVotes: updateVotes,
+	checkIfExists: checkIfExists,
 };
