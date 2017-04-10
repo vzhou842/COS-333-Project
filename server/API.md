@@ -61,3 +61,35 @@ The request body should be JSON matching the following format:
     up: true, // or false
 }
 ```
+
+## Comments API
+
+### ```POST /api/comments```
+
+Creates a comment.
+
+The request body should be JSON matching the following format:
+```javascript
+{
+    text: "Comment text",
+    user_id: "the_users_id",
+    post_id: "the_posts_id"
+}
+```
+
+
+### ```GET /api/posts/new```
+
+Gets all new comments.
+
+The request response will be a JSON array of Posts, where each Post matches the following format:
+```javascript
+{
+    "comment_id": "cAKDkqtmel"
+    "post_id": "pBJgkqteag",
+    "text": "test comment",
+    "user_id": "fake user",
+    "timestamp": "2017-04-04T02:50:00.506Z",
+    "num_upvotes": 0,
+}
+```

@@ -28,3 +28,6 @@ require('./api/PostAPI')(app);
 
 // Setup the Votes API.
 require('./api/VoteAPI')(app);
+
+// Setup the Comments API.
+require('./api/CommentAPI')(app);
