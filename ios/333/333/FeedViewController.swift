@@ -10,19 +10,29 @@ import UIKit
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //Outlets
     @IBOutlet weak var filterFeedSegmentedControl: UISegmentedControl!
     @IBOutlet weak var postsTableView: UITableView!
     
+    //Variables
+    var posts = [Dictionary<String, Any>]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Networking.get()
-
+    
         postsTableView.delegate = self
         postsTableView.dataSource = self
         
         filterFeedSegmentedControl.setTitle("New", forSegmentAt: 0)
         filterFeedSegmentedControl.setTitle("Supa Hot", forSegmentAt: 1)
+        
+        //Populate posts variable with posts from backend
+        
+        Networking.get(completion: { (dictionary) in
+            self.posts = dictionary
+            self.postsTableView.reloadData()
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,11 +42,19 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
+        let postIndex = indexPath.row
+        
+        cell.postCaptionLabel.text = posts[postIndex]["text"] as? String
+        let numComments = posts[postIndex]["num_comments"] as! Int
+        cell.repliesLabel.text = "\(numComments)"
+        //let timeStamp = posts[postIndex]["timestamp"] as! String
+        //cell.timestampLabel.text = Networking.dateFormatter.date(from: timeStamp)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

@@ -8,9 +8,12 @@
 
 import Alamofire
 
-let baseurl = "https://hallowed-moment-163600.appspot.com"
-
 class Networking {
+    
+    static let baseurl = "https://hallowed-moment-163600.appspot.com"
+    static let dateFormatter = DateFormatter()
+    static let niceDateFormatter1: DateFormatter? = DateFormatter()
+    static let niceDateFormatter2: DateFormatter? = DateFormatter()
 
     static func post(text:String?, image_url:String?, user_id:String, lat:Float, long:Float) {
         
@@ -29,28 +32,26 @@ class Networking {
             }
             
         })
-        
-        
     }
     
-    static func get() -> [Dictionary<String, Any>]{
-        
-        /*Alamofire.request("\(baseurl)/api/posts/new", method: .get, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
-            
-            if let json = response.result.value {
-                print("JSON: \(json)")
-            }
-            
-        })*/
+    static func get(completion: @escaping ([Dictionary<String, Any>]) -> Void){
         
         Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0").responseJSON { response in
             
             if let JSON = response.result.value {
-                print("JSON: \(JSON)")
+                completion(JSON as! [Dictionary<String, Any>])
+            }
+            
+            else {
+                print("ERROR")
             }
         }
-        
-        return []
+    }
+    
+    class func initializeDateFormatter() {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        niceDateFormatter1!.dateFormat = "hh:mm"
+        niceDateFormatter2!.dateFormat = "EEEE"
     }
 }
 
