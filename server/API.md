@@ -6,7 +6,7 @@ All URLs below will be relative URLs with respect to this base URL.
 
 ## Status Codes
 
-API calls return status code ```200``` on success, ```400``` if the request was invalid, and ```500``` if a server error occurred.
+API calls return status code ```200``` on success, ```400``` if the request was invalid, and ```500``` if a server error occurred. All responses are JSON.
 
 ## Posts API
 
@@ -29,6 +29,9 @@ The request body should be JSON matching the following format:
 ### ```GET /api/posts/new```
 
 Gets all new posts.
+
+The request should contain two query parameters: ```lat``` and ```long```. An example request would look like:
+```GET https://<baseurl.com>/api/posts/new?lat=1&long=-5```
 
 The request response will be a JSON array of Posts, where each Post matches the following format:
 ```javascript
@@ -81,6 +84,9 @@ The request body should be JSON matching the following format:
 ### ```GET /api/comments/new```
 
 Gets all new comments.
+
+The request should contain one query parameter: ```post_id```. An example request would look like:
+```GET https://<baseurl.com>/api/comments/new?post_id=ENCODED%20POST%20ID```
 
 The request response will be a JSON array of Comments, where each Comment matches the following format:
 ```javascript
