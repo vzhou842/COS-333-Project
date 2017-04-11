@@ -20,10 +20,12 @@ module.exports = function(app) {
 			text: data.text,
 			user_id: data.user_id,
 			post_id: data.post_id
-		}).then(function(savedComment) {
+		}).then(function() {
+			return PostDBHelper.updateComments(data.post_id);
+		}).then(function() {
 			res.status(200).end();
 		}, function(err) {
-			console.error('Failed to save comment', err);
+			console.error('Failed to create comment and update num_comments', data, err);
 			res.status(500).end();
 		});
 	});
