@@ -33,6 +33,12 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func sendPost(_ sender: Any) {
+        Networking.post(text: postTextView.text, image_url: nil, user_id: "hallo", lat: 10, long: -6)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
