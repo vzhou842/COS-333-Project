@@ -22,7 +22,7 @@ class Networking {
             "long": long
         ]
         
-        Alamofire.request(baseurl + "/api/posts", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+        Alamofire.request("\(baseurl)/api/posts", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
             
             if let json = response.result.value {
                 print("JSON: \(json)")
@@ -31,6 +31,26 @@ class Networking {
         })
         
         
+    }
+    
+    static func get() -> [Dictionary<String, Any>]{
+        
+        /*Alamofire.request("\(baseurl)/api/posts/new", method: .get, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+            
+            if let json = response.result.value {
+                print("JSON: \(json)")
+            }
+            
+        })*/
+        
+        Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0").responseJSON { response in
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+            }
+        }
+        
+        return []
     }
 }
 

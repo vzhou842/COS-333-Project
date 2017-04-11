@@ -15,6 +15,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Networking.get()
 
         postsTableView.delegate = self
         postsTableView.dataSource = self
