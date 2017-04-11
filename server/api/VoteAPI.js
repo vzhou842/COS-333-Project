@@ -2,6 +2,7 @@
 
 var VoteDBHelper = require('../db/VoteDBHelper');
 var db = require('../db/db');
+var APIUtils = require('./APIUtils');
 
 // Sets up the Votes API for a given express app.
 // @param app An express app.
@@ -11,7 +12,7 @@ module.exports = function(app) {
 		var data = req.body;
 
 		if (!data || !data.user_id || !data.object_id) {
-			res.status(400).send('Missing required field.');
+			APIUtils.invalidRequest(res);
 			return;
 		}
 
@@ -30,10 +31,10 @@ module.exports = function(app) {
 			var objectExists = results[1];
 
 			if (voteExists) {
-				res.status(400).send('This vote already exists.');
+				APIUtils.invalidRequest(res, 'This vote already exists.');
 				return;
 			} else if (!objectExists) {
-				res.status(400).send('This object does not exist.');
+				APIUtils.invalidRequest('This object does not exist.');
 				return;
 			}
 
