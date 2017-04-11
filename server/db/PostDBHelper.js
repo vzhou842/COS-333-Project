@@ -25,7 +25,7 @@ function createPost(data) {
 function getNewPosts(long, lat) {
 	return Post.find().where('loc').near({
 		center: { type: 'Point', coordinates: [long, lat] },
-		maxDistance: 5000,
+		maxDistance: 500000,
 	}).sort({ timestamp: -1 }).limit(100).lean().exec().then(cleanAllPosts);
 }
 
