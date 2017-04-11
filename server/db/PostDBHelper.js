@@ -37,6 +37,13 @@ function updateVotes(post_id, delta) {
 	).exec();
 }
 
+function updateComments(post_id) {
+	return Post.update(
+		{ post_id: post_id },
+		{ $inc: {num_comments: 1} }
+	).exec();
+}
+
 function checkIfExists(post_id) {
 	return Post.count({ post_id: post_id }).then(function(count) {
 		return count > 0;
