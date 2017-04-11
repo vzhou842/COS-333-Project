@@ -1,6 +1,7 @@
 'use strict';
 
 var PostDBHelper = require('../db/PostDBHelper');
+var APIUtils = require('./APIUtils');
 
 // Sets up the Posts API for a given express app.
 // @param app An express app.
@@ -10,7 +11,7 @@ module.exports = function(app) {
 		var data = req.body;
 
 		if (!data || (!data.text && !data.image_url) || !data.user_id || !Number.isFinite(data.lat) || !Number.isFinite(data.long)) {
-			res.status(400).send('Missing required field.');
+			APIUtils.invalidRequest(res);
 			return;
 		}
 
@@ -38,7 +39,7 @@ module.exports = function(app) {
 		var lat = parseFloat(req.query.lat);
 
 		if (!Number.isFinite(long) || !Number.isFinite(lat)) {
-			res.status(400).send('Missing required query param.');
+			APIUtils.invalidRequest(res);
 			return;
 		}
 

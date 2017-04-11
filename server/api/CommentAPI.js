@@ -2,6 +2,7 @@
 
 var CommentDBHelper = require('../db/CommentDBHelper');
 var db = require('../db/db');
+var APIUtils = require('./APIUtils');
 
 // Sets up the Comments API for a given express app.
 // @param app An express app.
@@ -11,7 +12,7 @@ module.exports = function(app) {
 		var data = req.body;
 
 		if (!data || !data.text || !data.user_id || !data.post_id) {
-			res.status(400).send('Missing required field.');
+			APIUtils.invalidRequest(res);
 			return;
 		}
 
@@ -34,7 +35,7 @@ module.exports = function(app) {
 		var post_id = req.query.post_id;
 
 		if (!post_id) {
-			res.status(400).send('Missing required query param.');
+			APIUtils.invalidRequest(res);
 			return;
 		}
 
