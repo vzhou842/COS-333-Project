@@ -49,8 +49,10 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         postTextView.delegate = self
         postTextView.text = "What's on your mind?"
         postTextView.textColor = UIColor.lightGray
+        postTextView.becomeFirstResponder()
         
         countLabel.text = "200"
+        countLabel.textColor = UIColor.clouds()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,7 +65,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if 200 - textView.text.characters.count < 0 {
             countLabel.textColor = UIColor.red
         } else {
-            countLabel.textColor = UIColor.darkGray
+            countLabel.textColor = UIColor.clouds()
         }
     }
     
