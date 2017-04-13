@@ -13,14 +13,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var postCaptionLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var repliesLabel: UILabel!
-    @IBOutlet weak var replyButton: UIButton!
-    
+    @IBOutlet weak var numVotesLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        replyButton.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,9 +26,11 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func onTouchUpvoteButton(_ sender: Any) {
+    @IBAction func upvote(_ sender: Any) {
     }
 
-    @IBAction func onTouchCommentButton(_ sender: Any) {
+    @IBAction func downvote(_ sender: Any) {
     }
+    
+    
 }
