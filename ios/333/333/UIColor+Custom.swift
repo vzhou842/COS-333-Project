@@ -30,4 +30,9 @@ extension UIColor {
         let color = 0x95a5a6
         return UIColor.fromRgbHex(color)
     }
+    
+    class func clouds() -> UIColor {
+        let color = 0xecf0f1
+        return UIColor.fromRgbHex(color)
+    }
 }
