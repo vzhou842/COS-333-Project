@@ -8,36 +8,83 @@
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     //Outlets
-    @IBOutlet weak var filterFeedSegmentedControl: UISegmentedControl!
     @IBOutlet weak var postsTableView: UITableView!
+    @IBOutlet weak var hotButton: UIButton!
+    @IBOutlet weak var recentButton: UIButton!
     
     //Variables
     var posts = [Dictionary<String, Any>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         postsTableView.delegate = self
         postsTableView.dataSource = self
         
-        filterFeedSegmentedControl.setTitle("New", forSegmentAt: 0)
-        filterFeedSegmentedControl.setTitle("Supa Hot", forSegmentAt: 1)
+        self.loadDataFromNetwork(nil)
         
-        //Populate posts variable with posts from backend
+        // Initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        postsTableView.insertSubview(refreshControl, at: 0)
         
-        Networking.get(completion: { (dictionary) in
-            self.posts = dictionary
-            self.postsTableView.reloadData()
-        })
-
+        recentButton.layer.cornerRadius = 8
+        recentButton.layer.masksToBounds = true
+        
+        hotButton.layer.cornerRadius = 8
+        hotButton.layer.masksToBounds = true
+        hotButton.layer.backgroundColor = UIColor.white.cgColor
+        hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadDataFromNetwork(nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
+        //Populate posts variable with posts from backend
+        Networking.get(completion: { (dictionary) in
+            self.posts = dictionary
+            self.postsTableView.reloadData()
+            if let refreshControl = refreshControl {
+                refreshControl.endRefreshing()
+            }
+        })
+    }
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        
+        self.loadDataFromNetwork(refreshControl)
+        
+        // Tell the refreshControl to stop spinning
+        refreshControl.endRefreshing()
+        
+    }
+    
+    @IBAction func sortHot(_ sender: Any) {
+        hotButton.layer.backgroundColor = UIColor.white.cgColor
+        hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
+        recentButton.layer.backgroundColor = UIColor.clear.cgColor
+        recentButton.setImage(UIImage(named: "recent"), for: .normal)
+    }
+    
+    @IBAction func sortRecent(_ sender: Any) {
+        recentButton.layer.backgroundColor = UIColor.white.cgColor
+        recentButton.setImage(UIImage(named: "sortRecent"), for: .normal)
+        hotButton.layer.backgroundColor = UIColor.clear.cgColor
+        hotButton.setImage(UIImage(named: "hot"), for: .normal)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,12 +106,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "postDetails", sender: self)
-    }
-    
-    @IBAction func onClickHomeButton(_ sender: Any) {
-    }
-
-    @IBAction func onClickComposeButton(_ sender: Any) {
     }
     
     /*

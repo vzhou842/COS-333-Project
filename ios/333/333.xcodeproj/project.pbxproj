@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F28F49FEB958B1CC9619381 /* Pods_333.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */; };
+		B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14AFB601EA01437007FA50C /* UIColor+Custom.swift */; };
 		B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */; };
 		B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1F1E998B5E00A015D0 /* Networking.swift */; };
 		CC27D3141E97328400589855 /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC27D3131E97328400589855 /* PostDetailsViewController.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		51E920D75C1F74E45C358EBD /* Pods-333.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.debug.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.debug.xcconfig"; sourceTree = "<group>"; };
 		97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.release.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.release.xcconfig"; sourceTree = "<group>"; };
+		B14AFB601EA01437007FA50C /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 		B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		B1F7CA1F1E998B5E00A015D0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_333.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				CC9DC0B31E9070A6004F4C67 /* AppDelegate.swift */,
 				CC9DC0B51E9070A6004F4C67 /* ViewController.swift */,
 				CC9DC0B71E9070A6004F4C67 /* Main.storyboard */,
+				B14AFB601EA01437007FA50C /* UIColor+Custom.swift */,
 				CC9DC0BA1E9070A6004F4C67 /* Assets.xcassets */,
 				CC9DC0BC1E9070A6004F4C67 /* LaunchScreen.storyboard */,
 				CC9DC0BF1E9070A6004F4C67 /* Info.plist */,
@@ -393,6 +396,7 @@
 				CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */,
 				B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */,
 				CC9DC0E51E9176C8004F4C67 /* ProfileViewController.swift in Sources */,
+				B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */,
 				CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
