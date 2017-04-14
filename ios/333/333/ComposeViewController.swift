@@ -34,7 +34,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPost(_ sender: Any) {
-        Networking.post(text: postTextView.text, image_url: nil, user_id: "hallo", lat: 0.25, long: 0)
+        Networking.createPost(text: postTextView.text, image_url: nil, user_id: "hallo", lat: 0.25, long: 0)
         
         self.dismiss(animated: true, completion: nil)
     }
