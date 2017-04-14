@@ -52,7 +52,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         //Populate posts variable with posts from backend
-        Networking.get(completion: { (dictionary) in
+        Networking.getPosts(completion: { (dictionary) in
             self.posts = dictionary
             self.postsTableView.reloadData()
             if let refreshControl = refreshControl {
@@ -91,9 +91,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
         let postIndex = indexPath.row
         
+        //Pass post + comments to this cell
+        cell.post = posts[postIndex]
+        Networking.getComments(post_id: cell.post["post_id"] as! String) { (comments) in
+            cell.comments = comments
+        }
+        
+        //Set this cell's properties
         cell.postCaptionLabel.text = posts[postIndex]["text"] as? String
         let numComments = posts[postIndex]["num_comments"] as! Int
         cell.repliesLabel.text = "\(numComments)"
+        let numVotes = posts[postIndex]["num_upvotes"] as! Int
+        cell.numVotesLabel.text = "\(numVotes)"
         //let timeStamp = posts[postIndex]["timestamp"] as! String
         //cell.timestampLabel.text = Networking.dateFormatter.date(from: timeStamp)
         
@@ -104,18 +113,24 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return posts.count
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "postDetails", sender: self)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "postDetails", sender: tableView.cellForRow(at: indexPath))
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "postDetails") {
+            let vc = segue.destination as! PostDetailsViewController
+            vc.post = (sender as! PostTableViewCell).post
+            vc.comments = (sender as! PostTableViewCell).comments
+        }
     }
-    */
+    
 
 }
