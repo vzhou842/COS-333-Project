@@ -16,6 +16,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var upvotesCountLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var replyCountLabel: UILabel!
+    @IBOutlet weak var captionLabel: UILabel!
     
     
     //Variables
@@ -31,6 +32,16 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         commentsTableView.dataSource = self
         replyTextField.delegate = self
         replyTextField.textColor = UIColor.lightGray
+        
+        //Set post properties
+        captionLabel.text = post["text"] as? String
+        let numComments = post["num_comments"] as! Int
+        replyCountLabel.text = "\(numComments)"
+        let numVotes = post["num_upvotes"] as! Int
+        upvotesCountLabel.text = "\(numVotes)"
+        let timeStamp = post["timestamp"] as! String
+        let date = Networking.dateFormatter.date(from: timeStamp)
+        timeStampLabel.text = Networking.niceDateFormatter?.string(from: date!)
     }
 
     override func didReceiveMemoryWarning() {
