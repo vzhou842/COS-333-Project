@@ -103,9 +103,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.repliesLabel.text = "\(numComments)"
         let numVotes = posts[postIndex]["num_upvotes"] as! Int
         cell.numVotesLabel.text = "\(numVotes)"
-        //let timeStamp = posts[postIndex]["timestamp"] as! String
-        //cell.timestampLabel.text = Networking.dateFormatter.date(from: timeStamp)
-        
+        let timeStamp = posts[postIndex]["timestamp"] as! String
+        let date = Networking.dateFormatter.date(from: timeStamp)
+        cell.timestampLabel.text = Networking.niceDateFormatter?.string(from: date!)
         return cell
     }
     
