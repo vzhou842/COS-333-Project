@@ -12,8 +12,7 @@ class Networking {
     
     static let baseurl = "https://hallowed-moment-163600.appspot.com"
     static let dateFormatter = DateFormatter()
-    static let niceDateFormatter1: DateFormatter? = DateFormatter()
-    static let niceDateFormatter2: DateFormatter? = DateFormatter()
+    static let niceDateFormatter: DateFormatter? = DateFormatter()
 
     //Create a new post with the specified parameters.
     static func createPost(text:String?, image_url:String?, user_id:String, lat:Float, long:Float) {
@@ -97,9 +96,8 @@ class Networking {
     }
     
     static func initializeDateFormatter() {
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        niceDateFormatter1!.dateFormat = "hh:mm"
-        niceDateFormatter2!.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        niceDateFormatter!.dateFormat = "MM-dd hh:mm"
     }
 }
 
