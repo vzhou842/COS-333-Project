@@ -8,11 +8,15 @@
 
 import UIKit
 
-class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     //Outlets
     @IBOutlet weak var commentsTableView: UITableView!
     @IBOutlet weak var replyTextField: UITextField!
+    @IBOutlet weak var upvotesCountLabel: UILabel!
+    @IBOutlet weak var timeStampLabel: UILabel!
+    @IBOutlet weak var replyCountLabel: UILabel!
+    
     
     //Variables
     var post = Dictionary<String, Any>()
@@ -25,6 +29,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
+        replyTextField.delegate = self
+        replyTextField.textColor = UIColor.lightGray
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +53,31 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if replyTextField.textColor == UIColor.lightGray {
+            replyTextField.text = ""
+            replyTextField.textColor = UIColor.black
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if replyTextField.text == "" {
+            replyTextField.text = "Reply..."
+            replyTextField.textColor = UIColor.lightGray
+        }
+    }
+    
     @IBAction func onTouchSend(_ sender: Any) {
+        let text = replyTextField.text
+        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let post_id = post["post_id"] as! String
+        
+        if replyTextField.textColor == UIColor.black {
+            Networking.createComment(text: text!, user_id: user_id, post_id: post_id)
+        }
+        
+        replyTextField.text = "Reply..."
+        replyTextField.textColor = UIColor.lightGray
     }
 
     /*
