@@ -14,16 +14,12 @@ API calls return status code ```200``` on success, ```400``` if the request was 
 
 Creates a post.
 
-The request body should be JSON matching the following format:
-```javascript
-{
-    text: "Post text, if any",
-    image_url: "https://website.com/url-to-the-image-if-any.png",
-    user_id: "the_users_id",
-    lat: -5.1244, // latitude
-    long: 2.351, // longitude
-}
-```
+The request should have ```Content-Type: multipart/form-data``` with the following fields:
+* **text**: Post text, if any.
+* **img**: The raw image data, if any.
+* **user_id**: The user's id.
+* **lat**: The user's latitude.
+* **long**: The user's longitude.
 
 
 ### ```GET /api/posts/new```

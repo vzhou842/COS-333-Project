@@ -2,25 +2,30 @@
 
 var PostDBHelper = require('../db/PostDBHelper');
 var APIUtils = require('./APIUtils');
+var multer = require('multer');
+var upload = multer({ limits: { fileSize: 10000000 } }); // limit uploads to 10 MB.
 
 // Sets up the Posts API for a given express app.
 // @param app An express app.
 module.exports = function(app) {
 	// CREATE POST
-	app.post('/api/posts', function(req, res) {
+	app.post('/api/posts', upload.single('img'), function(req, res) {
 		var data = req.body;
+		var img_file = req.file;
 
-		if (!data || (!data.text && !data.image_url) || !data.user_id || !Number.isFinite(data.lat) || !Number.isFinite(data.long)) {
+		if (!data || (!data.text && !img_file) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
 			APIUtils.invalidRequest(res);
 			return;
 		}
 
+		// TODO: save the uploaded file (if any) to Google Cloud Storage.
+
 		PostDBHelper.createPost({
 			text: data.text,
-			image_url: data.image_url,
+			image_url: '', //TODO
 			user_id: data.user_id,
 			loc: {
-				coordinates: [data.long, data.lat],
+				coordinates: [parseFloat(data.long), parseFloat(data.lat)],
 			}
 		}).then(function(savedPost) {
 			res.status(200).end();

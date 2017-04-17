@@ -31,6 +31,3 @@ require('./api/VoteAPI')(app);
 
 // Setup the Comments API.
 require('./api/CommentAPI')(app);
-
-// Setup the Upload API.
-require('./api/UploadAPI')(app);
