@@ -4,25 +4,58 @@ var PostDBHelper = require('../db/PostDBHelper');
 var APIUtils = require('./APIUtils');
 var multer = require('multer');
 var upload = multer({ limits: { fileSize: 10000000 } }); // limit uploads to 10 MB.
+var gcs = require('@google-cloud/storage')();
+var shortid = require('shortid');
+
+var BUCKET_NAME = 'hallowed-moment-163600.appspot.com';
+var bucket = gcs.bucket(BUCKET_NAME);
+
+function sendUploadToGCS(req, res, next) {
+	if (!req.file) {
+		return next();
+	}
+
+	var filename = 'img-' + shortid()
+	var file = bucket.file(filename);
+
+	var stream = file.createWriteStream({
+		metadata: {
+			contentType: req.file.mimetype,
+		},
+		gzip: true,
+	});
+
+	stream.on('error', function(err) {
+		console.error('Error uploading image to GCS', err);
+		res.status(500).end();
+	});
+
+	stream.on('finish', function() {
+		console.log('Uploading image to GCS finished in ' + (Date.now() - upload_start) + 'ms.');
+		req.file.cloud_storage_url = 'https://storage.googleapis.com/' + BUCKET_NAME + '/' + filename;
+		next();
+	});
+
+	stream.end(req.file.buffer);
+	var upload_start = Date.now();
+}
 
 // Sets up the Posts API for a given express app.
 // @param app An express app.
 module.exports = function(app) {
 	// CREATE POST
-	app.post('/api/posts', upload.single('img'), function(req, res) {
+	app.post('/api/posts', upload.single('img'), sendUploadToGCS, function(req, res) {
 		var data = req.body;
-		var img_file = req.file;
+		var img_url = req.file ? req.file.cloud_storage_url : undefined;
 
-		if (!data || (!data.text && !img_file) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
+		if (!data || (!data.text && !img_url) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
 			APIUtils.invalidRequest(res);
 			return;
 		}
 
-		// TODO: save the uploaded file (if any) to Google Cloud Storage.
-
 		PostDBHelper.createPost({
 			text: data.text,
-			image_url: '', //TODO
+			image_url: img_url,
 			user_id: data.user_id,
 			loc: {
 				coordinates: [parseFloat(data.long), parseFloat(data.lat)],
