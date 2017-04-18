@@ -1,6 +1,6 @@
 # Robin API Reference
 
-The base URL for the API is: https://hallowed-moment-163600.appspot.com
+The base URL for the API is: https://robin333.herokuapp.com
 
 All URLs below will be relative URLs with respect to this base URL.
 
