@@ -4,7 +4,10 @@ var PostDBHelper = require('../db/PostDBHelper');
 var APIUtils = require('./APIUtils');
 var multer = require('multer');
 var upload = multer({ limits: { fileSize: 10000000 } }); // limit uploads to 10 MB.
-var gcs = require('@google-cloud/storage')();
+var gcs = require('@google-cloud/storage')({
+	projectId: 'hallowed-moment-163600.appspot.com',
+	keyFilename: './Robin-3aee5e1d90eb.json'
+});
 var shortid = require('shortid');
 
 var BUCKET_NAME = 'hallowed-moment-163600.appspot.com';
