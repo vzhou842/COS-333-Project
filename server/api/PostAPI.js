@@ -64,7 +64,7 @@ module.exports = function(app) {
 				coordinates: [parseFloat(data.long), parseFloat(data.lat)],
 			}
 		}).then(function(savedPost) {
-			res.status(200).end();
+			res.status(200).send({ post_id: savedPost.post_id, image_url: img_url });
 		}, function(err) {
 			console.error('Failed to save post', err);
 			res.status(500).end();
