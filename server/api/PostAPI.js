@@ -52,7 +52,7 @@ module.exports = function(app) {
 		var img_url = req.file ? req.file.cloud_storage_url : undefined;
 
 		if (!data || (!data.text && !img_url) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
-			APIUtils.invalidRequest(res);
+			APIUtils.invalidRequest(res, JSON.stringify(data));
 			return;
 		}
 
@@ -80,7 +80,7 @@ module.exports = function(app) {
 		var lat = parseFloat(req.query.lat);
 
 		if (!Number.isFinite(long) || !Number.isFinite(lat)) {
-			APIUtils.invalidRequest(res);
+			APIUtils.invalidRequest(res, JSON.stringify(req.query));
 			return;
 		}
 

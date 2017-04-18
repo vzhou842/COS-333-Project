@@ -12,7 +12,7 @@ module.exports = function(app) {
 		var data = req.body;
 
 		if (!data || !data.text || !data.user_id || !data.post_id) {
-			APIUtils.invalidRequest(res);
+			APIUtils.invalidRequest(res, JSON.stringify(req.body));
 			return;
 		}
 
@@ -37,7 +37,7 @@ module.exports = function(app) {
 		var post_id = req.query.post_id;
 
 		if (!post_id) {
-			APIUtils.invalidRequest(res);
+			APIUtils.invalidRequest(res, JSON.stringify(req.query));
 			return;
 		}
 
