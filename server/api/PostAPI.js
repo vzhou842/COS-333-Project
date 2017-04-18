@@ -6,7 +6,7 @@ var multer = require('multer');
 var upload = multer({ limits: { fileSize: 10000000 } }); // limit uploads to 10 MB.
 var gcs = require('@google-cloud/storage')({
 	projectId: 'hallowed-moment-163600.appspot.com',
-	keyFilename: './Robin-3aee5e1d90eb.json'
+	keyFilename: './Robin-3aee5e1d90eb.json',
 });
 var shortid = require('shortid');
 
@@ -18,7 +18,7 @@ function sendUploadToGCS(req, res, next) {
 		return next();
 	}
 
-	var filename = 'img-' + shortid()
+	var filename = 'img-' + shortid();
 	var file = bucket.file(filename);
 
 	var stream = file.createWriteStream({
