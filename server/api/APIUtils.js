@@ -6,5 +6,6 @@ module.exports = {
 		res.status(400).send({
 			error: errString || 'Invalid request - missing required field.',
 		});
+		console.error('Received invalid request', errString);
 	},
 };
