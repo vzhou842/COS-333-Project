@@ -18,6 +18,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var replyCountLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     
+    @IBOutlet weak var noCommentsLabel: UIView!
     
     //Variables
     var post = Dictionary<String, Any>()
@@ -28,6 +29,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         
+        print(post)
+        
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
         replyTextField.delegate = self
@@ -37,11 +40,14 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         captionLabel.text = post["text"] as? String
         let numComments = post["num_comments"] as! Int
         replyCountLabel.text = "\(numComments)"
+        
+        if (numComments != 0) { noCommentsLabel.isHidden = true }
+        
         let numVotes = post["num_upvotes"] as! Int
         upvotesCountLabel.text = "\(numVotes)"
-        let timeStamp = post["timestamp"] as! String
+        let timeStamp = post["timestamp"] as! Date // crashing here
         let date = Networking.dateFormatter.date(from: timeStamp)
-        timeStampLabel.text = Networking.niceDateFormatter?.string(from: date!)
+        timeStampLabel.text = Networking.niceDateFormatter?.string(from: timeStamp!)
     }
 
     override func didReceiveMemoryWarning() {

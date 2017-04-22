@@ -268,7 +268,7 @@
 				TargetAttributes = {
 					CC9DC0AF1E9070A5004F4C67 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5M2895QR7G;
+						DevelopmentTeam = CZXM748582;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -548,10 +548,10 @@
 			baseConfigurationReference = 51E920D75C1F74E45C358EBD /* Pods-333.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5M2895QR7G;
+				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-33.-33";
+				PRODUCT_BUNDLE_IDENTIFIER = robinapp333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -562,10 +562,10 @@
 			baseConfigurationReference = 97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5M2895QR7G;
+				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-33.-33";
+				PRODUCT_BUNDLE_IDENTIFIER = robinapp333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
