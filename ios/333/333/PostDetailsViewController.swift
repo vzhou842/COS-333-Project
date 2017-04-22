@@ -90,6 +90,10 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         replyTextField.textColor = UIColor.lightGray
     }
 
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+
     /*
     // MARK: - Navigation
 
