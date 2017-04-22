@@ -16,7 +16,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var recentButton: UIButton!
     
     //Variables
-    var posts = [Dictionary<String, Any>]()
+    var posts = [Post]()
     var timeStampFormatted: Date?
     
     override func viewDidLoad() {
@@ -53,8 +53,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         //Populate posts variable with posts from backend
-        Networking.getPosts(completion: { (dictionary) in
-            self.posts = dictionary
+        Networking.getPosts(completion: { (posts) in
+            self.posts = posts
             self.postsTableView.reloadData()
             if let refreshControl = refreshControl {
                 refreshControl.endRefreshing()
@@ -108,22 +108,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
         let postIndex = indexPath.row
         
-        //Pass post + comments to this cell
-        cell.post = posts[postIndex]
-        Networking.getComments(post_id: cell.post["post_id"] as! String) { (comments) in
-            cell.comments = comments
-        }
-        
-        //Set this cell's properties
-        cell.postCaptionLabel.text = posts[postIndex]["text"] as? String
-        let numComments = posts[postIndex]["num_comments"] as! Int
-        cell.repliesLabel.text = "\(numComments) Replies"
-        let numVotes = posts[postIndex]["num_upvotes"] as! Int
-        cell.numVotesLabel.text = "\(numVotes)"
-        
-        let timeStamp = posts[postIndex]["timestamp"] as! String
-        let date = Networking.dateFormatter.date(from: timeStamp)
-        cell.timestampLabel.text = Networking.niceDateFormatter?.string(from: date!)
+        // Configure this cell for its post.
+        cell.configureWithPost(posts[postIndex])
+
         return cell
     }
     

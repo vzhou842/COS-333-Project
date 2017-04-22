@@ -17,7 +17,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var numVotesLabel: UILabel!
     
     //Variables
-    var post = Dictionary<String, Any>()
+    var post: Post?
     var comments = [Dictionary<String, Any>]()
     
     override func awakeFromNib() {
@@ -32,9 +32,23 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configureWithPost(_ post: Post) {
+        self.post = post
+        
+        Networking.getComments(post_id: post.id) { (comments) in
+            self.comments = comments
+        }
+        
+        // Set this cell's properties
+        self.postCaptionLabel.text = post.text
+        self.repliesLabel.text = "\(post.numComments) Replies"
+        self.numVotesLabel.text = "\(post.numUpvotes)"
+        self.timestampLabel.text = post.dateString
+    }
+    
     @IBAction func upvote(_ sender: Any) {
         let user_id = UIDevice.current.identifierForVendor!.uuidString
-        let object_id = post["post_id"] as! String
+        let object_id = post!.id
         let up = true
         
         Networking.createVote(user_id: user_id, object_id: object_id, up: up)
@@ -43,7 +57,7 @@ class PostTableViewCell: UITableViewCell {
 
     @IBAction func downvote(_ sender: Any) {
         let user_id = UIDevice.current.identifierForVendor!.uuidString
-        let object_id = post["post_id"] as! String
+        let object_id = post!.id
         let up = false
         
         Networking.createVote(user_id: user_id, object_id: object_id, up: up)
