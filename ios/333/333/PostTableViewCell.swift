@@ -18,7 +18,7 @@ class PostTableViewCell: UITableViewCell {
     
     //Variables
     var post: Post?
-    var comments = [Dictionary<String, Any>]()
+    var comments: [Comment]?
     
     override func awakeFromNib() {
         super.awakeFromNib()

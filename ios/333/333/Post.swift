@@ -11,18 +11,6 @@ import Foundation
 // Posts are immutable objects.
 class Post: NSObject {
     
-    static let dateFormatter = { () -> DateFormatter in
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return df
-    }()
-    
-    static let niceDateFormatter = { () -> DateFormatter in
-        let df = DateFormatter()
-        df.dateFormat = "MM-dd hh:mm"
-        return df
-    }()
-    
     let id: String
     let text: String?
     let imageUrl: String?
@@ -38,7 +26,7 @@ class Post: NSObject {
         imageUrl = json["image_url"] as? String
         numComments = json["num_comments"] as! Int
         numUpvotes = json["num_upvotes"] as! Int
-        date = Post.dateFormatter.date(from: (json["timestamp"] as! String))!
-        dateString = Post.niceDateFormatter.string(from: date)
+        date = Utils.dateFormatter.date(from: (json["timestamp"] as! String))!
+        dateString = Utils.niceDateFormatter.string(from: date)
     }
 }
