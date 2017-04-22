@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F28F49FEB958B1CC9619381 /* Pods_333.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */; };
+		A555DC641EABAA76006B9ACE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC631EABAA76006B9ACE /* Post.swift */; };
 		B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14AFB601EA01437007FA50C /* UIColor+Custom.swift */; };
 		B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */; };
 		B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1F1E998B5E00A015D0 /* Networking.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		51E920D75C1F74E45C358EBD /* Pods-333.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.debug.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.debug.xcconfig"; sourceTree = "<group>"; };
 		97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.release.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.release.xcconfig"; sourceTree = "<group>"; };
+		A555DC631EABAA76006B9ACE /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		B14AFB601EA01437007FA50C /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 		B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		B1F7CA1F1E998B5E00A015D0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -112,6 +114,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A555DC621EABAA66006B9ACE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A555DC631EABAA76006B9ACE /* Post.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		CC7CE29D1E9C7D2D00C8A68C /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +155,7 @@
 		CC9DC0B21E9070A6004F4C67 /* 333 */ = {
 			isa = PBXGroup;
 			children = (
+				A555DC621EABAA66006B9ACE /* Models */,
 				CC7CE29D1E9C7D2D00C8A68C /* Client */,
 				CC9DC0E61E917B61004F4C67 /* View Controllers */,
 				CC9DC0E11E9176A7004F4C67 /* Views */,
@@ -268,7 +279,6 @@
 				TargetAttributes = {
 					CC9DC0AF1E9070A5004F4C67 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = CZXM748582;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -389,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC9DC0B61E9070A6004F4C67 /* ViewController.swift in Sources */,
+				A555DC641EABAA76006B9ACE /* Post.swift in Sources */,
 				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,
 				CC27D3161E973AA300589855 /* ReplyTableViewCell.swift in Sources */,
 				B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */,
@@ -548,7 +559,7 @@
 			baseConfigurationReference = 51E920D75C1F74E45C358EBD /* Pods-333.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CZXM748582;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = 333/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robinapp333;
@@ -562,7 +573,7 @@
 			baseConfigurationReference = 97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CZXM748582;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = 333/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robinapp333;

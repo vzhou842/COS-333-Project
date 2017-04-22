@@ -21,7 +21,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var noCommentsLabel: UIView!
     
     //Variables
-    var post = Dictionary<String, Any>()
+    var post: Post!
     var comments = [Dictionary<String, Any>]()
     
     override func viewDidLoad() {
@@ -29,25 +29,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Do any additional setup after loading the view.
         
-        print(post)
-        
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
         replyTextField.delegate = self
         replyTextField.textColor = UIColor.lightGray
         
         //Set post properties
-        captionLabel.text = post["text"] as? String
-        let numComments = post["num_comments"] as! Int
-        replyCountLabel.text = "\(numComments)"
+        captionLabel.text = post.text
+        replyCountLabel.text = "\(post.numComments)"
         
-        if (numComments != 0) { noCommentsLabel.isHidden = true }
+        if (post.numComments != 0) { noCommentsLabel.isHidden = true }
         
-        let numVotes = post["num_upvotes"] as! Int
-        upvotesCountLabel.text = "\(numVotes)"
-        let timeStamp = post["timestamp"] as! Date // crashing here
-        let date = Networking.dateFormatter.date(from: timeStamp)
-        timeStampLabel.text = Networking.niceDateFormatter?.string(from: timeStamp!)
+        upvotesCountLabel.text = "\(post.numUpvotes)"
+        timeStampLabel.text = post.dateString
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,10 +81,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func onTouchSend(_ sender: Any) {
         let text = replyTextField.text
         let user_id = UIDevice.current.identifierForVendor!.uuidString
-        let post_id = post["post_id"] as! String
         
         if replyTextField.textColor == UIColor.black {
-            Networking.createComment(text: text!, user_id: user_id, post_id: post_id)
+            Networking.createComment(text: text!, user_id: user_id, post_id: post!.id)
         }
         
         replyTextField.text = "Reply..."

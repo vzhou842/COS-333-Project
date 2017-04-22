@@ -12,8 +12,6 @@ import Alamofire
 class Networking {
     
     static let baseurl = "https://robin333.herokuapp.com"
-    static let dateFormatter = DateFormatter()
-    static let niceDateFormatter: DateFormatter? = DateFormatter()
 
     static func stringToData(s:String) -> Data {
         return s.data(using: String.Encoding.utf8)!
@@ -72,16 +70,20 @@ class Networking {
     }
     
     //Get all new posts and run the completion handler if successful.
-    static func getPosts(completion: @escaping ([Dictionary<String, Any>]) -> Void) {
+    static func getPosts(completion: @escaping ([Post]) -> Void) {
         
         Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0").responseJSON { response in
             
             if let JSON = response.result.value {
-                completion(JSON as! [Dictionary<String, Any>])
+                let jsonPosts = JSON as! [Dictionary<String, Any>]
+                let posts = jsonPosts.map({ (d: Dictionary<String, Any>) -> Post in
+                    return Post(d)
+                })
+                completion(posts)
             }
             
             else {
-                print("ERROR")
+                print("Error getting posts: status code \(String(describing: response.response?.statusCode))")
             }
         }
     }
@@ -131,11 +133,6 @@ class Networking {
                 print("ERROR")
             }
         }
-    }
-    
-    static func initializeDateFormatter() {
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        niceDateFormatter!.dateFormat = "MM-dd hh:mm"
     }
 }
 
