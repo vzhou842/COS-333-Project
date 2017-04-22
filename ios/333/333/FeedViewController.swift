@@ -17,6 +17,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //Variables
     var posts = [Dictionary<String, Any>]()
+    var timeStampFormatted: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +88,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         hotButton.setImage(UIImage(named: "hot"), for: .normal)
     }
     
+    func formatDate(_ number: TimeInterval) -> String {
+        var formatted = ""
+        
+        if number < 60 {
+            formatted = String(format: "%.0f", Double(number)) + "s"
+        } else if number < 3600 {
+            formatted = String(format: "%.0f", Double(number) / 60.0) + "m"
+        } else if number < 86400 {
+            formatted = String(format: "%.0f", Double(number) / 3600.0) + "h"
+        } else if number < 2073600 {
+            formatted = String(format: "%.0f", Double(number) / 86400.0) + "d"
+        }
+        
+        return formatted
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
         let postIndex = indexPath.row
@@ -100,9 +117,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Set this cell's properties
         cell.postCaptionLabel.text = posts[postIndex]["text"] as? String
         let numComments = posts[postIndex]["num_comments"] as! Int
-        cell.repliesLabel.text = "\(numComments)"
+        cell.repliesLabel.text = "\(numComments) Replies"
         let numVotes = posts[postIndex]["num_upvotes"] as! Int
         cell.numVotesLabel.text = "\(numVotes)"
+        
         let timeStamp = posts[postIndex]["timestamp"] as! String
         let date = Networking.dateFormatter.date(from: timeStamp)
         cell.timestampLabel.text = Networking.niceDateFormatter?.string(from: date!)
