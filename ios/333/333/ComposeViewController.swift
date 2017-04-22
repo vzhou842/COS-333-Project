@@ -10,11 +10,21 @@ import UIKit
 
 class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
+    // state 1: compose post is text only
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var postTextView: UITextView!
     
+    // state 2: compose post has a photo added
+    @IBOutlet weak var photoAddedView: UIView!
+    @IBOutlet weak var pickedImage: UIImageView!
+    
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func removeImage(_ sender: Any) {
+        photoAddedView.isHidden = true
+        pickedImage.image = nil
     }
     
     let imagePicker = UIImagePickerController()
@@ -39,6 +49,12 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func sendPhotoPost(_ sender: Any) {
+        Networking.createPost(text: postTextView.text, image: pickedImage.image, user_id: "hallo", lat: 0, long: 0)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,12 +63,14 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         postTextView.delegate = self
-        postTextView.text = "What's on your mind?"
-        postTextView.textColor = UIColor.lightGray
+        postTextView.text = ""
+        postTextView.textColor = UIColor.darkGray
         postTextView.becomeFirstResponder()
         
         countLabel.text = "200"
         countLabel.textColor = UIColor.clouds()
+        
+        photoAddedView.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,30 +86,22 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             countLabel.textColor = UIColor.clouds()
         }
     }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = ""
-            textView.textColor = UIColor.black
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == "" {
-            textView.text = "What's on your mind?"
-            textView.textColor = UIColor.lightGray
-        }
-    }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.pickedImage.image = image
+            self.pickedImage.contentMode = .scaleAspectFit
+            photoAddedView.isHidden = false
+            
+        }
+        dismiss(animated: true, completion: nil)
+    }
     
     /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+    } */
 
 }
