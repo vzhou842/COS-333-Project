@@ -22,7 +22,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     
     //Variables
     var post: Post!
-    var comments = [Dictionary<String, Any>]()
+    var comments: [Comment]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let comment = comments[indexPath.row]
         
         //Set cell properties
-        cell.captionLabel.text = comment["text"] as! String?
+        cell.captionLabel.text = comment.text
         
         return cell
     }

@@ -121,12 +121,16 @@ class Networking {
     }
     
     //Get all comments and run the completion handler if successful.
-    static func getComments(post_id:String, completion: @escaping ([Dictionary<String, Any>]) -> Void) {
+    static func getComments(post_id:String, completion: @escaping ([Comment]) -> Void) {
         
         Alamofire.request("\(baseurl)/api/comments/new?post_id="+post_id).responseJSON { response in
             
             if let JSON = response.result.value {
-                completion(JSON as! [Dictionary<String, Any>])
+                let jsonComments = JSON as! [Dictionary<String, Any>]
+                let comments = jsonComments.map({ (d: Dictionary<String, Any>) -> Comment in
+                    return Comment(d)
+                })
+                completion(comments)
             }
                 
             else {
