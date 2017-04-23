@@ -10,8 +10,12 @@ import UIKit
 
 class ReplyTableViewCell: UITableViewCell {
     
+    //Outlets
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var votesCountLabel: UILabel!
     
+    //Variables
+    var comment: Comment?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +27,26 @@ class ReplyTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-    @IBAction func onTouchToggleVote(_ sender: Any) {
+    
+    @IBAction func onTouchUpvote(_ sender: Any) {
+        if let comment = comment {
+            let user_id = UIDevice.current.identifierForVendor!.uuidString
+            let object_id = comment.comment_id
+            let up = true
+            
+            Networking.createVote(user_id: user_id, object_id: object_id, up: up)
+            //INCREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+        }
+    }
+    
+    @IBAction func onTouchDownvote(_ sender: Any) {
+        if let comment = comment {
+            let user_id = UIDevice.current.identifierForVendor!.uuidString
+            let object_id = comment.comment_id
+            let up = false
+            
+            Networking.createVote(user_id: user_id, object_id: object_id, up: up)
+            //DECREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+        }
     }
 }
