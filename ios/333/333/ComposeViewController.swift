@@ -17,6 +17,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
     @IBOutlet weak var pickedImage: UIImageView!
+    @IBOutlet weak var captionTextView: UITextView!
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -50,7 +51,11 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPhotoPost(_ sender: Any) {
-        Networking.createPost(text: postTextView.text, image: pickedImage.image, user_id: "hallo", lat: 0, long: 0)
+        if captionTextView.text == "Add a caption ..." {
+            captionTextView.text = ""
+        }
+        
+        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: 0, long: 0)
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -66,6 +71,11 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         postTextView.text = ""
         postTextView.textColor = UIColor.darkGray
         postTextView.becomeFirstResponder()
+        
+        captionTextView.delegate = self
+        captionTextView.text = "Add a caption ..."
+        captionTextView.textColor = UIColor.clouds()
+        captionTextView.becomeFirstResponder()
         
         countLabel.text = "200"
         countLabel.textColor = UIColor.clouds()
@@ -92,7 +102,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.pickedImage.image = image
             self.pickedImage.contentMode = .scaleAspectFit
             photoAddedView.isHidden = false
-            
+            if postTextView.text != "" {
+                captionTextView.text = postTextView.text
+            }
         }
         dismiss(animated: true, completion: nil)
     }
