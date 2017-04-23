@@ -57,14 +57,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if let count = comments?.count
-        {
-            noCommentsLabel.isHidden = (count != 0)
-            return count
-        }
-        
-        return 0
+        return comments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
