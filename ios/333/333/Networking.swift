@@ -80,7 +80,7 @@ class Networking {
     }
 
     static private func getPosts(sort: String, completion: @escaping ([Post]) -> Void) {
-        Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0&sort=\(sort)").responseJSON { response in
+        Alamofire.request("\(baseurl)/api/posts?lat=0.25&long=0&sort=\(sort)").responseJSON { response in
             
             if let JSON = response.result.value {
                 let jsonPosts = JSON as! [Dictionary<String, Any>]
