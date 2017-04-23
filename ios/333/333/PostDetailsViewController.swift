@@ -30,6 +30,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         // Load comments
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
+            self.commentsTableView.reloadData()
         }
 
         // Do any additional setup after loading the view.
@@ -55,7 +56,14 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments?.count ?? 0
+        
+        if let count = comments?.count
+        {
+            noCommentsLabel.isHidden = (count != 0)
+            return count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
