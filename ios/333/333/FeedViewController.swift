@@ -57,7 +57,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         //Populate posts variable with posts from backend
-        Networking.getPosts(completion: { (posts) in
+        Networking.getNewPosts(completion: { (posts) in
             self.posts = posts
             
             if (self.sortedByHot)
