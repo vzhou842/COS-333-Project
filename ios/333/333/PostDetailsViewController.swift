@@ -73,6 +73,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         //Set cell properties
         cell.captionLabel.text = comment.text
+        cell.votesCountLabel.text = "\(comment.numUpvotes)"
+        cell.comment = comment
         
         return cell
     }
