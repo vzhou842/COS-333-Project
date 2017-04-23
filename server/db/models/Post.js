@@ -17,7 +17,6 @@ var schema = new mongoose.Schema({
 	num_comments: { $type: Number, default: 0 },
 }, { typeKey: '$type' });
 
-schema.index({ loc: '2dsphere', timestamp: -1 });
-schema.index({ loc: '2dsphere', num_upvotes: -1 });
+schema.index({ loc: '2dsphere', radius: -1 });
 
 module.exports = mongoose.model('Post', schema);
