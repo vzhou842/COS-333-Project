@@ -69,10 +69,18 @@ class Networking {
         )
     }
     
-    //Get all new posts and run the completion handler if successful.
-    static func getPosts(completion: @escaping ([Post]) -> Void) {
-        
-        Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0").responseJSON { response in
+    // Get NEW posts and run the completion handler if successful.
+    static func getNewPosts(completion: @escaping ([Post]) -> Void) {
+        getPosts(sort: "new", completion: completion)
+    }
+
+    // Get HOT posts and run the completion handler if successful.
+    static func getHotPosts(completion: @escaping ([Post]) -> Void) {
+        getPosts(sort: "hot", completion: completion)
+    }
+
+    static private func getPosts(sort: String, completion: @escaping ([Post]) -> Void) {
+        Alamofire.request("\(baseurl)/api/posts/new?lat=0.25&long=0&sort=\(sort)").responseJSON { response in
             
             if let JSON = response.result.value {
                 let jsonPosts = JSON as! [Dictionary<String, Any>]
@@ -80,9 +88,7 @@ class Networking {
                     return Post(d)
                 })
                 completion(posts)
-            }
-            
-            else {
+            } else {
                 print("Error getting posts: status code \(String(describing: response.response?.statusCode))")
             }
         }
