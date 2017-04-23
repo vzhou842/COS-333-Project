@@ -45,6 +45,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         replyCountLabel.text = "\(post.numComments)"
         
         if (post.numComments != 0) { noCommentsLabel.isHidden = true }
+        else { commentsTableView.isHidden = true }
         
         upvotesCountLabel.text = "\(post.numUpvotes)"
         timeStampLabel.text = post.dateString
