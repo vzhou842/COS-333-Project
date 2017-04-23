@@ -22,12 +22,14 @@ The request should have ```Content-Type: multipart/form-data``` with the followi
 * **long**: The user's longitude.
 
 
-### ```GET /api/posts/new```
+### ```GET /api/posts```
 
-Gets all new posts.
+Gets posts.
 
-The request should contain two query parameters: ```lat``` and ```long```. An example request would look like:
-```GET https://<baseurl.com>/api/posts/new?lat=1&long=-5```
+The request should contain 3 query parameters: ```lat```, ```long```, and ```sort```. An example request would look like:
+```GET https://<baseurl.com>/api/posts/new?lat=1&long=-5&sort=hot```
+
+```sort``` can either be ```new``` or ```hot```. Anything else will default the sort to ```new```.
 
 The request response will be a JSON array of Posts, where each Post matches the following format:
 ```javascript

@@ -71,20 +71,22 @@ module.exports = function(app) {
 		});
 	});
 
-	// GET NEW POSTS
+	// GET POSTS
 	// All params are query params.
 	// @param long The user's longitude.
 	// @param lat The user's latitude.
-	app.get('/api/posts/new', function(req, res) {
+	// @param sort How to sort the posts. Defaults to 'new'.
+	app.get('/api/posts', function(req, res) {
 		var long = parseFloat(req.query.long);
 		var lat = parseFloat(req.query.lat);
+		var sort = req.query.sort || 'new';
 
 		if (!Number.isFinite(long) || !Number.isFinite(lat)) {
 			APIUtils.invalidRequest(res, JSON.stringify(req.query));
 			return;
 		}
 
-		PostDBHelper.getNewPosts(long, lat).then(function(posts) {
+		PostDBHelper.getPosts(long, lat, sort).then(function(posts) {
 			res.status(200).send(posts);
 		}, function(err) {
 			console.error('Failed to get new posts', err);
