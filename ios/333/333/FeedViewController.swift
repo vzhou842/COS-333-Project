@@ -109,6 +109,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         sortedByRecent = true
     }
     
+    @IBAction func onTouchHome(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"profileViewController") as! ProfileViewController
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        view.window!.layer.add(transition, forKey: kCATransition)
+        present(viewController, animated: false, completion: nil)
+    }
+    
+    
     func formatDate(_ number: TimeInterval) -> String {
         var formatted = ""
         
