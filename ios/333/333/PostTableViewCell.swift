@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -15,10 +16,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var repliesLabel: UILabel!
     @IBOutlet weak var numVotesLabel: UILabel!
+    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var postImageViewHeightConstraint: NSLayoutConstraint!
     
     //Variables
     var post: Post?
-    var comments: [Comment]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,15 +37,24 @@ class PostTableViewCell: UITableViewCell {
     func configureWithPost(_ post: Post) {
         self.post = post
         
-        Networking.getComments(post_id: post.id) { (comments) in
-            self.comments = comments
-        }
-        
         // Set this cell's properties
-        self.postCaptionLabel.text = post.text
-        self.repliesLabel.text = "\(post.numComments) Replies"
-        self.numVotesLabel.text = "\(post.numUpvotes)"
-        self.timestampLabel.text = post.dateString
+        postCaptionLabel.text = post.text
+        repliesLabel.text = "\(post.numComments) Replies"
+        numVotesLabel.text = "\(post.numUpvotes)"
+        timestampLabel.text = post.dateString
+        if let image_url = post.imageUrl {
+            postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
+                if let image = img {
+                    self.postImageViewHeightConstraint.constant = self.postImageView.frame.size.width * image.size.height / image.size.width
+                    self.setNeedsUpdateConstraints()
+                } else {
+                    print("Failed to set image" + e.debugDescription)
+                }
+            })
+        } else {
+            postImageViewHeightConstraint.constant = 0
+            self.setNeedsUpdateConstraints()
+        }
     }
     
     @IBAction func upvote(_ sender: Any) {

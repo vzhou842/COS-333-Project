@@ -22,10 +22,15 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     
     //Variables
     var post: Post!
-    var comments: [Comment]!
+    var comments: [Comment]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Load comments
+        Networking.getComments(post_id: post.id) { (comments) in
+            self.comments = comments
+        }
 
         // Do any additional setup after loading the view.
         
@@ -50,13 +55,13 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return comments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "replyTableViewCell") as! ReplyTableViewCell
         
-        let comment = comments[indexPath.row]
+        let comment = comments![indexPath.row]
         
         //Set cell properties
         cell.captionLabel.text = comment.text
