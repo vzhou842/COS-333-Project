@@ -24,6 +24,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
+        postsTableView.rowHeight = UITableViewAutomaticDimension
+        postsTableView.estimatedRowHeight = 300
         
         self.loadDataFromNetwork(nil)
         
@@ -133,7 +135,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue.identifier == "postDetails") {
             let vc = segue.destination as! PostDetailsViewController
             vc.post = (sender as! PostTableViewCell).post
-            vc.comments = (sender as! PostTableViewCell).comments
         }
     }
     
