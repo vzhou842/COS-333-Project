@@ -18,6 +18,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     //Variables
     var posts = [Post]()
     var timeStampFormatted: Date?
+    var sortedByHot: Bool = true
+    var sortedByRecent: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Populate posts variable with posts from backend
         Networking.getPosts(completion: { (posts) in
             self.posts = posts
+            
+            if (self.sortedByHot)
+            {self.posts = posts.sorted(by: { $0.date < $1.date})}
+            else if (self.sortedByRecent)
+            {self.posts = posts.sorted(by: { $0.date > $1.date})}
+            
             self.postsTableView.reloadData()
             if let refreshControl = refreshControl {
                 refreshControl.endRefreshing()
@@ -73,7 +81,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // Tell the refreshControl to stop spinning
         refreshControl.endRefreshing()
-        
     }
     
     @IBAction func sortHot(_ sender: Any) {
@@ -81,6 +88,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
         recentButton.layer.backgroundColor = UIColor.clear.cgColor
         recentButton.setImage(UIImage(named: "recent"), for: .normal)
+        
+        //sort posts by hot
+        posts = posts.sorted(by: { $0.date < $1.date})
+        postsTableView.reloadData()
+        sortedByHot = true
+        sortedByRecent = false
     }
     
     @IBAction func sortRecent(_ sender: Any) {
@@ -88,6 +101,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         recentButton.setImage(UIImage(named: "sortRecent"), for: .normal)
         hotButton.layer.backgroundColor = UIColor.clear.cgColor
         hotButton.setImage(UIImage(named: "hot"), for: .normal)
+        
+        //sort posts by recency
+        posts = posts.sorted(by: { $0.date > $1.date})
+        postsTableView.reloadData()
+        sortedByHot = false
+        sortedByRecent = true
     }
     
     func formatDate(_ number: TimeInterval) -> String {
@@ -137,6 +156,4 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             vc.post = (sender as! PostTableViewCell).post
         }
     }
-    
-
 }

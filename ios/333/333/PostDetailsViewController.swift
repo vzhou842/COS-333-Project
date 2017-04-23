@@ -111,6 +111,26 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func back(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func onTouchUpvote(_ sender: Any) {
+        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let object_id = post!.id
+        let up = true
+        
+        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
+        })
+    }
+    
+    @IBAction func onTouchDownvote(_ sender: Any) {
+        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let object_id = post!.id
+        let up = false
+        
+        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
+        })
+    }
 
     /*
     // MARK: - Navigation

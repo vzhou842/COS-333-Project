@@ -34,8 +34,9 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = true
             
-            Networking.createVote(user_id: user_id, object_id: object_id, up: up)
-            //INCREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+            Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+                self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
+            })
         }
     }
     
@@ -45,8 +46,9 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = false
             
-            Networking.createVote(user_id: user_id, object_id: object_id, up: up)
-            //DECREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+            Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+                self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
+            })
         }
     }
 }

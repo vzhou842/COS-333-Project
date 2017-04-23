@@ -88,8 +88,8 @@ class Networking {
         }
     }
     
-    //Create a new vote with the specified parameters.
-    static func createVote(user_id:String, object_id:String, up:Bool) {
+    //Create a new vote with the specified parameters. Run the completion handler if successful.
+    static func createVote(user_id:String, object_id:String, up:Bool, completion: @escaping () -> Void) {
         let parameters: Parameters = [
             "user_id": user_id,
             "object_id": object_id,
@@ -100,6 +100,9 @@ class Networking {
             
             if let json = response.result.value {
                 print("JSON: \(json)")
+            }
+            else {
+                completion()
             }
         })
     }

@@ -62,8 +62,9 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = true
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up)
-        //INCREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
+        })
     }
 
     @IBAction func downvote(_ sender: Any) {
@@ -71,8 +72,9 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = false
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up)
-        //DECREMENT THE NUMBER OF VOTES IF SUCCESSFUL
+        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
+        })
     }
     
     
