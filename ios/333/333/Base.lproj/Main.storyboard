@@ -654,6 +654,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5A-MW-pyH">
                                         <rect key="frame" x="9" y="51" width="40" height="40"/>
                                         <state key="normal" backgroundImage="downvote"/>
+                                        <connections>
+                                            <action selector="onTouchDownvote:" destination="Z3L-d6-NOy" eventType="touchUpInside" id="hSo-DR-k72"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzf-SN-Acp">
                                         <rect key="frame" x="9" y="1" width="40" height="40"/>
@@ -662,6 +665,9 @@
                                             <constraint firstAttribute="height" constant="40" id="LxA-iI-nZk"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="upvote"/>
+                                        <connections>
+                                            <action selector="onTouchUpvote:" destination="Z3L-d6-NOy" eventType="touchUpInside" id="zBy-0c-fXT"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjK-jA-tQM">
                                         <rect key="frame" x="10" y="37" width="39" height="18"/>
