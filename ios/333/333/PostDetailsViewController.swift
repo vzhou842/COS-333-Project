@@ -69,7 +69,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "replyTableViewCell") as! ReplyTableViewCell
         
-        let comment = comments![indexPath.row]
+        let comment = comments![(comments?.count)!-indexPath.row-1]
         
         //Set cell properties
         cell.captionLabel.text = comment.text
@@ -78,10 +78,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if replyTextField.textColor == UIColor.lightGray {
             replyTextField.text = ""
             replyTextField.textColor = UIColor.black
-        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -101,6 +99,11 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         replyTextField.text = "Reply..."
         replyTextField.textColor = UIColor.lightGray
+        
+        Networking.getComments(post_id: post.id) { (comments) in
+            self.comments = comments
+            self.commentsTableView.reloadData()
+        }
     }
 
     @IBAction func back(_ sender: Any) {
