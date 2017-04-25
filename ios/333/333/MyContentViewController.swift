@@ -1,25 +1,23 @@
 //
-//  FeedViewController.swift
+//  MyContentViewController.swift
 //  333
 //
-//  Created by Jose Rodriguez on 4/2/17.
+//  Created by Jose Rodriguez on 4/24/17.
 //  Copyright © 2017 333. All rights reserved.
 //
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class MyContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
-    @IBOutlet weak var hotButton: UIButton!
-    @IBOutlet weak var recentButton: UIButton!
     
     //Variables
     var posts = [Post]()
     var timeStampFormatted: Date?
-    var sortedByHot: Bool = true
-    var sortedByRecent: Bool = false
+    var filteredByReplies: Bool?
+    var filteredByUser: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,28 +26,20 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         postsTableView.dataSource = self
         postsTableView.rowHeight = UITableViewAutomaticDimension
         postsTableView.estimatedRowHeight = 300
-        
+
         self.loadDataFromNetwork(nil)
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         postsTableView.insertSubview(refreshControl, at: 0)
-        
-        recentButton.layer.cornerRadius = 8
-        recentButton.layer.masksToBounds = true
-        
-        hotButton.layer.cornerRadius = 8
-        hotButton.layer.masksToBounds = true
-        hotButton.layer.backgroundColor = UIColor.white.cgColor
-        hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.loadDataFromNetwork(nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,21 +47,28 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         //Populate posts variable with posts from backend
-            if (self.sortedByHot)
-            {
-                Networking.getHotPosts(completion: { (posts) in
-                self.posts = posts
-            })}
-            else if (self.sortedByRecent)
-            {
-                Networking.getNewPosts(completion: { (posts) in
-                self.posts = posts
-            })}
+        Networking.getNewPosts(completion: { (posts) in
+            self.posts = posts
+            
+            if self.filteredByReplies != nil && self.filteredByReplies! == true {
+                //filter by things you've replied to
+                self.posts = self.posts.filter({ (post) -> Bool in
+                    post.user_id == UIDevice.current.identifierForVendor!.uuidString
+                })
+            }
+                
+            else if self.filteredByUser != nil && self.filteredByUser! == true {
+                //filter by things you've posted
+                self.posts = self.posts.filter({ (post) -> Bool in
+                    post.user_id == UIDevice.current.identifierForVendor!.uuidString
+                })
+            }
             
             self.postsTableView.reloadData()
             if let refreshControl = refreshControl {
                 refreshControl.endRefreshing()
             }
+        })
     }
     
     // Makes a network request to get updated data
@@ -84,50 +81,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Tell the refreshControl to stop spinning
         refreshControl.endRefreshing()
     }
-    
-    @IBAction func sortHot(_ sender: Any) {
-        hotButton.layer.backgroundColor = UIColor.white.cgColor
-        hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
-        recentButton.layer.backgroundColor = UIColor.clear.cgColor
-        recentButton.setImage(UIImage(named: "recent"), for: .normal)
-        
-        //sort posts by hot
-        Networking.getHotPosts(completion: { (posts) in
-            self.posts = posts
-        })
-        
-        postsTableView.reloadData()
-        sortedByHot = true
-        sortedByRecent = false
-    }
-    
-    @IBAction func sortRecent(_ sender: Any) {
-        recentButton.layer.backgroundColor = UIColor.white.cgColor
-        recentButton.setImage(UIImage(named: "sortRecent"), for: .normal)
-        hotButton.layer.backgroundColor = UIColor.clear.cgColor
-        hotButton.setImage(UIImage(named: "hot"), for: .normal)
-        
-        //sort posts by recency
-        Networking.getNewPosts(completion: { (posts) in
-            self.posts = posts
-        })
-        
-        postsTableView.reloadData()
-        sortedByHot = false
-        sortedByRecent = true
-    }
-    
-    @IBAction func onTouchHome(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"profileViewController") as! ProfileViewController
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        view.window!.layer.add(transition, forKey: kCATransition)
-        present(viewController, animated: false, completion: nil)
-    }
-    
     
     func formatDate(_ number: TimeInterval) -> String {
         var formatted = ""
@@ -151,7 +104,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // Configure this cell for its post.
         cell.configureWithPost(posts[postIndex])
-
+        
         return cell
     }
     
@@ -162,7 +115,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "postDetails", sender: tableView.cellForRow(at: indexPath))
     }
-    
+
     
     // MARK: - Navigation
 
@@ -176,4 +129,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             vc.post = (sender as! PostTableViewCell).post
         }
     }
+ 
+
 }
