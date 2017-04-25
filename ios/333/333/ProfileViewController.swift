@@ -22,14 +22,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func onTouchBack(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"feedViewController") as! FeedViewController
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        view.window!.layer.add(transition, forKey: kCATransition)
-        present(viewController, animated: false, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
     /*

@@ -56,7 +56,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fpx-EN-igO" id="zNs-XD-fMp">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -415,6 +415,7 @@
                         <outlet property="postsTableView" destination="EFX-JO-SBq" id="Gh2-nZ-cvv"/>
                         <outlet property="recentButton" destination="iH8-Qw-YqZ" id="NuY-rv-9wk"/>
                         <segue destination="Z3L-d6-NOy" kind="show" identifier="postDetails" id="kQ0-8P-Db4"/>
+                        <segue destination="StD-uF-AsW" kind="show" identifier="profileView" id="mun-2f-des"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZGz-Re-dmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -955,6 +956,6 @@
         <image name="upvote" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h7r-Mf-A4X"/>
+        <segue reference="kQ0-8P-Db4"/>
     </inferredMetricsTieBreakers>
 </document>
