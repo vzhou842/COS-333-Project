@@ -33,7 +33,7 @@ module.exports = function(app) {
 			var objectExists = results[2];
 
 			if (!objectExists) {
-				APIUtils.invalidRequest('This object does not exist.');
+				APIUtils.invalidRequest(res, 'This object does not exist.');
 				return;
 			}
 
