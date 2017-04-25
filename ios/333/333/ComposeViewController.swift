@@ -7,17 +7,21 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate {
 
     // state 1: compose post is text only
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var postTextView: UITextView!
+    @IBOutlet weak var sendButton: UIButton!
     
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
     @IBOutlet weak var pickedImage: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
+    @IBOutlet weak var countLabel2: UILabel!
+    @IBOutlet weak var sendButton2: UIButton!
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -26,8 +30,10 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func removeImage(_ sender: Any) {
         photoAddedView.isHidden = true
         pickedImage.image = nil
+        postTextView.becomeFirstResponder()
     }
     
+    var keyboardHeight = 150 as CGFloat
     let imagePicker = UIImagePickerController()
     
     @IBAction func cameraRoll(_ sender: Any) {
@@ -45,23 +51,37 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPost(_ sender: Any) {
-        Networking.createPost(text: postTextView.text, image: nil, user_id: "hallo", lat: 0, long: 0)
-        
-        self.dismiss(animated: true, completion: nil)
+        if postTextView.text.characters.count != 0 {
+            Networking.createPost(text: postTextView.text, image: nil, user_id: "hallo", lat: Float(lat), long: Float(long))
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func sendPhotoPost(_ sender: Any) {
         if captionTextView.text == "Add a caption ..." {
             captionTextView.text = ""
         }
-        
-        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: 0, long: 0)
+        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: Float(lat), long: Float(long))
         
         self.dismiss(animated: true, completion: nil)
     }
     
+    let locationManager = CLLocationManager()
+    var lat: CLLocationDegrees! = 0
+    var long: CLLocationDegrees! = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            
+            lat = locationManager.location!.coordinate.latitude
+            long = locationManager.location!.coordinate.longitude
+        }
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -79,21 +99,50 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         countLabel.text = "200"
         countLabel.textColor = UIColor.clouds()
+        countLabel2.text = "200"
+        countLabel2.textColor = UIColor.clouds()
         
         photoAddedView.isHidden = true
+        
+        sendButton.setTitleColor(UIColor.lightGray, for: .normal)
+        sendButton2.setTitleColor(UIColor.lightGray, for: .normal)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // hides text views
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         countLabel.text = "\(200 - textView.text.characters.count)"
+        countLabel2.text = countLabel.text
+        
         if 200 - textView.text.characters.count < 0 {
             countLabel.textColor = UIColor.red
+            countLabel2.textColor = UIColor.red
         } else {
             countLabel.textColor = UIColor.clouds()
+            countLabel2.textColor = UIColor.clouds()
+        }
+        
+        if textView.text.characters.count == 0 {
+            sendButton.setTitleColor(UIColor.lightGray, for: .normal)
+            sendButton2.setTitleColor(UIColor.lightGray, for: .normal)
+        } else {
+            sendButton.setTitleColor(UIColor.clouds(), for: .normal)
+            sendButton2.setTitleColor(UIColor.clouds(), for: .normal)
         }
     }
 
@@ -104,9 +153,31 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             photoAddedView.isHidden = false
             if postTextView.text != "" {
                 captionTextView.text = postTextView.text
+                countLabel2.text = "\(200 - captionTextView.text.characters.count)"
+                if captionTextView.text.characters.count > 0 {
+                    sendButton2.setTitleColor(UIColor.clouds(), for: .normal)
+                }
             }
         }
         dismiss(animated: true, completion: nil)
+        if photoAddedView.isHidden == true {
+            postTextView.becomeFirstResponder()
+        }
+    }
+    
+    func keyboardWillShow(notification: Notification) {
+        if photoAddedView.isHidden == false {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                keyboardHeight = keyboardSize.height
+            }
+            captionTextView.frame.origin.y -= keyboardHeight
+        }
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        if photoAddedView.isHidden == false {
+            captionTextView.frame.origin.y += keyboardHeight
+        }
     }
     
     /*

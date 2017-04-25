@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
@@ -21,8 +22,23 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sortedByHot: Bool = true
     var sortedByRecent: Bool = false
     
+    //Location
+    let locationManager = CLLocationManager()
+    var lat: CLLocationDegrees! = 0
+    var long: CLLocationDegrees! = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            
+            lat = locationManager.location!.coordinate.latitude
+            long = locationManager.location!.coordinate.longitude
+        }
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
