@@ -14,6 +14,7 @@
 		B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14AFB601EA01437007FA50C /* UIColor+Custom.swift */; };
 		B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */; };
 		B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1F1E998B5E00A015D0 /* Networking.swift */; };
+		CC1A86711EAEE5BB0053E5B3 /* MyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */; };
 		CC27D3141E97328400589855 /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC27D3131E97328400589855 /* PostDetailsViewController.swift */; };
 		CC27D3161E973AA300589855 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC27D3151E973AA300589855 /* ReplyTableViewCell.swift */; };
 		CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0B31E9070A6004F4C67 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 		B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		B1F7CA1F1E998B5E00A015D0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_333.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyContentViewController.swift; sourceTree = "<group>"; };
 		CC27D3131E97328400589855 /* PostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
 		CC27D3151E973AA300589855 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		CC9DC0B01E9070A6004F4C67 /* 333.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 333.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +212,7 @@
 				CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */,
 				B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */,
 				CC27D3131E97328400589855 /* PostDetailsViewController.swift */,
+				CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -365,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		71164EF31FAEE5471F980A49 /* [CP] Copy Pods Resources */ = {
@@ -405,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1A86711EAEE5BB0053E5B3 /* MyContentViewController.swift in Sources */,
 				CC9DC0B61E9070A6004F4C67 /* ViewController.swift in Sources */,
 				A555DC641EABAA76006B9ACE /* Post.swift in Sources */,
 				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,

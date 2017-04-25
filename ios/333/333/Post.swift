@@ -10,7 +10,7 @@ import Foundation
 
 // Posts are immutable objects.
 class Post: NSObject {
-    
+    let user_id: String
     let id: String
     let text: String?
     let imageUrl: String?
@@ -21,6 +21,7 @@ class Post: NSObject {
     
     // Initializes the Post object from a JSON server response.
     init(_ json: Dictionary<String, Any>) {
+        user_id = json["user_id"] as! String
         id = json["post_id"] as! String
         text = json["text"] as? String
         imageUrl = json["image_url"] as? String
