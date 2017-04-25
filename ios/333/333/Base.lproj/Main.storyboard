@@ -589,18 +589,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNz-e0-mmk">
                                         <rect key="frame" x="36" y="82" width="303" height="450"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add a caption ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-nj-SZD">
-                                                <rect key="frame" x="0.0" y="408" width="303" height="42"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Nt-Pa-xrk">
                                                 <rect key="frame" x="0.0" y="0.0" width="303" height="400"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="400" id="LnT-cH-K8o"/>
                                                 </constraints>
                                             </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add a caption ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-nj-SZD">
+                                                <rect key="frame" x="0.0" y="408" width="303" height="42"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="P6b-nj-SZD" firstAttribute="width" secondItem="vNz-e0-mmk" secondAttribute="width" id="4WU-nc-3he"/>
@@ -647,10 +647,13 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="captionTextView" destination="P6b-nj-SZD" id="daG-yA-tzn"/>
-                        <outlet property="countLabel" destination="P9i-QO-Dym" id="ym2-a5-tn2"/>
+                        <outlet property="countLabel" destination="0op-66-KLu" id="ABQ-ES-EOY"/>
+                        <outlet property="countLabel2" destination="P9i-QO-Dym" id="qnD-lP-kwy"/>
                         <outlet property="photoAddedView" destination="Ghv-bz-Gmd" id="8p8-ht-IXJ"/>
                         <outlet property="pickedImage" destination="5Nt-Pa-xrk" id="OzG-bp-Zh4"/>
                         <outlet property="postTextView" destination="KCC-9L-pIi" id="xMF-Sx-vD0"/>
+                        <outlet property="sendButton" destination="kCw-f7-D3c" id="euj-f9-ZSA"/>
+                        <outlet property="sendButton2" destination="xNA-4Z-M6n" id="sKs-En-yEE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HSU-xr-5T5" userLabel="First Responder" sceneMemberID="firstResponder"/>
