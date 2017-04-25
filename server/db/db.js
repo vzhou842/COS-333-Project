@@ -36,15 +36,15 @@ function updateVotesForObject(object_id, delta) {
 	}
 }
 
-function checkIfObjectExists(object_id) {
+function checkIfObjectValid(object_id) {
 	if (Utils.isPostID(object_id)) {
-		return PostDBHelper.checkIfExists(object_id);
+		return PostDBHelper.checkIfValid(object_id);
 	} else if (Utils.isCommentID(object_id)) {
-		return CommentDBHelper.checkIfExists(object_id);
+		return CommentDBHelper.checkIfValid(object_id);
 	}
 }
 
 module.exports = {
 	updateVotesForObject: updateVotesForObject,
-	checkIfObjectExists: checkIfObjectExists,
+	checkIfObjectValid: checkIfObjectValid,
 };

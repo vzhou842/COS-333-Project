@@ -26,20 +26,20 @@ module.exports = function(app) {
 		Promise.all([
 			VoteDBHelper.checkIfSameExists(user_id, object_id, up),
 			VoteDBHelper.checkIfExists(user_id, object_id),
-			db.checkIfObjectExists(object_id),
+			db.checkIfObjectValid(object_id),
 		]).then(function(results) {
 			var sameExists = results[0];
 			var voteExists = results[1];
-			var objectExists = results[2];
+			var objectValid = results[2];
 
-			if (!objectExists) {
-				APIUtils.invalidRequest(res, 'This object does not exist.');
+			if (!objectValid) {
+				APIUtils.invalidRequest(res, 'This object is not valid.');
 				return;
 			}
 
 			if (sameExists) {
 				VoteDBHelper.removeVote(user_id, object_id).then(function() {
-					return db.updateVotesForObject(object_id, -1);
+					return db.updateVotesForObject(object_id, up ? -1 : 1);
 				}).then(function() {
 					res.status(200).send({ message: "Removed vote."});
 				}, function(err) {

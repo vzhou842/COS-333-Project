@@ -104,8 +104,8 @@ function updateComments(post_id) {
 	).exec();
 }
 
-function checkIfExists(post_id) {
-	return Post.count({ post_id: post_id }).then(function(count) {
+function checkIfValid(post_id) {
+	return Post.count({ post_id: post_id, num_upvotes: {$gt: -5} }).then(function(count) {
 		return count > 0;
 	});
 }
@@ -114,5 +114,5 @@ module.exports = {
 	createPost: createPost,
 	getPosts: getPosts,
 	updateVotes: updateVotes,
-	checkIfExists: checkIfExists,
+	checkIfValid: checkIfValid,
 };

@@ -10,7 +10,6 @@ function createComment(data) {
 	return (new Comment(data)).save();
 }
 
-// todo: complete
 function getNewComments(post_id) {
 	return Comment.find({ 
 		'post_id': post_id
@@ -37,8 +36,8 @@ function updateVotes(comment_id, delta) {
 	).exec();
 }
 
-function checkIfExists(comment_id) {
-	return Comment.count({ comment_id: comment_id }).then(function(count) {
+function checkIfValid(comment_id) {
+	return Comment.count({ comment_id: comment_id, num_upvotes: {$gt: -5} }).then(function(count) {
 		return count > 0;
 	});
 }
@@ -47,5 +46,5 @@ module.exports = {
 	createComment: createComment,
 	getNewComments: getNewComments,
 	updateVotes: updateVotes,
-	checkIfExists: checkIfExists,
+	checkIfValid: checkIfValid,
 };
