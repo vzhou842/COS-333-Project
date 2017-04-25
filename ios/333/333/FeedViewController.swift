@@ -77,14 +77,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             {
                 Networking.getHotPosts(completion: { (posts) in
                 self.posts = posts
+                self.postsTableView.reloadData()
             })}
             else if (self.sortedByRecent)
             {
                 Networking.getNewPosts(completion: { (posts) in
                 self.posts = posts
+                self.postsTableView.reloadData()
             })}
-            
-            self.postsTableView.reloadData()
+    
             if let refreshControl = refreshControl {
                 refreshControl.endRefreshing()
             }
@@ -107,14 +108,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         recentButton.layer.backgroundColor = UIColor.clear.cgColor
         recentButton.setImage(UIImage(named: "recent"), for: .normal)
         
+        sortedByHot = true
+        sortedByRecent = false
         //sort posts by hot
         Networking.getHotPosts(completion: { (posts) in
             self.posts = posts
+            self.postsTableView.reloadData()
+
         })
-        
-        postsTableView.reloadData()
-        sortedByHot = true
-        sortedByRecent = false
     }
     
     @IBAction func sortRecent(_ sender: Any) {
@@ -123,14 +124,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         hotButton.layer.backgroundColor = UIColor.clear.cgColor
         hotButton.setImage(UIImage(named: "hot"), for: .normal)
         
+        sortedByHot = false
+        sortedByRecent = true
         //sort posts by recency
         Networking.getNewPosts(completion: { (posts) in
             self.posts = posts
+            self.postsTableView.reloadData()
         })
-        
-        postsTableView.reloadData()
-        sortedByHot = false
-        sortedByRecent = true
     }
     
     @IBAction func onTouchHome(_ sender: Any) {
