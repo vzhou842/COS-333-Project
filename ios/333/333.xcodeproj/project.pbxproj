@@ -14,7 +14,6 @@
 		B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14AFB601EA01437007FA50C /* UIColor+Custom.swift */; };
 		B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */; };
 		B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1F1E998B5E00A015D0 /* Networking.swift */; };
-		CC1A86711EAEE5BB0053E5B3 /* MyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */; };
 		CC27D3141E97328400589855 /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC27D3131E97328400589855 /* PostDetailsViewController.swift */; };
 		CC27D3161E973AA300589855 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC27D3151E973AA300589855 /* ReplyTableViewCell.swift */; };
 		CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0B31E9070A6004F4C67 /* AppDelegate.swift */; };
@@ -25,7 +24,6 @@
 		CC9DC0C91E9070A6004F4C67 /* _33Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0C81E9070A6004F4C67 /* _33Tests.swift */; };
 		CC9DC0D41E9070A6004F4C67 /* _33UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0D31E9070A6004F4C67 /* _33UITests.swift */; };
 		CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */; };
-		CC9DC0E51E9176C8004F4C67 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */; };
 		CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +54,6 @@
 		B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		B1F7CA1F1E998B5E00A015D0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_333.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyContentViewController.swift; sourceTree = "<group>"; };
 		CC27D3131E97328400589855 /* PostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
 		CC27D3151E973AA300589855 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		CC9DC0B01E9070A6004F4C67 /* 333.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 333.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +70,6 @@
 		CC9DC0D31E9070A6004F4C67 /* _33UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _33UITests.swift; sourceTree = "<group>"; };
 		CC9DC0D51E9070A6004F4C67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,10 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */,
-				CC9DC0E41E9176C8004F4C67 /* ProfileViewController.swift */,
 				B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */,
 				CC27D3131E97328400589855 /* PostDetailsViewController.swift */,
-				CC1A86701EAEE5BB0053E5B3 /* MyContentViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -408,7 +402,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC1A86711EAEE5BB0053E5B3 /* MyContentViewController.swift in Sources */,
 				CC9DC0B61E9070A6004F4C67 /* ViewController.swift in Sources */,
 				A555DC641EABAA76006B9ACE /* Post.swift in Sources */,
 				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,
@@ -419,7 +412,6 @@
 				CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */,
 				A555DC661EABB5A3006B9ACE /* Comment.swift in Sources */,
 				B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */,
-				CC9DC0E51E9176C8004F4C67 /* ProfileViewController.swift in Sources */,
 				B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */,
 				CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */,
 			);
