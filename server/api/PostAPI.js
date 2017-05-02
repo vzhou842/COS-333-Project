@@ -93,4 +93,22 @@ module.exports = function(app) {
 			res.status(500).end();
 		});
 	});
+
+	// DELETE POST
+	app.post('/api/posts/delete', function(req, res) {
+		var data = req.body;
+
+		if (!data || !data.post_id) {
+			APIUtils.invalidRequest(res, JSON.stringify(data));
+			return;
+		}
+
+		PostDBHelper.deletePost(data.post_id).then(function(deletedPost) {
+			res.status(200).send({ message: "Deleted post."});
+		}, function(err) {
+			console.error('Failed to delete post', err);
+			res.status(500).end();
+		});
+
+	});
 };
