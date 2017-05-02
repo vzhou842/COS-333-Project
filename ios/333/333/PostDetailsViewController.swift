@@ -33,6 +33,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
             self.commentsTableView.reloadData()
+            
+            if (comments.count != 0) { self.noCommentsLabel.isHidden = true }
+            else { self.commentsTableView.isHidden = true }
         }
 
         // Do any additional setup after loading the view.
@@ -45,9 +48,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         //Set post properties
         captionLabel.text = post.text
         replyCountLabel.text = "\(post.numComments)"
-        
-        if (post.numComments != 0) { noCommentsLabel.isHidden = true }
-        else { commentsTableView.isHidden = true }
         
         upvotesCountLabel.text = "\(post.numUpvotes)"
         timeStampLabel.text = post.dateString

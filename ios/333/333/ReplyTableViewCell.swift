@@ -41,6 +41,8 @@ class ReplyTableViewCell: UITableViewCell {
     }
     
     @IBAction func onTouchDownvote(_ sender: Any) {
+        print(comment?.text)
+        print(captionLabel.text ?? "damn")
         if let comment = comment {
             let user_id = UIDevice.current.identifierForVendor!.uuidString
             let object_id = comment.comment_id
