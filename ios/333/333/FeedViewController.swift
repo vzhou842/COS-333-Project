@@ -27,25 +27,37 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var lat: CLLocationDegrees! = 0
     var long: CLLocationDegrees! = 0
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            lat = locationManager.location!.coordinate.latitude
+            long = locationManager.location!.coordinate.longitude
+            self.loadDataFromNetwork(nil)
+            print("\(lat) \(long)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Location
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-            
-            lat = locationManager.location!.coordinate.latitude
-            long = locationManager.location!.coordinate.longitude
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
+            self.loadDataFromNetwork(nil)
+            print("\(lat) \(long)")
+        } else {
+            posts = []
         }
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
         postsTableView.rowHeight = UITableViewAutomaticDimension
         postsTableView.estimatedRowHeight = 300
-        
-        self.loadDataFromNetwork(nil)
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -63,7 +75,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadDataFromNetwork(nil)
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
+            self.loadDataFromNetwork(nil)
+        } else {
+            posts = []
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,22 +89,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         //Populate posts variable with posts from backend
-            if (self.sortedByHot)
-            {
-                Networking.getHotPosts(completion: { (posts) in
-                self.posts = posts
-                self.postsTableView.reloadData()
-            })}
-            else if (self.sortedByRecent)
-            {
-                Networking.getNewPosts(completion: { (posts) in
-                self.posts = posts
-                self.postsTableView.reloadData()
-            })}
-    
-            if let refreshControl = refreshControl {
-                refreshControl.endRefreshing()
-            }
+        if (self.sortedByHot)
+        {
+            Networking.getHotPosts(completion: { (posts) in
+            self.posts = posts
+            self.postsTableView.reloadData()
+        })}
+        else if (self.sortedByRecent)
+        {
+            Networking.getNewPosts(completion: { (posts) in
+            self.posts = posts
+            self.postsTableView.reloadData()
+        })}
+        
+        if let refreshControl = refreshControl {
+            refreshControl.endRefreshing()
+        }
     }
     
     // Makes a network request to get updated data
@@ -114,7 +130,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         Networking.getHotPosts(completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
-
         })
     }
     
@@ -132,11 +147,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.postsTableView.reloadData()
         })
     }
-    
-    @IBAction func onTouchHome(_ sender: Any) {
-        self.performSegue(withIdentifier: "profileView", sender: self)
-    }
-    
     
     func formatDate(_ number: TimeInterval) -> String {
         var formatted = ""

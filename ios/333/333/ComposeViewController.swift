@@ -33,6 +33,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         postTextView.becomeFirstResponder()
     }
     
+    var captionPosition: CGFloat!
     var keyboardHeight = 150 as CGFloat
     let imagePicker = UIImagePickerController()
     
@@ -62,7 +63,6 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             captionTextView.text = ""
         }
         Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: Float(lat), long: Float(long))
-        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -96,6 +96,8 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         captionTextView.text = "Add a caption ..."
         captionTextView.textColor = UIColor.clouds()
         captionTextView.becomeFirstResponder()
+        
+        captionPosition = captionTextView.frame.origin.y
         
         countLabel.text = "200"
         countLabel.textColor = UIColor.clouds()
@@ -170,13 +172,13 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
                 keyboardHeight = keyboardSize.height
             }
-            captionTextView.frame.origin.y -= keyboardHeight
+            captionTextView.frame.origin.y = view.frame.height - keyboardHeight - 8
         }
     }
     
     func keyboardWillHide(notification: Notification) {
         if photoAddedView.isHidden == false {
-            captionTextView.frame.origin.y += keyboardHeight
+            captionTextView.frame.origin.y = captionPosition
         }
     }
     
