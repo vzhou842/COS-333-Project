@@ -460,6 +460,7 @@
                         <outlet property="captionTextView" destination="P6b-nj-SZD" id="daG-yA-tzn"/>
                         <outlet property="countLabel" destination="0op-66-KLu" id="ABQ-ES-EOY"/>
                         <outlet property="countLabel2" destination="P9i-QO-Dym" id="qnD-lP-kwy"/>
+                        <outlet property="infoView" destination="vNz-e0-mmk" id="H9M-qQ-NKR"/>
                         <outlet property="photoAddedView" destination="Ghv-bz-Gmd" id="8p8-ht-IXJ"/>
                         <outlet property="pickedImage" destination="5Nt-Pa-xrk" id="OzG-bp-Zh4"/>
                         <outlet property="postTextView" destination="KCC-9L-pIi" id="xMF-Sx-vD0"/>
