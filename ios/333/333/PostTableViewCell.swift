@@ -25,6 +25,11 @@ class PostTableViewCell: UITableViewCell {
     //Variables
     var post: Post?
     var didVote: Bool = false
+    var lat: Float!
+    var long: Float!
+    
+    var didUpvote: Bool = false
+    var didDownvote: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -66,14 +71,20 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = true
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            if (self.didVote){
+        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            if (self.didUpvote){
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
-                self.didVote = false
+                self.didUpvote = false
                 self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+            } else if (self.didDownvote) {
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+2)"
+                self.didUpvote = true
+                self.didDownvote = false
+                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
             } else {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
-                self.didVote = true
+                self.didUpvote = true
                 self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
             }
         })
@@ -84,15 +95,20 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = false
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            if (self.didVote){
+        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            if (self.didUpvote){
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-2)"
+                self.didUpvote = false
+                self.didDownvote = true
+                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+            } else if (self.didDownvote) {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
-                self.didVote = false
+                self.didDownvote = false
                 self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
-            }
-            else {
+            } else {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
-                self.didVote = true
+                self.didDownvote = true
                 self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
             }
         })

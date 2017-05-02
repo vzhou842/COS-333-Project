@@ -20,11 +20,20 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var noCommentsLabel: UIView!
     
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+    
     //Variables
     var post: Post!
     var comments: [Comment]?
     var keyboardHeight = 300 as CGFloat
     let defaultReply = "Reply ..."
+    
+    var didUpvote: Bool = false
+    var didDownvote: Bool = false
+    
+    var lat: Float!
+    var long: Float!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +84,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         cell.votesCountLabel.text = "\(comment.numUpvotes)"
         cell.comment = comment
         
+        cell.lat = self.lat
+        cell.long = self.long
+        
         return cell
     }
     
@@ -121,8 +133,22 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let object_id = post!.id
         let up = true
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
+        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            if (self.didUpvote){
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
+                self.didUpvote = false
+                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+            } else if (self.didDownvote) {
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+2)"
+                self.didUpvote = true
+                self.didDownvote = false
+                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+            } else {
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
+                self.didUpvote = true
+                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+            }
         })
     }
     
@@ -131,8 +157,22 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let object_id = post!.id
         let up = false
         
-        Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
+        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            if (self.didUpvote){
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-2)"
+                self.didUpvote = false
+                self.didDownvote = true
+                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+            } else if (self.didDownvote) {
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
+                self.didDownvote = false
+                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+            } else {
+                self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
+                self.didDownvote = true
+                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+            }
         })
     }
     

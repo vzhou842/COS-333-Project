@@ -746,11 +746,13 @@
                     <connections>
                         <outlet property="captionLabel" destination="Sbv-9S-uEW" id="ONI-lo-BCp"/>
                         <outlet property="commentsTableView" destination="2ZP-VY-iTM" id="Gmr-kH-Wzo"/>
+                        <outlet property="downButton" destination="a5A-MW-pyH" id="dvl-6I-Vww"/>
                         <outlet property="noCommentsLabel" destination="Opn-8m-ASf" id="Ty5-8X-CFb"/>
                         <outlet property="replyCountLabel" destination="l7e-J9-Z20" id="bjh-jb-SOz"/>
                         <outlet property="replyTextField" destination="hHe-JK-zqR" id="ff4-5v-HlO"/>
                         <outlet property="replyView" destination="2Ev-84-NYy" id="WkW-Ow-syS"/>
                         <outlet property="timeStampLabel" destination="mqA-m3-j2B" id="zLx-Oz-vaH"/>
+                        <outlet property="upButton" destination="mzf-SN-Acp" id="HNH-1m-E6h"/>
                         <outlet property="upvotesCountLabel" destination="GjK-jA-tQM" id="aLn-sF-vpD"/>
                     </connections>
                 </viewController>
