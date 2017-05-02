@@ -95,11 +95,13 @@ class Networking {
     }
     
     //Create a new vote with the specified parameters. Run the completion handler if successful.
-    static func createVote(user_id:String, object_id:String, up:Bool, completion: @escaping () -> Void) {
+    static func createVote(lat: Float, long: Float, user_id:String, object_id:String, up:Bool, completion: @escaping () -> Void) {
         let parameters: Parameters = [
             "user_id": user_id,
             "object_id": object_id,
-            "up": up
+            "up": up,
+            "lat": lat,
+            "long": long
         ]
         
         Alamofire.request("\(baseurl)/api/votes", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in

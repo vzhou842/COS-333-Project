@@ -16,6 +16,8 @@ class ReplyTableViewCell: UITableViewCell {
     
     //Variables
     var comment: Comment?
+    var lat: Float!
+    var long: Float!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +36,7 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = true
             
-            Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
                 self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
             })
         }
@@ -48,7 +50,7 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = false
             
-            Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
+            Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
                 self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
             })
         }

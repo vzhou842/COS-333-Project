@@ -171,8 +171,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let postIndex = indexPath.row
         
         // Configure this cell for its post.
+        cell.lat = Float(self.lat)
+        cell.long = Float(self.long)
         cell.configureWithPost(posts[postIndex])
-
+        
         return cell
     }
     
@@ -195,6 +197,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue.identifier == "postDetails") {
             let vc = segue.destination as! PostDetailsViewController
             vc.post = (sender as! PostTableViewCell).post
+            vc.lat = Float(self.lat)
+            vc.long = Float(self.long)
         }
     }
 }
