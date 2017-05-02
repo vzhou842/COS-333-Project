@@ -12,17 +12,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     
     //Outlets
     @IBOutlet weak var commentsTableView: UITableView!
+    @IBOutlet weak var replyView: UIView!
     @IBOutlet weak var replyTextField: UITextField!
     @IBOutlet weak var upvotesCountLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var replyCountLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
-    
     @IBOutlet weak var noCommentsLabel: UIView!
     
     //Variables
     var post: Post!
     var comments: [Comment]?
+    var keyboardHeight = 300 as CGFloat
+    let defaultReply = "Reply ..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +51,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         upvotesCountLabel.text = "\(post.numUpvotes)"
         timeStampLabel.text = post.dateString
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,14 +78,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            replyTextField.text = ""
-            replyTextField.textColor = UIColor.black
+        replyTextField.text = ""
+        replyTextField.textColor = UIColor.black
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if replyTextField.text == "" {
-            replyTextField.text = "Reply..."
+            replyTextField.text = defaultReply
             replyTextField.textColor = UIColor.lightGray
         }
     }
@@ -93,7 +103,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             Networking.createComment(text: text!, user_id: user_id, post_id: post!.id)
         }
         
-        replyTextField.text = "Reply..."
+        replyTextField.text = defaultReply
         replyTextField.textColor = UIColor.lightGray
         
         Networking.getComments(post_id: post.id) { (comments) in
@@ -124,6 +134,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
             self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
         })
+    }
+    
+    func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+        }
+        replyView.frame.origin.y = 0
+        print("\(self.view.frame.height)")
+        print("\(replyView.frame.origin.y)")
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        replyView.frame.origin.y = self.view.frame.height - replyView.frame.height
     }
 
     /*

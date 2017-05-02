@@ -70,17 +70,17 @@ class Networking {
     }
     
     // Get NEW posts and run the completion handler if successful.
-    static func getNewPosts(completion: @escaping ([Post]) -> Void) {
-        getPosts(sort: "new", completion: completion)
+    static func getNewPosts(lat: Float, long: Float, completion: @escaping ([Post]) -> Void) {
+        getPosts(sort: "new", lat: lat, long: long, completion: completion)
     }
 
     // Get HOT posts and run the completion handler if successful.
-    static func getHotPosts(completion: @escaping ([Post]) -> Void) {
-        getPosts(sort: "hot", completion: completion)
+    static func getHotPosts(lat: Float, long: Float, completion: @escaping ([Post]) -> Void) {
+        getPosts(sort: "hot", lat: lat, long: long, completion: completion)
     }
 
-    static private func getPosts(sort: String, completion: @escaping ([Post]) -> Void) {
-        Alamofire.request("\(baseurl)/api/posts?lat=0&long=0&sort=\(sort)").responseJSON { response in
+    static private func getPosts(sort: String, lat: Float, long: Float, completion: @escaping ([Post]) -> Void) {
+        Alamofire.request("\(baseurl)/api/posts?lat=\(lat)&long=\(long)&sort=\(sort)").responseJSON { response in
             
             if let JSON = response.result.value {
                 let jsonPosts = JSON as! [Dictionary<String, Any>]

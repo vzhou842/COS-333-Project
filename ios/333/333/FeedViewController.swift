@@ -91,13 +91,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Populate posts variable with posts from backend
         if (self.sortedByHot)
         {
-            Networking.getHotPosts(completion: { (posts) in
+            Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })}
         else if (self.sortedByRecent)
         {
-            Networking.getNewPosts(completion: { (posts) in
+            Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })}
@@ -127,7 +127,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         sortedByHot = true
         sortedByRecent = false
         //sort posts by hot
-        Networking.getHotPosts(completion: { (posts) in
+        Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })
@@ -142,7 +142,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         sortedByHot = false
         sortedByRecent = true
         //sort posts by recency
-        Networking.getNewPosts(completion: { (posts) in
+        Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })
