@@ -52,7 +52,15 @@ The request response will be a JSON array of Posts, where each Post matches the 
 
 ### ```POST /api/votes```
 
-Creates a vote (either an upvote or a downvote).
+Creates, Updates, or Deletes a vote (either an upvote or a downvote).
+
+If no vote from this user on this object exists, it is created.
+
+If a vote from this user on this object exists, it is either updated (if the user changed their vote) or deleted (if the user unvoted by pressing the same vote again).
+
+For example, ```upvote``` creates an upvote, but then ```upvote``` again removes that original upvote.
+
+This API is designed for simplicity of client implementation. The ```up``` field can simply be set to whatever vote button the user tapped.
 
 The request body should be JSON matching the following format:
 ```javascript
