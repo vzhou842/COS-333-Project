@@ -15,6 +15,7 @@ var schema = new mongoose.Schema({
 	radius: { $type: Number, default: 5000 }, // meters
 	num_upvotes: { $type: Number, default: 0 },
 	num_comments: { $type: Number, default: 0 },
+	is_deleted: { $type: Boolean, default: false},
 }, { typeKey: '$type' });
 
 schema.index({ loc: '2dsphere', radius: -1 });

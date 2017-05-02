@@ -23,6 +23,13 @@ function createPost(data) {
 	return (new Post(data)).save();
 }
 
+function deletePost(post_id) {
+	return Post.update(
+		{ post_id: post_id },
+		{ is_deleted: true }
+	).exec();
+}
+
 function _postsByTimestamp(a, b) {
 	return b.timestamp.getTime() - a.timestamp.getTime();
 }
@@ -44,7 +51,10 @@ function getPosts(long, lat, sort) {
 	var sortByNew = sort === 'new';
 
 	// Only ever show posts within the past week.
-	var timeFilter = { timestamp: { $gt: new Date(Date.now() - ONE_WEEK_MS) }};
+	var timeFilter = { timestamp: { $gt: new Date(Date.now() - ONE_WEEK_MS) },
+					   num_upvotes: { $gt: -5 },
+					   is_deleted: { $ne: true },
+					 };
 
 	return Promise.all([
 		_postsNear(long, lat, 10000, 120, timeFilter, sortByNew ? newSort : radiusSort), // Up to 120 posts in the local area (10km)
@@ -141,4 +151,5 @@ module.exports = {
 	getPosts: getPosts,
 	updateVotes: updateVotes,
 	checkIfValid: checkIfValid,
+	deletePost: deletePost,
 };

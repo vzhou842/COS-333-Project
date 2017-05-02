@@ -48,6 +48,18 @@ The request response will be a JSON array of Posts, where each Post matches the 
 }
 ```
 
+### ```POST /api/posts/delete```
+
+Deletes a post.
+
+The request body should be JSON matching the following format:
+```javascript
+{
+    "post_id": "pBJgkqteag",
+}
+```
+* **post_id**: The post id.
+
 ## Votes API
 
 ### ```POST /api/votes```
@@ -82,9 +94,9 @@ Creates a comment.
 The request body should be JSON matching the following format:
 ```javascript
 {
-    text: "Comment text",
-    user_id: "the_users_id",
-    post_id: "the_posts_id"
+    "text": "Comment text",
+    "user_id": "the_users_id",
+    "post_id": "the_posts_id"
 }
 ```
 
