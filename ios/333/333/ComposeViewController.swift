@@ -18,6 +18,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var pickedImage: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var countLabel2: UILabel!
@@ -34,8 +35,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     var captionPosition: CGFloat!
-    var keyboardHeight = 150 as CGFloat
+    var keyboardHeight = 300 as CGFloat
     let imagePicker = UIImagePickerController()
+    var defaultCaption = "Add a caption ..."
     
     @IBAction func cameraRoll(_ sender: Any) {
         imagePicker.allowsEditing = false
@@ -59,7 +61,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPhotoPost(_ sender: Any) {
-        if captionTextView.text == "Add a caption ..." {
+        if captionTextView.text == defaultCaption {
             captionTextView.text = ""
         }
         Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: Float(lat), long: Float(long))
@@ -93,7 +95,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         postTextView.becomeFirstResponder()
         
         captionTextView.delegate = self
-        captionTextView.text = "Add a caption ..."
+        captionTextView.text = defaultCaption
         captionTextView.textColor = UIColor.clouds()
         captionTextView.becomeFirstResponder()
         
@@ -121,10 +123,19 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     // hides text views
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
+            if textView.text == "" {
+                textView.text = defaultCaption
+            }
             textView.resignFirstResponder()
             return false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == defaultCaption {
+            textView.text = ""
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -172,7 +183,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
                 keyboardHeight = keyboardSize.height
             }
-            captionTextView.frame.origin.y = view.frame.height - keyboardHeight - 8
+            captionTextView.frame.origin.y = photoAddedView.frame.height - infoView.frame.origin.y - keyboardHeight - captionTextView.frame.height
         }
     }
     
