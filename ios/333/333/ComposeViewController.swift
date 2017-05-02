@@ -55,7 +55,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func sendPost(_ sender: Any) {
         if postTextView.text.characters.count != 0 {
-            Networking.createPost(text: postTextView.text, image: nil, user_id: "hallo", lat: Float(lat), long: Float(long))
+            let user_id = UIDevice.current.identifierForVendor!.uuidString
+            
+            Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Float(lat), long: Float(long))
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -64,7 +66,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if captionTextView.text == defaultCaption {
             captionTextView.text = ""
         }
-        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: "hallo", lat: Float(lat), long: Float(long))
+        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        
+        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Float(lat), long: Float(long))
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -76,7 +80,6 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestWhenInUseAuthorization()
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
