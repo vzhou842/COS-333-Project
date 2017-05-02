@@ -2,20 +2,8 @@
 
 var Vote = require('./models/Vote');
 
-// Resolves with a bool depending on whether a vote for the supplied params already exists.
-function checkIfExists(user_id, object_id) {
-	return Vote.count({ user_id: user_id, object_id: object_id })
-		.then(function(count) {
-			return count > 0;
-		});
-}
-
-// Resolves with a bool depending on whether a vote for the supplied params already exists.
-function checkIfSameExists(user_id, object_id, up) {
-	return Vote.count({ user_id: user_id, object_id: object_id, up: up })
-		.then(function(count) {
-			return count > 0;
-		});
+function getVote(user_id, object_id) {
+	return Vote.findOne({ user_id: user_id, object_id: object_id });
 }
 
 function createVote(user_id, object_id, up) {
@@ -37,13 +25,12 @@ function removeVote(user_id, object_id) {
 // Updates vote up count.
 function updateVote(user_id, object_id, up) {
 	return Vote.update(
-		{ up: up }
+		{ user_id: user_id, object_id: object_id, up: up }
 	).exec();
 }
 
 module.exports = {
-	checkIfExists: checkIfExists,
-	checkIfSameExists: checkIfSameExists,
+	getVote: getVote,
 	createVote: createVote,
 	removeVote: removeVote,
 	updateVote: updateVote,

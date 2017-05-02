@@ -27,12 +27,14 @@ mongoose.connection.once('open', function(callback) {
 // ------
 
 // @param object_id Either a post_id or a comment_id.
-// @param delta The change in num_upvotes to apply.
-function updateVotesForObject(object_id, delta) {
+// @param d_upvotes The change in the # of upvotes.
+// @param d_downvotes The change in the # of downvotes.
+// @param vote_coords The [long, lat] of the vote.
+function updateVotesForObject(object_id, d_upvotes, d_downvotes, vote_coords) {
 	if (Utils.isPostID(object_id)) {
-		return PostDBHelper.updateVotes(object_id, delta);
+		return PostDBHelper.updateVotes(object_id, d_upvotes, d_downvotes, vote_coords);
 	} else if (Utils.isCommentID(object_id)) {
-		return CommentDBHelper.updateVotes(object_id, delta);
+		return CommentDBHelper.updateVotes(object_id, d_upvotes - d_downvotes);
 	}
 }
 
