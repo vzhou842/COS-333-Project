@@ -13,11 +13,16 @@ class ReplyTableViewCell: UITableViewCell {
     //Outlets
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var votesCountLabel: UILabel!
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
     
     //Variables
     var comment: Comment?
     var lat: Float!
     var long: Float!
+    
+    var didUpvote: Bool = false
+    var didDownvote: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,21 +42,47 @@ class ReplyTableViewCell: UITableViewCell {
             let up = true
             
             Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-                self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
+                if (self.didUpvote){
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
+                    self.didUpvote = false
+                    self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                } else if (self.didDownvote) {
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+2)"
+                    self.didUpvote = true
+                    self.didDownvote = false
+                    self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                    self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                } else {
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
+                    self.didUpvote = true
+                    self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                }
             })
         }
     }
     
     @IBAction func onTouchDownvote(_ sender: Any) {
-        print(comment?.text)
-        print(captionLabel.text ?? "damn")
         if let comment = comment {
             let user_id = UIDevice.current.identifierForVendor!.uuidString
             let object_id = comment.comment_id
             let up = false
             
             Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-                self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
+                if (self.didUpvote){
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-2)"
+                    self.didUpvote = false
+                    self.didDownvote = true
+                    self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                    self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                } else if (self.didDownvote) {
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
+                    self.didDownvote = false
+                    self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                } else {
+                    self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
+                    self.didDownvote = true
+                    self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                }
             })
         }
     }

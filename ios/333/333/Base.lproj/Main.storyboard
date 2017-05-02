@@ -585,13 +585,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RD1-oo-Ey7">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RD1-oo-Ey7">
                                                     <rect key="frame" x="327" y="-8" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="1Sb-Ee-YcQ"/>
                                                         <constraint firstAttribute="height" constant="40" id="Hv5-GB-v6M"/>
                                                     </constraints>
-                                                    <state key="normal" backgroundImage="upvote"/>
+                                                    <state key="normal" image="upvote">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="onTouchUpvote:" destination="wla-t4-oHg" eventType="touchUpInside" id="Cb5-ZE-gZH"/>
                                                     </connections>
@@ -602,9 +604,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR1-hu-pDR">
-                                                    <rect key="frame" x="327" y="32" width="40" height="40"/>
-                                                    <state key="normal" backgroundImage="downvote"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR1-hu-pDR">
+                                                    <rect key="frame" x="327" y="32" width="40" height="40.5"/>
+                                                    <state key="normal" image="downvote">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="onTouchDownvote:" destination="wla-t4-oHg" eventType="touchUpInside" id="qsu-uz-Pi1"/>
                                                     </connections>
@@ -628,6 +632,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="captionLabel" destination="oXl-N4-KSn" id="pIv-ts-Udm"/>
+                                            <outlet property="downButton" destination="UR1-hu-pDR" id="nWV-u5-2M8"/>
+                                            <outlet property="upButton" destination="RD1-oo-Ey7" id="XVQ-h6-zxw"/>
                                             <outlet property="votesCountLabel" destination="UR6-Cg-rlE" id="cIb-Yz-ljr"/>
                                         </connections>
                                     </tableViewCell>
