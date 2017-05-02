@@ -58,7 +58,6 @@ The request body should be JSON matching the following format:
     "post_id": "pBJgkqteag",
 }
 ```
-* **post_id**: The post id.
 
 ## Votes API
 
