@@ -48,6 +48,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
+            lat = locationManager.location!.coordinate.latitude
+            long = locationManager.location!.coordinate.longitude
             self.loadDataFromNetwork(nil)
             print("\(lat) \(long)")
         } else {
