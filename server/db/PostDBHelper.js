@@ -89,12 +89,25 @@ function _postsNear(long, lat, radius, limit, filter, sort) {
 	}).sort(sort).limit(limit).lean().exec();
 }
 
-// @param delta The change in num_upvotes to apply.
-function updateVotes(post_id, delta) {
-	return Post.update(
-		{ post_id: post_id },
-		{ $inc: {num_upvotes: delta} }
-	).exec();
+// @param d_upvotes The change in the # of upvotes.
+// @param d_downvotes The change in the # of downvotes.
+// @param vote_coords The [long, lat] of the vote.
+function updateVotes(post_id, d_upvotes, d_downvotes, vote_coords) {
+	return Post.findOne({ post_id: post_id }).then(function(post) {
+		if (!post) {
+			return Promise.reject('Post not found.');
+		}
+
+		// Update # upvotes on this post.
+		post.num_upvotes += d_upvotes - d_downvotes;
+
+		// Update the radius of this post based on d_upvotes.
+		if (d_upvotes !== 0) {
+			post.radius += d_upvotes * deltaRadiusForVote(post.loc.coordinates, vote_coords);
+		}
+
+		return post.save();
+	});
 }
 
 function updateComments(post_id) {
@@ -108,6 +121,19 @@ function checkIfValid(post_id) {
 	return Post.count({ post_id: post_id, num_upvotes: {$gt: -5} }).then(function(count) {
 		return count > 0;
 	});
+}
+
+// Returns how much radius a post should gain from a given upvote.
+// The most a single upvote can increase radius is 1000m.
+// Multiplier based on distance in km: f(x) = 0.2  + 0.8 / (1 + 2^(5 - x))
+// Coordinates are always [long, lat].
+function deltaRadiusForVote(post_coords, vote_coords) {
+	var meters = geolib.getDistance(
+		{ latitude: post_coords[1], longitude: post_coords[0] },
+		{ latitude: vote_coords[1], longitude: vote_coords[0] }
+	);
+	var multiplier = 0.2 + 0.8 / (1 + Math.pow(2, 5 - meters/1000));
+	return multiplier * 1000;
 }
 
 module.exports = {

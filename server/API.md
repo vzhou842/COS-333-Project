@@ -60,6 +60,8 @@ The request body should be JSON matching the following format:
     user_id: "fake user",
     object_id: "either post_id or comment_id",
     up: true, // or false
+    lat: -74.012,
+    long: 40.123,
 }
 ```
 
