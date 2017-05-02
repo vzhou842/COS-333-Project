@@ -106,9 +106,10 @@ class Networking {
             
             if let json = response.result.value {
                 print("JSON: \(json)")
+                completion()
             }
             else {
-                completion()
+                print("FAILURE")
             }
         })
     }

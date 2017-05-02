@@ -19,8 +19,12 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var postImageViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+    
     //Variables
     var post: Post?
+    var didVote: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,7 +67,15 @@ class PostTableViewCell: UITableViewCell {
         let up = true
         
         Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
+            if (self.didVote){
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
+                self.didVote = false
+                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+            } else {
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
+                self.didVote = true
+                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+            }
         })
     }
 
@@ -73,7 +85,16 @@ class PostTableViewCell: UITableViewCell {
         let up = false
         
         Networking.createVote(user_id: user_id, object_id: object_id, up: up, completion: {() in
-            self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
+            if (self.didVote){
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
+                self.didVote = false
+                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+            }
+            else {
+                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
+                self.didVote = true
+                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+            }
         })
     }
     
