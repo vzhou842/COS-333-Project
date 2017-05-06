@@ -54,8 +54,14 @@ class PostTableViewCell: UITableViewCell {
         if (didUpvote) {
             self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
         }
-        else if (didDownvote) {
+        else {
+            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+        }
+        if (didDownvote) {
             self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        else {
+            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
         }
         
         postCaptionLabel.text = post.text
