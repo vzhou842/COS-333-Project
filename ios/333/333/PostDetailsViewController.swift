@@ -61,8 +61,11 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         upvotesCountLabel.text = "\(post.numUpvotes)"
         timeStampLabel.text = post.dateString
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        view.bringSubview(toFront: replyView)
+        replyView.isUserInteractionEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -176,17 +179,34 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         })
     }
     
-    func keyboardWillShow(notification: Notification) {
+    func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardHeight = keyboardSize.height
-        }
-        replyView.frame.origin.y = 0
-        print("\(self.view.frame.height)")
-        print("\(replyView.frame.origin.y)")
+            if replyView.frame.origin.y == (self.view.frame.height - replyView.frame.height){
+                replyView.frame.origin.y -= keyboardSize.height
+            }
+        }        
     }
+    
+//    func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            keyboardHeight = keyboardSize.height
+//            print(keyboardHeight)
+//        }
+////        replyView.frame.origin.y -= (keyboardHeight)
+//        replyView.frame.origin.y = self.view.frame.height - keyboardHeight - replyView.frame.height
+////        self.view.frame.origin.y -= (keyboardHeight + replyView.frame.height)
+//        print("Show Keyboard")
+//        print("TOT HEIGHT: \(self.view.frame.height)")
+//        print("ReplyView Origin: \(replyView.frame.origin.y)")
+//        print("ReplyView Height: \(replyView.frame.height)")
+//        print("Keyboard Height: \(keyboardHeight)")
+//    }
     
     func keyboardWillHide(notification: Notification) {
         replyView.frame.origin.y = self.view.frame.height - replyView.frame.height
+//        self.view.frame.origin.y += (keyboardHeight - replyView.frame.height)
+        print("Hide Keyboard")
+        print("ReplyView Origin: \(replyView.frame.origin.y)")
     }
 
     /*
