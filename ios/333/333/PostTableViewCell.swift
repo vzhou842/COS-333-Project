@@ -33,7 +33,7 @@ class PostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         // Initialization code
     }
 
@@ -47,6 +47,17 @@ class PostTableViewCell: UITableViewCell {
         self.post = post
         
         // Set this cell's properties
+        let defaults = UserDefaults.standard
+        didUpvote = defaults.bool(forKey: "up"+post.id)
+        didDownvote = defaults.bool(forKey: "down"+post.id)
+        
+        if (didUpvote) {
+            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        }
+        else if (didDownvote) {
+            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        
         postCaptionLabel.text = post.text
         repliesLabel.text = "\(post.numComments) Replies"
         numVotesLabel.text = "\(post.numUpvotes)"
@@ -76,17 +87,29 @@ class PostTableViewCell: UITableViewCell {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
                 self.didUpvote = false
                 self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                self.post?.numUpvotes -= 1
             } else if (self.didDownvote) {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+2)"
                 self.didUpvote = true
                 self.didDownvote = false
                 self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
                 self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                self.post?.numUpvotes += 2
             } else {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
                 self.didUpvote = true
                 self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                self.post?.numUpvotes += 1
             }
+            
+            print(self.didDownvote)
+            print(self.didUpvote)
+            let defaults = UserDefaults.standard
+            defaults.set(self.didUpvote, forKey: "up"+(self.post?.id)!)
+            defaults.set(self.didDownvote, forKey: "down"+(self.post?.id)!)
+            defaults.synchronize()
+            
+            print(self.post?.numUpvotes)
         })
     }
 
@@ -102,15 +125,27 @@ class PostTableViewCell: UITableViewCell {
                 self.didDownvote = true
                 self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
                 self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                self.post?.numUpvotes -= 2
             } else if (self.didDownvote) {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
                 self.didDownvote = false
                 self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                self.post?.numUpvotes += 1
             } else {
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
                 self.didDownvote = true
                 self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                self.post?.numUpvotes -= 1
             }
+            
+            print(self.didDownvote)
+            print(self.didUpvote)
+            let defaults = UserDefaults.standard
+            defaults.set(self.didUpvote, forKey: "up"+(self.post?.id)!)
+            defaults.set(self.didDownvote, forKey: "down"+(self.post?.id)!)
+            defaults.synchronize()
+            
+            print(self.post?.numUpvotes)
         })
     }
     

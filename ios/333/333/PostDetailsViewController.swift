@@ -35,9 +35,35 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     var lat: Float!
     var long: Float!
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        let defaults = UserDefaults.standard
+        didUpvote = defaults.bool(forKey: "up"+post.id)
+        didDownvote = defaults.bool(forKey: "down"+post.id)
+        
+        if (didUpvote) {
+            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        }
+        else if (didDownvote) {
+            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let defaults = UserDefaults.standard
+        didUpvote = defaults.bool(forKey: "up"+post.id)
+        didDownvote = defaults.bool(forKey: "down"+post.id)
+        
+        if (didUpvote) {
+            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        }
+        else if (didDownvote) {
+            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        
         // Load comments
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
@@ -141,17 +167,29 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
                 self.didUpvote = false
                 self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+                self.post?.numUpvotes -= 1
             } else if (self.didDownvote) {
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+2)"
                 self.didUpvote = true
                 self.didDownvote = false
                 self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
                 self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                self.post?.numUpvotes += 2
             } else {
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
                 self.didUpvote = true
                 self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+                self.post?.numUpvotes += 1
             }
+            
+            print(self.didDownvote)
+            print(self.didUpvote)
+            let defaults = UserDefaults.standard
+            defaults.set(self.didUpvote, forKey: "up"+self.post.id)
+            defaults.set(self.didDownvote, forKey: "down"+self.post.id)
+            defaults.synchronize()
+            
+            print(self.post.numUpvotes)
         })
     }
     
@@ -167,15 +205,27 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
                 self.didDownvote = true
                 self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
                 self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                self.post?.numUpvotes -= 2
             } else if (self.didDownvote) {
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!+1)"
                 self.didDownvote = false
                 self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+                self.post?.numUpvotes += 1
             } else {
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
                 self.didDownvote = true
                 self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+                self.post?.numUpvotes -= 1
             }
+            
+            print(self.didDownvote)
+            print(self.didUpvote)
+            let defaults = UserDefaults.standard
+            defaults.set(self.didUpvote, forKey: "up"+self.post.id)
+            defaults.set(self.didDownvote, forKey: "down"+self.post.id)
+            defaults.synchronize()
+            
+            print(self.post.numUpvotes)
         })
     }
     
