@@ -252,11 +252,16 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 //        print("Keyboard Height: \(keyboardHeight)")
 //    }
     
-    func keyboardWillHide(notification: Notification) {
-        replyView.frame.origin.y = self.view.frame.height - replyView.frame.height
-//        self.view.frame.origin.y += (keyboardHeight - replyView.frame.height)
-        print("Hide Keyboard")
-        print("ReplyView Origin: \(replyView.frame.origin.y)")
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if replyView.frame.origin.y != (self.view.frame.height - replyView.frame.height){
+                replyView.frame.origin.y += keyboardSize.height
+            }
+        }
+//        replyView.frame.origin.y = self.view.frame.height - replyView.frame.height
+////        self.view.frame.origin.y += (keyboardHeight - replyView.frame.height)
+//        print("Hide Keyboard")
+//        print("ReplyView Origin: \(replyView.frame.origin.y)")
     }
 
     /*
