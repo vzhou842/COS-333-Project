@@ -10,8 +10,8 @@
 		0F28F49FEB958B1CC9619381 /* Pods_333.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */; };
 		A503840A1EC0C9DA0069DD8B /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50384091EC0C9DA0069DD8B /* Toaster.swift */; };
 		A503840E1EC0D5F40069DD8B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A503840D1EC0D5F40069DD8B /* Location.swift */; };
+		A50384101EC0E4170069DD8B /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A503840F1EC0E4170069DD8B /* Comment.swift */; };
 		A555DC641EABAA76006B9ACE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC631EABAA76006B9ACE /* Post.swift */; };
-		A555DC661EABB5A3006B9ACE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC651EABB5A3006B9ACE /* Comment.swift */; };
 		A555DC861EAC0ACD006B9ACE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC851EAC0ACD006B9ACE /* Utils.swift */; };
 		B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14AFB601EA01437007FA50C /* UIColor+Custom.swift */; };
 		B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */; };
@@ -51,8 +51,8 @@
 		97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.release.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.release.xcconfig"; sourceTree = "<group>"; };
 		A50384091EC0C9DA0069DD8B /* Toaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
 		A503840D1EC0D5F40069DD8B /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A503840F1EC0E4170069DD8B /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		A555DC631EABAA76006B9ACE /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		A555DC651EABB5A3006B9ACE /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = ../Comment.swift; sourceTree = "<group>"; };
 		A555DC851EAC0ACD006B9ACE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B14AFB601EA01437007FA50C /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 		B1F7CA1D1E9322F500A015D0 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		A555DC621EABAA66006B9ACE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A555DC651EABB5A3006B9ACE /* Comment.swift */,
+				A503840F1EC0E4170069DD8B /* Comment.swift */,
 				A555DC631EABAA76006B9ACE /* Post.swift */,
 			);
 			name = Models;
@@ -411,6 +411,7 @@
 				CC9DC0B61E9070A6004F4C67 /* ViewController.swift in Sources */,
 				A555DC641EABAA76006B9ACE /* Post.swift in Sources */,
 				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,
+				A50384101EC0E4170069DD8B /* Comment.swift in Sources */,
 				CC27D3161E973AA300589855 /* ReplyTableViewCell.swift in Sources */,
 				B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */,
 				A555DC861EAC0ACD006B9ACE /* Utils.swift in Sources */,
@@ -418,7 +419,6 @@
 				CC27D3141E97328400589855 /* PostDetailsViewController.swift in Sources */,
 				CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */,
 				A503840A1EC0C9DA0069DD8B /* Toaster.swift in Sources */,
-				A555DC661EABB5A3006B9ACE /* Comment.swift in Sources */,
 				B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */,
 				B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */,
 				CC9DC0B41E9070A6004F4C67 /* AppDelegate.swift in Sources */,
