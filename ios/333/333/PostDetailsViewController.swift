@@ -62,10 +62,14 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         if (indexPath.row == 0) {
             // Post cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
-
+            
             // Configure this cell for its post.
             cell.configureWithPost(self.post)
-
+            
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            
             return cell
         } else if (indexPath.row == 1 && (comments == nil || comments!.count == 0)) {
             // No Comments Yet cell.
@@ -102,6 +106,10 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.downButton.setImage(UIImage(named: "downvote"), for: .normal)
             }
 
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            
             return cell
         }
     }

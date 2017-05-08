@@ -131,6 +131,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Configure this cell for its post.
         cell.configureWithPost(posts[postIndex])
         
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        
         return cell
     }
     
