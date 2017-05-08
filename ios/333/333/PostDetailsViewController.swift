@@ -54,15 +54,12 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let comments = comments {
-            print("\(comments.count + 1) rows")
             return comments.count + 1
         }
-        print("1 row")
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cell for row \(indexPath.row)")
         if (indexPath.row == 0) {
             // Post cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell

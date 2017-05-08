@@ -26,8 +26,6 @@ class PostTableViewCell: UITableViewCell {
     //Variables
     var post: Post!
     var didVote: Bool = false
-    var lat: Float!
-    var long: Float!
     var didUpvote: Bool = false
     var didDownvote: Bool = false
     var isVoting: Bool = false
