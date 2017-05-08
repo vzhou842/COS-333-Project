@@ -53,10 +53,10 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let comments = comments {
-            return comments.count + 1
+        if (comments != nil && comments!.count > 0) {
+            return comments!.count + 1
         }
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,6 +68,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             cell.configureWithPost(self.post)
 
             return cell
+        } else if (indexPath.row == 1 && (comments == nil || comments!.count == 0)) {
+            // No Comments Yet cell.
+            return tableView.dequeueReusableCell(withIdentifier: "noCommentsCell")!
         } else {
             // Comment cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: "replyTableViewCell") as! ReplyTableViewCell

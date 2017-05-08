@@ -64,8 +64,6 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setVotes(up: Bool, down: Bool) {
-        print(up)
-        print(down)
         self.didUpvote = up
         self.didDownvote = down
 
