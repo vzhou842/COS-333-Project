@@ -21,24 +21,11 @@ class ReplyTableViewCell: UITableViewCell {
     var lat: Float!
     var long: Float!
     
-    var didUpvote: Bool = false
-    var didDownvote: Bool = false
+    var didUpvote: Bool?
+    var didDownvote: Bool?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        if (didUpvote) {
-            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
-        }
-        else {
-            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
-        }
-        if (didDownvote) {
-            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
-        }
-        else {
-            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
-        }
         // Initialization code
     }
 
@@ -55,11 +42,11 @@ class ReplyTableViewCell: UITableViewCell {
             let up = true
             
             Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-                if (self.didUpvote){
+                if (self.didUpvote)!{
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
                     self.didUpvote = false
                     self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
-                } else if (self.didDownvote) {
+                } else if (self.didDownvote)! {
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+2)"
                     self.didUpvote = true
                     self.didDownvote = false
@@ -86,13 +73,13 @@ class ReplyTableViewCell: UITableViewCell {
             let up = false
             
             Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-                if (self.didUpvote){
+                if (self.didUpvote)!{
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-2)"
                     self.didUpvote = false
                     self.didDownvote = true
                     self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
                     self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
-                } else if (self.didDownvote) {
+                } else if (self.didDownvote)! {
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!+1)"
                     self.didDownvote = false
                     self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
