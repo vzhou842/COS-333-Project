@@ -9,7 +9,7 @@
 import UIKit
 import ReachabilitySwift
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
@@ -157,6 +157,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.performSegue(withIdentifier: "postDetails", sender: tableView.cellForRow(at: indexPath))
     }
     
+    // MARK: - ComposeViewControllerDelegate
+    
+    func didComposePost() {
+        Toaster.makeToast(self.view, "Post submitted.")
+    }
+    
     
     // MARK: - Navigation
 
@@ -168,6 +174,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue.identifier == "postDetails") {
             let vc = segue.destination as! PostDetailsViewController
             vc.post = (sender as! PostTableViewCell).post
+        } else if (segue.identifier == "compose") {
+            let vc = segue.destination as! ComposeViewController
+            vc.delegate = self
         }
     }
 }
