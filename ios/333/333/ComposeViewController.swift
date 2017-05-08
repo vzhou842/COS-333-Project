@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 protocol ComposeViewControllerDelegate {
     func didComposePost()
@@ -23,7 +24,6 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
-    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var pickedImage: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var countLabel2: UILabel!
@@ -31,6 +31,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var darkenView: UIView!
     
     var delegate: ComposeViewControllerDelegate?
+    let r = Reachability()!
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -65,9 +66,12 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPost(_ sender: Any) {
-        if postTextView.text.characters.count != 0 {
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToastTop(self.postTextView, "No Internet Connection.")
+        } else if postTextView.text.characters.count > 200 {
+            Toaster.makeToastTop(self.postTextView, "Too many characters!")
+        } else if postTextView.text.characters.count > 0 {
             let user_id = UIDevice.current.identifierForVendor!.uuidString
-            
             Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
             if let d = self.delegate {
                 d.didComposePost()
@@ -77,13 +81,19 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPhotoPost(_ sender: Any) {
-        if captionTextView.text == defaultCaption {
-            captionTextView.text = ""
-        }
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToastTop(self.pickedImage, "No Internet Connection.")
+        } else if captionTextView.text.characters.count > 200 {
+            Toaster.makeToastTop(self.pickedImage, "Too many characters!")
+        } else {
+            if captionTextView.text == defaultCaption {
+                captionTextView.text = ""
+            }
+            let user_id = UIDevice.current.identifierForVendor!.uuidString
         
-        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
-        self.dismiss(animated: true, completion: nil)
+            Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -194,9 +204,8 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             keyboardHeight = keyboardSize.height
         }
-        
         if photoAddedView.isHidden == false {
-            captionTextView.frame.origin.y = photoAddedView.frame.height - infoView.frame.origin.y - keyboardHeight - captionTextView.frame.height
+            captionTextView.frame.origin.y = photoAddedView.frame.height - keyboardHeight - captionTextView.contentSize.height
             darkenView.isHidden = false
             darkenView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         } else {

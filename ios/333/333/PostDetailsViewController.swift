@@ -28,6 +28,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
             self.commentsTableView.reloadData()
+            Toaster.makeToastBottom(self.view, "Refreshed!")
         }
     }
     
