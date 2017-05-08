@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import CoreLocation
 
-class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate {
+class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     // state 1: compose post is text only
     @IBOutlet weak var countLabel: UILabel!
@@ -58,7 +57,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if postTextView.text.characters.count != 0 {
             let user_id = UIDevice.current.identifierForVendor!.uuidString
             
-            Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Float(lat), long: Float(long))
+            Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -69,25 +68,12 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         let user_id = UIDevice.current.identifierForVendor!.uuidString
         
-        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Float(lat), long: Float(long))
+        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
         self.dismiss(animated: true, completion: nil)
     }
     
-    let locationManager = CLLocationManager()
-    var lat: CLLocationDegrees! = 0
-    var long: CLLocationDegrees! = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-            
-            lat = locationManager.location!.coordinate.latitude
-            long = locationManager.location!.coordinate.longitude
-        }
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
