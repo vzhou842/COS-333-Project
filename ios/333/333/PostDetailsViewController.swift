@@ -83,13 +83,13 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         //Set post properties
         captionLabel.text = post.text
-        replyCountLabel.text = "\(post.numComments) Replies"
+        replyCountLabel.text = "\(post.numComments) comments"
         if (post.numComments == 1)
-        {replyCountLabel.text = "\(post.numComments) Reply"}
+        {replyCountLabel.text = "\(post.numComments) comment"}
         
         upvotesCountLabel.text = "\(post.numUpvotes)"
         let timeInterval = post.date.timeIntervalSinceNow
-        timeStampLabel.text = Utils.formatDate(-timeInterval)
+        timeStampLabel.text = "\(Utils.formatDate(-timeInterval)) ago"
         
         view.bringSubview(toFront: replyView)
         replyView.isUserInteractionEnabled = true
@@ -126,6 +126,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         cell.captionLabel.text = comment.text
         cell.votesCountLabel.text = "\(comment.numUpvotes)"
         cell.comment = comment
+        
+        let timeIntervalComment = comment.date.timeIntervalSinceNow
+        cell.timestampLabel.text = "\(Utils.formatDate(-timeIntervalComment)) ago"
         
         cell.didUpvote = defaults.bool(forKey: "up"+comment.comment_id)
         cell.didDownvote = defaults.bool(forKey: "down"+comment.comment_id)
@@ -276,3 +279,4 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     */
 
 }
+
