@@ -18,6 +18,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var numVotesLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var postImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
@@ -27,6 +28,7 @@ class PostTableViewCell: UITableViewCell {
     var didVote: Bool = false
     var lat: Float!
     var long: Float!
+    var city: String?
     
     var didUpvote: Bool = false
     var didDownvote: Bool = false
@@ -66,9 +68,15 @@ class PostTableViewCell: UITableViewCell {
         
         postCaptionLabel.text = post.text
         repliesLabel.text = "\(post.numComments) Replies"
+        if (post.numComments == 1)
+        {repliesLabel.text = "\(post.numComments) Reply"}
         numVotesLabel.text = "\(post.numUpvotes)"
         let timeInterval = post.date.timeIntervalSinceNow
         timestampLabel.text = Utils.formatDate(-timeInterval)
+        Utils.getCity(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (city) in
+            self.cityLabel.text = city
+            self.city = city
+        })
         if let image_url = post.imageUrl {
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
                 if let image = img {

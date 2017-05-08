@@ -157,7 +157,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if (segue.identifier == "postDetails") {
             let vc = segue.destination as! PostDetailsViewController
-            vc.post = (sender as! PostTableViewCell).post
+            let cell = sender as! PostTableViewCell
+            vc.post = cell.post
+            Utils.getCity(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (city) in
+                vc.cityLabel.text = city
+            })
+            
         } else if (segue.identifier == "compose") {
             let vc = segue.destination as! ComposeViewController
             vc.delegate = self
