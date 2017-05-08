@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ComposeViewControllerDelegate {
+    func didComposePost()
+}
+
 class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     // state 1: compose post is text only
@@ -25,6 +29,8 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var countLabel2: UILabel!
     @IBOutlet weak var sendButton2: UIButton!
     @IBOutlet weak var darkenView: UIView!
+    
+    var delegate: ComposeViewControllerDelegate?
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -63,6 +69,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             let user_id = UIDevice.current.identifierForVendor!.uuidString
             
             Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
+            if let d = self.delegate {
+                d.didComposePost()
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
