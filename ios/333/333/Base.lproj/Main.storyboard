@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -114,10 +114,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4M-Km-8Vb">
-                                                    <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
+                                                    <rect key="frame" x="309" y="-33" width="58" height="92"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upf-3e-lsM">
-                                                            <rect key="frame" x="9" y="50" width="40" height="40.5"/>
+                                                            <rect key="frame" x="9" y="50" width="40" height="41"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -663,11 +663,11 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wla-t4-oHg" id="eOQ-0M-j3R">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cool post brah." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXl-N4-KSn">
-                                                            <rect key="frame" x="16" y="8" width="110" height="49"/>
+                                                            <rect key="frame" x="16" y="8" width="110" height="49.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -700,6 +700,15 @@
                                                                 <action selector="onTouchDownvote:" destination="wla-t4-oHg" eventType="touchUpInside" id="qsu-uz-Pi1"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAl-ZP-fdQ">
+                                                            <rect key="frame" x="16" y="43.5" width="20" height="16"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="gOp-TP-z1Q"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="UR6-Cg-rlE" firstAttribute="top" secondItem="eOQ-0M-j3R" secondAttribute="topMargin" constant="18" id="0TR-sf-0CP"/>
@@ -707,6 +716,7 @@
                                                         <constraint firstItem="oXl-N4-KSn" firstAttribute="leading" secondItem="eOQ-0M-j3R" secondAttribute="leadingMargin" constant="8" id="4V7-mM-bMp"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="UR1-hu-pDR" secondAttribute="bottom" constant="-15" id="6IP-Df-LZ1"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="oXl-N4-KSn" secondAttribute="bottom" id="7cO-d2-8M4"/>
+                                                        <constraint firstItem="FAl-ZP-fdQ" firstAttribute="leading" secondItem="oXl-N4-KSn" secondAttribute="leading" id="KhZ-R7-zFT"/>
                                                         <constraint firstAttribute="topMargin" secondItem="oXl-N4-KSn" secondAttribute="top" id="OXs-Yn-0nf"/>
                                                         <constraint firstItem="oXl-N4-KSn" firstAttribute="centerY" secondItem="eOQ-0M-j3R" secondAttribute="centerY" id="P7f-QQ-sgM"/>
                                                         <constraint firstItem="UR1-hu-pDR" firstAttribute="centerX" secondItem="RD1-oo-Ey7" secondAttribute="centerX" id="UVR-ml-hqv"/>
@@ -715,11 +725,13 @@
                                                         <constraint firstAttribute="trailingMargin" secondItem="UR6-Cg-rlE" secondAttribute="trailing" constant="4" id="elt-CT-n4F"/>
                                                         <constraint firstItem="RD1-oo-Ey7" firstAttribute="centerX" secondItem="UR6-Cg-rlE" secondAttribute="centerX" id="hwj-JN-cBT"/>
                                                         <constraint firstItem="UR1-hu-pDR" firstAttribute="top" secondItem="RD1-oo-Ey7" secondAttribute="bottom" id="sUc-Lm-4sq"/>
+                                                        <constraint firstItem="FAl-ZP-fdQ" firstAttribute="top" secondItem="oXl-N4-KSn" secondAttribute="bottom" constant="-14" id="vlN-WJ-gHS"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="captionLabel" destination="oXl-N4-KSn" id="pIv-ts-Udm"/>
                                                     <outlet property="downButton" destination="UR1-hu-pDR" id="nWV-u5-2M8"/>
+                                                    <outlet property="timestampLabel" destination="FAl-ZP-fdQ" id="KUK-Q2-AlR"/>
                                                     <outlet property="upButton" destination="RD1-oo-Ey7" id="XVQ-h6-zxw"/>
                                                     <outlet property="votesCountLabel" destination="UR6-Cg-rlE" id="cIb-Yz-ljr"/>
                                                 </connections>
@@ -824,7 +836,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XFR-27-CDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="144"/>
+            <point key="canvasLocation" x="1608.8" y="143.47826086956522"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mc4-DK-x7S">

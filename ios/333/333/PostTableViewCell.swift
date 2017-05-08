@@ -41,13 +41,13 @@ class PostTableViewCell: UITableViewCell {
 
         postCaptionLabel.text = post.text
         setNumUpvotes(post.numUpvotes)
-        repliesLabel.text = "\(post.numComments) Replies"
+        repliesLabel.text = "\(post.numComments) comments"
         if (post.numComments == 1) {
-            repliesLabel.text = "\(post.numComments) Reply"
+            repliesLabel.text = "\(post.numComments) comment"
         }
 
         let timeInterval = post.date.timeIntervalSinceNow
-        timestampLabel.text = Utils.formatDate(-timeInterval)
+        timestampLabel.text = "\(Utils.formatDate(-timeInterval)) ago"
         
         let coordinates = post.loc["coordinates"] as! [Float]
         let long = coordinates[0] as! Float
