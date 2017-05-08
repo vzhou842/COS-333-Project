@@ -1,6 +1,7 @@
 'use strict';
 
 var CommentDBHelper = require('../db/CommentDBHelper');
+var PostDBHelper = require('../db/PostDBHelper');
 var db = require('../db/db');
 var APIUtils = require('./APIUtils');
 
