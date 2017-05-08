@@ -95,7 +95,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         replyCountLabel.text = "\(post.numComments)"
         
         upvotesCountLabel.text = "\(post.numUpvotes)"
-        timeStampLabel.text = post.dateString
+        let timeInterval = post.date.timeIntervalSinceNow
+        timeStampLabel.text = Utils.formatDate(-timeInterval)
         
         view.bringSubview(toFront: replyView)
         replyView.isUserInteractionEnabled = true

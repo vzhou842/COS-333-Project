@@ -67,7 +67,8 @@ class PostTableViewCell: UITableViewCell {
         postCaptionLabel.text = post.text
         repliesLabel.text = "\(post.numComments) Replies"
         numVotesLabel.text = "\(post.numUpvotes)"
-        timestampLabel.text = post.dateString
+        let timeInterval = post.date.timeIntervalSinceNow
+        timestampLabel.text = Utils.formatDate(-timeInterval)
         if let image_url = post.imageUrl {
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
                 if let image = img {

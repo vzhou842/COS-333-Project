@@ -20,4 +20,20 @@ class Utils {
         df.dateFormat = "MM-dd hh:mm"
         return df
     }()
+    
+    static func formatDate(_ number: TimeInterval) -> String {
+        var formatted = ""
+        
+        if number < 60 {
+            formatted = String(format: "%.0f", Double(number)) + "s"
+        } else if number < 3600 {
+            formatted = String(format: "%.0f", Double(number) / 60.0) + "m"
+        } else if number < 86400 {
+            formatted = String(format: "%.0f", Double(number) / 3600.0) + "h"
+        } else if number < 2073600 {
+            formatted = String(format: "%.0f", Double(number) / 86400.0) + "d"
+        }
+        
+        return formatted
+    }
 }
