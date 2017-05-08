@@ -39,7 +39,10 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = true
             
-            Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {(success) in
+                if (!success) {
+                    return
+                }
                 if (self.didUpvote)!{
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-1)"
                     self.didUpvote = false
@@ -70,7 +73,10 @@ class ReplyTableViewCell: UITableViewCell {
             let object_id = comment.comment_id
             let up = false
             
-            Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+            Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {(success) in
+                if (!success) {
+                    return
+                }
                 if (self.didUpvote)!{
                     self.votesCountLabel.text = "\(Int(self.votesCountLabel.text!)!-2)"
                     self.didUpvote = false
