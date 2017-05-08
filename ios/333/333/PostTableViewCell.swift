@@ -154,6 +154,4 @@ class PostTableViewCell: UITableViewCell {
             print(self.post?.numUpvotes)
         })
     }
-    
-    
 }

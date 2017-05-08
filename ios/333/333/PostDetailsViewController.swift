@@ -102,9 +102,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         view.bringSubview(toFront: replyView)
         replyView.isUserInteractionEnabled = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,8 +119,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let comment = comments![(comments?.count)!-indexPath.row-1]
         
         let defaults = UserDefaults.standard
-        defaults.set(self.didUpvote, forKey: "up"+comment.comment_id)
-        defaults.set(self.didDownvote, forKey: "down"+comment.comment_id)
         
         //Set cell properties
         cell.captionLabel.text = comment.text
@@ -135,6 +130,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.didUpvote = defaults.bool(forKey: "up"+comment.comment_id)
         cell.didDownvote = defaults.bool(forKey: "down"+comment.comment_id)
+        
+        if (cell.didUpvote)! {
+            cell.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        }
+        else {
+            cell.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+        }
+        if (cell.didDownvote)! {
+            cell.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        else {
+            cell.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+        }
         
         return cell
     }
@@ -250,41 +258,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             
             print(self.post.numUpvotes)
         })
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if replyView.frame.origin.y == (self.view.frame.height - replyView.frame.height){
-                replyView.frame.origin.y -= keyboardSize.height
-            }
-        }        
-    }
-    
-//    func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            keyboardHeight = keyboardSize.height
-//            print(keyboardHeight)
-//        }
-////        replyView.frame.origin.y -= (keyboardHeight)
-//        replyView.frame.origin.y = self.view.frame.height - keyboardHeight - replyView.frame.height
-////        self.view.frame.origin.y -= (keyboardHeight + replyView.frame.height)
-//        print("Show Keyboard")
-//        print("TOT HEIGHT: \(self.view.frame.height)")
-//        print("ReplyView Origin: \(replyView.frame.origin.y)")
-//        print("ReplyView Height: \(replyView.frame.height)")
-//        print("Keyboard Height: \(keyboardHeight)")
-//    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if replyView.frame.origin.y != (self.view.frame.height - replyView.frame.height){
-                replyView.frame.origin.y += keyboardSize.height
-            }
-        }
-//        replyView.frame.origin.y = self.view.frame.height - replyView.frame.height
-////        self.view.frame.origin.y += (keyboardHeight - replyView.frame.height)
-//        print("Hide Keyboard")
-//        print("ReplyView Origin: \(replyView.frame.origin.y)")
     }
 
     /*
