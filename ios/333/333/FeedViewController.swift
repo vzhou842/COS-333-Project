@@ -32,32 +32,34 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     let r = Reachability()!
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways {
+            print("Location Authorized.")
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             lat = locationManager.location!.coordinate.latitude
             long = locationManager.location!.coordinate.longitude
             self.loadDataFromNetwork(nil)
-            print("\(lat) \(long)")
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let loc = locations.last {
+            lat = loc.coordinate.latitude
+            long = loc.coordinate.longitude
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Location
+        // Check if location services are enabled.
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
+
+            // Request location authorization.
             locationManager.requestWhenInUseAuthorization()
-        }
-        
-        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
-            lat = locationManager.location!.coordinate.latitude
-            long = locationManager.location!.coordinate.longitude
-            self.loadDataFromNetwork(nil)
-            print("\(lat) \(long)")
         } else {
-            posts = []
+            Toaster.makeToast(self.view, "Location Services must be enabled to use this app.")
         }
         
         postsTableView.delegate = self
@@ -81,11 +83,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
-            self.loadDataFromNetwork(nil)
-        } else {
-            posts = []
-        }
     }
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
