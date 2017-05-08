@@ -41,6 +41,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         photoAddedView.isHidden = true
         pickedImage.image = nil
         captionTextView.text = defaultCaption
+        countLabel2.text = "200"
     }
     
     var captionPosition: CGFloat!
@@ -158,23 +159,28 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        countLabel.text = "\(200 - textView.text.characters.count)"
-        countLabel2.text = countLabel.text
-        
-        if 200 - textView.text.characters.count < 0 {
-            countLabel.textColor = UIColor.red
-            countLabel2.textColor = UIColor.red
+        if photoAddedView.isHidden == false {
+            countLabel2.text = "\(200 - textView.text.characters.count)"
+            if 200 - textView.text.characters.count < 0 { countLabel2.textColor = UIColor.red }
+            else { countLabel2.textColor = UIColor.clouds() }
+            
+            if textView.text.characters.count == 0 { sendButton2.setTitleColor(UIColor.lightGray, for: .normal)}
+            else { sendButton2.setTitleColor(UIColor.clouds(), for: .normal) }
         } else {
-            countLabel.textColor = UIColor.clouds()
-            countLabel2.textColor = UIColor.clouds()
+            countLabel.text = "\(200 - textView.text.characters.count)"
+            if 200 - textView.text.characters.count < 0 { countLabel.textColor = UIColor.red }
+            else { countLabel.textColor = UIColor.clouds() }
+            
+            if textView.text.characters.count == 0 { sendButton.setTitleColor(UIColor.lightGray, for: .normal)}
+            else { sendButton.setTitleColor(UIColor.clouds(), for: .normal) }
         }
-        
-        if textView.text.characters.count == 0 {
-            sendButton.setTitleColor(UIColor.lightGray, for: .normal)
-            sendButton2.setTitleColor(UIColor.lightGray, for: .normal)
-        } else {
-            sendButton.setTitleColor(UIColor.clouds(), for: .normal)
-            sendButton2.setTitleColor(UIColor.clouds(), for: .normal)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.textColor = UIColor.lightGray
+            if photoAddedView.isHidden == false { textView.text = defaultCaption }
+            else { textView.text = defaultPost }
         }
     }
 
