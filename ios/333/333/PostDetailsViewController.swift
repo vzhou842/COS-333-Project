@@ -87,6 +87,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         if (post.numComments == 1)
         {replyCountLabel.text = "\(post.numComments) comment"}
         
+        cityLabel.text = post.city
+        
         upvotesCountLabel.text = "\(post.numUpvotes)"
         let timeInterval = post.date.timeIntervalSinceNow
         timeStampLabel.text = "\(Utils.formatDate(-timeInterval)) ago"
