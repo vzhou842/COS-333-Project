@@ -24,11 +24,14 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
+    @IBOutlet weak var pickedImageView: UIView!
     @IBOutlet weak var pickedImage: UIImageView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var countLabel2: UILabel!
     @IBOutlet weak var sendButton2: UIButton!
     @IBOutlet weak var darkenView: UIView!
+    
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     var delegate: ComposeViewControllerDelegate?
     let r = Reachability()!
@@ -42,9 +45,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         pickedImage.image = nil
         captionTextView.text = defaultCaption
         countLabel2.text = "200"
+        heightConstraint.constant = 400
     }
     
-    var captionPosition: CGFloat!
     var keyboardHeight = 300 as CGFloat
     let imagePicker = UIImagePickerController()
     var defaultPost = "What's on your mind?"
@@ -111,8 +114,6 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         captionTextView.delegate = self
         captionTextView.text = defaultCaption
         captionTextView.textColor = UIColor.lightGray
-        
-        captionPosition = captionTextView.frame.origin.y
         
         countLabel.text = "200"
         countLabel.textColor = UIColor.clouds()
@@ -188,6 +189,14 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.pickedImage.image = image
             self.pickedImage.contentMode = .scaleAspectFit
+            
+            let widthRatio = self.pickedImage.bounds.size.width / image.size.width
+            let heightRatio = self.pickedImage.bounds.size.height / image.size.height
+            let scale = min(widthRatio, heightRatio)
+            let imageHeight = scale * image.size.height
+            
+            heightConstraint.constant = imageHeight
+            
             photoAddedView.isHidden = false
             if postTextView.text != "" && postTextView.text != defaultPost {
                 captionTextView.text = postTextView.text
@@ -222,7 +231,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func keyboardWillHide(notification: Notification) {
         if photoAddedView.isHidden == false {
-            captionTextView.frame.origin.y = captionPosition
+            captionTextView.frame.origin.y = pickedImageView.frame.origin.y + pickedImageView.frame.height + 8
             darkenView.isHidden = true
         } else {
             cameraButton.frame.origin.y = self.view.frame.height - cameraButton.frame.height - 16
