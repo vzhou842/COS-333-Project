@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     //Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -44,11 +44,19 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             self.comments = comments
             self.tableView.reloadData()
         }
+        
+        replyTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        self.view.endEditing(true)
+        return false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
