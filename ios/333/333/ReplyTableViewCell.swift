@@ -26,6 +26,19 @@ class ReplyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        if (didUpvote) {
+            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        }
+        else {
+            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+        }
+        if (didDownvote) {
+            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        else {
+            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+        }
         // Initialization code
     }
 
@@ -57,6 +70,11 @@ class ReplyTableViewCell: UITableViewCell {
                     self.didUpvote = true
                     self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
                 }
+                
+                let defaults = UserDefaults.standard
+                defaults.set(self.didUpvote, forKey: "up"+comment.comment_id)
+                defaults.set(self.didDownvote, forKey: "down"+comment.comment_id)
+                defaults.synchronize()
             })
         }
     }
@@ -83,6 +101,11 @@ class ReplyTableViewCell: UITableViewCell {
                     self.didDownvote = true
                     self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
                 }
+                
+                let defaults = UserDefaults.standard
+                defaults.set(self.didUpvote, forKey: "up"+comment.comment_id)
+                defaults.set(self.didDownvote, forKey: "down"+comment.comment_id)
+                defaults.synchronize()
             })
         }
     }
