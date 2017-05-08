@@ -67,8 +67,14 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         if (didUpvote) {
             self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
         }
-        else if (didDownvote) {
+        else {
+            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+        }
+        if (didDownvote) {
             self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        }
+        else {
+            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
         }
         
         // Load comments
@@ -115,6 +121,10 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         let comment = comments![(comments?.count)!-indexPath.row-1]
         
+        let defaults = UserDefaults.standard
+        defaults.set(self.didUpvote, forKey: "up"+comment.comment_id)
+        defaults.set(self.didDownvote, forKey: "down"+comment.comment_id)
+        
         //Set cell properties
         cell.captionLabel.text = comment.text
         cell.votesCountLabel.text = "\(comment.numUpvotes)"
@@ -122,6 +132,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.lat = self.lat
         cell.long = self.long
+        
+        cell.didUpvote = defaults.bool(forKey: "up"+comment.comment_id)
+        cell.didDownvote = defaults.bool(forKey: "down"+comment.comment_id)
         
         return cell
     }
