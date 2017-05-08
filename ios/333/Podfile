@@ -2,8 +2,14 @@ target '333' do
   
   use_frameworks!
 
+  platform :ios, '8.0'
+
   pod 'Alamofire', '4.4.0'
 
   pod 'SDWebImage', '4.0.0'
+
+  pod 'ReachabilitySwift', '~> 3'
+
+  pod 'Toast-Swift', '~> 2.0.0'
 
 end 

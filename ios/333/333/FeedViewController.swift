@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import ReachabilitySwift
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CLLocationManagerDelegate {
     
@@ -26,6 +27,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     let locationManager = CLLocationManager()
     var lat: CLLocationDegrees! = 0
     var long: CLLocationDegrees! = 0
+    
+    //Helpers
+    let r = Reachability()!
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
@@ -88,29 +92,33 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             posts = []
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
+        // Check if there's no internet connection.
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToast(self.view!, "No Internet Connection.")
+            if let r = refreshControl {
+                r.endRefreshing()
+            }
+            return
+        }
+
+        let completion = {(posts: [Post]) in
+            self.posts = posts
+            self.postsTableView.reloadData()
+            if let refreshControl = refreshControl {
+                refreshControl.endRefreshing()
+            }
+        }
+
         //Populate posts variable with posts from backend
         if (self.sortedByHot)
         {
-            Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
-            self.posts = posts
-            self.postsTableView.reloadData()
-        })}
+            Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: completion)
+        }
         else if (self.sortedByRecent)
         {
-            Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
-            self.posts = posts
-            self.postsTableView.reloadData()
-        })}
-        
-        if let refreshControl = refreshControl {
-            refreshControl.endRefreshing()
+            Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: completion)
         }
     }
     
@@ -118,11 +126,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Updates the tableView with the new data
     // Hides the RefreshControl
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        
         self.loadDataFromNetwork(refreshControl)
-        
-        // Tell the refreshControl to stop spinning
-        refreshControl.endRefreshing()
     }
     
     @IBAction func sortHot(_ sender: Any) {
