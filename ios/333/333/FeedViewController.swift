@@ -145,9 +145,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - ComposeViewControllerDelegate
     
     func didComposePost() {
-        Toaster.makeToastBottom(self.view, "Post submitted.")
+        Toaster.makeToastBottom(self.view, "Post created!")
     }
-    
     
     // MARK: - Navigation
 
