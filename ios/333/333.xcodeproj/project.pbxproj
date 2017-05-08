@@ -288,11 +288,7 @@
 				TargetAttributes = {
 					CC9DC0AF1E9070A5004F4C67 = {
 						CreatedOnToolsVersion = 8.2.1;
-<<<<<<< HEAD
-						DevelopmentTeam = D8M8Q37C6Y;
-=======
 						DevelopmentTeam = CZXM748582;
->>>>>>> 440cf35bd38d040ece8eb9ecdf93c0d4a2803a25
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -577,19 +573,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = D8M8Q37C6Y;
-				INFOPLIST_FILE = 333/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = robin333jmrq;
-=======
 				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robin333;
->>>>>>> 440cf35bd38d040ece8eb9ecdf93c0d4a2803a25
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -601,19 +589,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-				DEVELOPMENT_TEAM = D8M8Q37C6Y;
-				INFOPLIST_FILE = 333/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = robin333jmrq;
-=======
 				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robin333;
->>>>>>> 440cf35bd38d040ece8eb9ecdf93c0d4a2803a25
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
