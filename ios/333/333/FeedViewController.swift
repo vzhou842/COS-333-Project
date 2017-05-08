@@ -31,7 +31,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         Location.sharedInstance.requestAuth(success: {
             self.loadDataFromNetwork(nil)
         }, failure: {
-            Toaster.makeToast(self.view, "Location Services must be enabled to use this app.")
+            Toaster.makeToastBottom(self.postsTableView, "Location Services must be enabled to use this app.")
         })
         
         postsTableView.delegate = self
@@ -60,7 +60,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
         // Check if there's no internet connection.
         if r.currentReachabilityStatus == .notReachable {
-            Toaster.makeToast(self.view!, "No Internet Connection.")
+            Toaster.makeToastBottom(self.view, "No Internet Connection.")
             if let r = refreshControl {
                 r.endRefreshing()
             }
@@ -138,15 +138,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "postDetails", sender: tableView.cellForRow(at: indexPath))
     }
     
     // MARK: - ComposeViewControllerDelegate
     
     func didComposePost() {
-        Toaster.makeToast(self.view, "Post submitted.")
+        Toaster.makeToastBottom(self.view, "Post created!")
     }
-    
     
     // MARK: - Navigation
 
