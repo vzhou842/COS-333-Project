@@ -95,7 +95,7 @@ class Networking {
     }
     
     //Create a new vote with the specified parameters. Run the completion handler if successful.
-    static func createVote(lat: Float, long: Float, user_id:String, object_id:String, up:Bool, completion: @escaping () -> Void) {
+    static func createVote(lat: Float, long: Float, user_id:String, object_id:String, up:Bool, completion: @escaping (_ success: Bool) -> Void) {
         let parameters: Parameters = [
             "user_id": user_id,
             "object_id": object_id,
@@ -108,10 +108,11 @@ class Networking {
             
             if let json = response.result.value {
                 print("JSON: \(json)")
-                completion()
+                completion(true)
             }
             else {
                 print("FAILURE")
+                completion(false)
             }
         })
     }
