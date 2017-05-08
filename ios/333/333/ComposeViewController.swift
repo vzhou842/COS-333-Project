@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 protocol ComposeViewControllerDelegate {
     func didComposePost()
@@ -31,6 +32,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var darkenView: UIView!
     
     var delegate: ComposeViewControllerDelegate?
+    let r = Reachability()!
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -65,9 +67,10 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPost(_ sender: Any) {
-        if postTextView.text.characters.count != 0 {
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToastTop(self.postTextView, "No Internet Connection.")
+        } else if postTextView.text.characters.count != 0 {
             let user_id = UIDevice.current.identifierForVendor!.uuidString
-            
             Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
             if let d = self.delegate {
                 d.didComposePost()
@@ -77,13 +80,17 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPhotoPost(_ sender: Any) {
-        if captionTextView.text == defaultCaption {
-            captionTextView.text = ""
-        }
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToastTop(self.infoView, "No Internet Connection.")
+        } else {
+            if captionTextView.text == defaultCaption {
+                captionTextView.text = ""
+            }
+            let user_id = UIDevice.current.identifierForVendor!.uuidString
         
-        Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
-        self.dismiss(animated: true, completion: nil)
+            Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
