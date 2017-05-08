@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F28F49FEB958B1CC9619381 /* Pods_333.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A31DBCBEDE3A1D13D1625 /* Pods_333.framework */; };
+		A503840A1EC0C9DA0069DD8B /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50384091EC0C9DA0069DD8B /* Toaster.swift */; };
 		A555DC641EABAA76006B9ACE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC631EABAA76006B9ACE /* Post.swift */; };
 		A555DC661EABB5A3006B9ACE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC651EABB5A3006B9ACE /* Comment.swift */; };
 		A555DC861EAC0ACD006B9ACE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A555DC851EAC0ACD006B9ACE /* Utils.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		51E920D75C1F74E45C358EBD /* Pods-333.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.debug.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.debug.xcconfig"; sourceTree = "<group>"; };
 		97BD0530C8A8A0035013F033 /* Pods-333.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-333.release.xcconfig"; path = "Pods/Target Support Files/Pods-333/Pods-333.release.xcconfig"; sourceTree = "<group>"; };
+		A50384091EC0C9DA0069DD8B /* Toaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
 		A555DC631EABAA76006B9ACE /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		A555DC651EABB5A3006B9ACE /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = ../Comment.swift; sourceTree = "<group>"; };
 		A555DC851EAC0ACD006B9ACE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				CC9DC0BC1E9070A6004F4C67 /* LaunchScreen.storyboard */,
 				CC9DC0BF1E9070A6004F4C67 /* Info.plist */,
 				A555DC851EAC0ACD006B9ACE /* Utils.swift */,
+				A50384091EC0C9DA0069DD8B /* Toaster.swift */,
 			);
 			path = 333;
 			sourceTree = "<group>";
@@ -362,7 +365,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		71164EF31FAEE5471F980A49 /* [CP] Copy Pods Resources */ = {
@@ -410,6 +413,7 @@
 				A555DC861EAC0ACD006B9ACE /* Utils.swift in Sources */,
 				CC27D3141E97328400589855 /* PostDetailsViewController.swift in Sources */,
 				CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */,
+				A503840A1EC0C9DA0069DD8B /* Toaster.swift in Sources */,
 				A555DC661EABB5A3006B9ACE /* Comment.swift in Sources */,
 				B1F7CA1E1E9322F500A015D0 /* ComposeViewController.swift in Sources */,
 				B14AFB611EA01437007FA50C /* UIColor+Custom.swift in Sources */,
@@ -567,6 +571,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robin333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -582,6 +587,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZXM748582;
 				INFOPLIST_FILE = 333/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = robin333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
