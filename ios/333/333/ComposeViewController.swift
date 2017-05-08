@@ -23,6 +23,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var countLabel2: UILabel!
     @IBOutlet weak var sendButton2: UIButton!
+    @IBOutlet weak var darkenView: UIView!
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -110,6 +111,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         countLabel2.textColor = UIColor.clouds()
         
         photoAddedView.isHidden = true
+        darkenView.isHidden = true
         
         sendButton.setTitleColor(UIColor.lightGray, for: .normal)
         sendButton2.setTitleColor(UIColor.lightGray, for: .normal)
@@ -187,12 +189,16 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
                 keyboardHeight = keyboardSize.height
             }
             captionTextView.frame.origin.y = photoAddedView.frame.height - infoView.frame.origin.y - keyboardHeight - captionTextView.frame.height
+            
+            darkenView.isHidden = false
+            darkenView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         }
     }
     
     func keyboardWillHide(notification: Notification) {
         if photoAddedView.isHidden == false {
             captionTextView.frame.origin.y = captionPosition
+            darkenView.isHidden = true
         }
     }
     
