@@ -22,6 +22,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var cityLabel: UILabel!
     
     @IBAction func refreshPost(_ sender: Any) {
         Networking.getComments(post_id: post.id) { (comments) in
@@ -74,6 +75,24 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
         }
         
+        commentsTableView.delegate = self
+        commentsTableView.dataSource = self
+        replyTextField.delegate = self
+        replyTextField.textColor = UIColor.lightGray
+        
+        //Set post properties
+        captionLabel.text = post.text
+        replyCountLabel.text = "\(post.numComments) Replies"
+        if (post.numComments == 1)
+        {replyCountLabel.text = "\(post.numComments) Reply"}
+        
+        upvotesCountLabel.text = "\(post.numUpvotes)"
+        let timeInterval = post.date.timeIntervalSinceNow
+        timeStampLabel.text = Utils.formatDate(-timeInterval)
+        
+        view.bringSubview(toFront: replyView)
+        replyView.isUserInteractionEnabled = true
+        
         // Load comments
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
@@ -84,22 +103,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
         // Do any additional setup after loading the view.
-        
-        commentsTableView.delegate = self
-        commentsTableView.dataSource = self
-        replyTextField.delegate = self
-        replyTextField.textColor = UIColor.lightGray
-        
-        //Set post properties
-        captionLabel.text = post.text
-        replyCountLabel.text = "\(post.numComments)"
-        
-        upvotesCountLabel.text = "\(post.numUpvotes)"
-        let timeInterval = post.date.timeIntervalSinceNow
-        timeStampLabel.text = Utils.formatDate(-timeInterval)
-        
-        view.bringSubview(toFront: replyView)
-        replyView.isUserInteractionEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
