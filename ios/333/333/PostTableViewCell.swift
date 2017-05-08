@@ -24,60 +24,35 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var downButton: UIButton!
     
     //Variables
-    var post: Post?
+    var post: Post!
     var didVote: Bool = false
     var lat: Float!
     var long: Float!
     var city: String?
-
-    
     var didUpvote: Bool = false
     var didDownvote: Bool = false
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    var isVoting: Bool = false
     
     func configureWithPost(_ post: Post) {
         self.post = post
-        
-        // Set this cell's properties
+
         let defaults = UserDefaults.standard
-        didUpvote = defaults.bool(forKey: "up"+post.id)
-        didDownvote = defaults.bool(forKey: "down"+post.id)
-        
-        if (didUpvote) {
-            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
-        }
-        else {
-            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
-        }
-        if (didDownvote) {
-            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
-        }
-        else {
-            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
-        }
-        
+        setVotes(up: defaults.bool(forKey: "up" + post.id), down: defaults.bool(forKey: "down" + post.id))
+
         postCaptionLabel.text = post.text
+        setNumUpvotes(post.numUpvotes)
         repliesLabel.text = "\(post.numComments) Replies"
-        if (post.numComments == 1)
-        {repliesLabel.text = "\(post.numComments) Reply"}
-        numVotesLabel.text = "\(post.numUpvotes)"
+        if (post.numComments == 1) {
+            repliesLabel.text = "\(post.numComments) Reply"
+        }
+
         let timeInterval = post.date.timeIntervalSinceNow
         timestampLabel.text = Utils.formatDate(-timeInterval)
         Utils.getCity(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (city) in
             self.cityLabel.text = city
             self.city = city
         })
+
         if let image_url = post.imageUrl {
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
                 if let image = img {
@@ -93,75 +68,79 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func upvote(_ sender: Any) {
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
-        let object_id = post!.id
-        let up = true
+    func setVotes(up: Bool, down: Bool) {
+        self.didUpvote = up
+        self.didDownvote = down
+
+        if (up) {
+            self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
+        } else {
+            self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
+        }
+
+        if (down) {
+            self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
+        } else {
+            self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
+        }
         
-        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-            if (self.didUpvote){
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
-                self.didUpvote = false
-                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
-                self.post?.numUpvotes -= 1
-            } else if (self.didDownvote) {
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+2)"
-                self.didUpvote = true
-                self.didDownvote = false
-                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
-                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
-                self.post?.numUpvotes += 2
-            } else {
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
-                self.didUpvote = true
-                self.upButton.setImage(UIImage(named: "upvoteFilled"), for: .normal)
-                self.post?.numUpvotes += 1
-            }
-            
-            print(self.didDownvote)
-            print(self.didUpvote)
-            let defaults = UserDefaults.standard
-            defaults.set(self.didUpvote, forKey: "up"+(self.post?.id)!)
-            defaults.set(self.didDownvote, forKey: "down"+(self.post?.id)!)
-            defaults.synchronize()
-            
-            print(self.post?.numUpvotes)
-        })
+        let defaults = UserDefaults.standard
+        defaults.set(up, forKey: "up" + self.post.id)
+        defaults.set(down, forKey: "down" + self.post.id)
+        defaults.synchronize()
+    }
+
+    func setNumUpvotes(_ num: Int) {
+        self.post.numUpvotes = num
+        self.numVotesLabel.text = "\(num)"
+    }
+
+    @IBAction func upvote(_ sender: Any) {
+        vote(up: true)
     }
 
     @IBAction func downvote(_ sender: Any) {
+        vote(up: false)
+    }
+
+    func vote(up: Bool) {
+        // If we're currently already sending a vote to the server, ignore this new vote.
+        if (isVoting) {
+            return
+        }
+
+        isVoting = true
         let user_id = UIDevice.current.identifierForVendor!.uuidString
-        let object_id = post!.id
-        let up = false
+        let object_id = post.id
         
-        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
-            if (self.didUpvote){
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-2)"
-                self.didUpvote = false
-                self.didDownvote = true
-                self.upButton.setImage(UIImage(named: "upvote"), for: .normal)
-                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
-                self.post?.numUpvotes -= 2
-            } else if (self.didDownvote) {
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!+1)"
-                self.didDownvote = false
-                self.downButton.setImage(UIImage(named: "downvote"), for: .normal)
-                self.post?.numUpvotes += 1
-            } else {
-                self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
-                self.didDownvote = true
-                self.downButton.setImage(UIImage(named: "downvoteFilled"), for: .normal)
-                self.post?.numUpvotes -= 1
+        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {(success) in
+            self.isVoting = false
+
+            if (!success) {
+                return
             }
-            
-            print(self.didDownvote)
-            print(self.didUpvote)
-            let defaults = UserDefaults.standard
-            defaults.set(self.didUpvote, forKey: "up"+(self.post?.id)!)
-            defaults.set(self.didDownvote, forKey: "down"+(self.post?.id)!)
-            defaults.synchronize()
-            
-            print(self.post?.numUpvotes)
+
+            if (self.didUpvote && up){
+                // Undo upvote.
+                self.setNumUpvotes(self.post.numUpvotes - 1)
+                self.setVotes(up: false, down: false)
+            } else if (self.didUpvote && !up) {
+                // Change up -> down.
+                self.setNumUpvotes(self.post.numUpvotes - 2)
+                self.setVotes(up: false, down: true)
+            } else if (self.didDownvote && up) {
+                // Change down -> up.
+                self.setNumUpvotes(self.post.numUpvotes + 2)
+                self.setVotes(up: true, down: false)
+            } else if (self.didDownvote && !up) {
+                // Undo downvote.
+                self.setNumUpvotes(self.post.numUpvotes + 1)
+                self.setVotes(up: false, down: false)
+            } else {
+                // Create vote.
+                self.setNumUpvotes(self.post.numUpvotes + (up ? 1 : -1))
+                self.setVotes(up: up, down: !up)
+            }
         })
     }
 }
