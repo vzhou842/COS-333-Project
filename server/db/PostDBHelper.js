@@ -150,6 +150,7 @@ module.exports = {
 	createPost: createPost,
 	getPosts: getPosts,
 	updateVotes: updateVotes,
+	updateComments: updateComments,
 	checkIfValid: checkIfValid,
 	deletePost: deletePost,
 };
