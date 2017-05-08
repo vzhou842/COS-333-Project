@@ -19,6 +19,7 @@ class Post: NSObject {
     let date: Date
     let dateString: String
     let loc: Dictionary<String, Any>
+    var city: String = ""
     
     // Initializes the Post object from a JSON server response.
     init(_ json: Dictionary<String, Any>) {
