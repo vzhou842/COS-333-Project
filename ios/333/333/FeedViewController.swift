@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import CoreLocation
 import ReachabilitySwift
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CLLocationManagerDelegate {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
@@ -22,45 +21,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var timeStampFormatted: Date?
     var sortedByHot: Bool = true
     var sortedByRecent: Bool = false
-    
-    //Location
-    let locationManager = CLLocationManager()
-    var lat: CLLocationDegrees! = 0
-    var long: CLLocationDegrees! = 0
-    
+
     //Helpers
     let r = Reachability()!
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways {
-            print("Location Authorized.")
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            locationManager.startUpdatingLocation()
-            lat = locationManager.location!.coordinate.latitude
-            long = locationManager.location!.coordinate.longitude
-            self.loadDataFromNetwork(nil)
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let loc = locations.last {
-            lat = loc.coordinate.latitude
-            long = loc.coordinate.longitude
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Check if location services are enabled.
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-
-            // Request location authorization.
-            locationManager.requestWhenInUseAuthorization()
-        } else {
+        Location.sharedInstance.requestAuth(success: {
+            self.loadDataFromNetwork(nil)
+        }, failure: {
             Toaster.makeToast(self.view, "Location Services must be enabled to use this app.")
-        }
+        })
         
         postsTableView.delegate = self
         postsTableView.dataSource = self
@@ -106,11 +78,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Populate posts variable with posts from backend
         if (self.sortedByHot)
         {
-            Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: completion)
+            Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: completion)
         }
         else if (self.sortedByRecent)
         {
-            Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: completion)
+            Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: completion)
         }
     }
     
@@ -130,7 +102,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         sortedByHot = true
         sortedByRecent = false
         //sort posts by hot
-        Networking.getHotPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
+        Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })
@@ -145,7 +117,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         sortedByHot = false
         sortedByRecent = true
         //sort posts by recency
-        Networking.getNewPosts(lat: Float(self.lat), long: Float(self.long), completion: { (posts) in
+        Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
         })
@@ -172,8 +144,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let postIndex = indexPath.row
         
         // Configure this cell for its post.
-        cell.lat = Float(self.lat)
-        cell.long = Float(self.long)
         cell.configureWithPost(posts[postIndex])
         
         return cell
@@ -198,8 +168,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue.identifier == "postDetails") {
             let vc = segue.destination as! PostDetailsViewController
             vc.post = (sender as! PostTableViewCell).post
-            vc.lat = Float(self.lat)
-            vc.long = Float(self.long)
         }
     }
 }

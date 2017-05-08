@@ -39,9 +39,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     var didUpvote: Bool = false
     var didDownvote: Bool = false
     
-    var lat: Float!
-    var long: Float!
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -125,9 +122,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         cell.votesCountLabel.text = "\(comment.numUpvotes)"
         cell.comment = comment
         
-        cell.lat = self.lat
-        cell.long = self.long
-        
         cell.didUpvote = defaults.bool(forKey: "up"+comment.comment_id)
         cell.didDownvote = defaults.bool(forKey: "down"+comment.comment_id)
         
@@ -193,7 +187,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let object_id = post!.id
         let up = true
         
-        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
             if (self.didUpvote){
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-1)"
                 self.didUpvote = false
@@ -229,7 +223,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let object_id = post!.id
         let up = false
         
-        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
             if (self.didUpvote){
                 self.upvotesCountLabel.text = "\(Int(self.upvotesCountLabel.text!)!-2)"
                 self.didUpvote = false
