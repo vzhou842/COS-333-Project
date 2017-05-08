@@ -253,26 +253,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yco-Xg-wMM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-n6-pXK">
-                                        <rect key="frame" x="8" y="332" width="40" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="MWv-ar-1SF"/>
-                                            <constraint firstAttribute="height" constant="38" id="xvR-xw-1dH"/>
-                                        </constraints>
-                                        <state key="normal" image="camera"/>
-                                        <connections>
-                                            <action selector="camera:" destination="1P1-mR-lyv" eventType="touchUpInside" id="WHh-82-CQ8"/>
-                                        </connections>
-                                    </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="What's on your mind?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KCC-9L-pIi">
-                                        <rect key="frame" x="8" y="72" width="359" height="252"/>
+                                        <rect key="frame" x="8" y="72" width="359" height="533"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="252" id="IrP-QV-Mdm"/>
-                                        </constraints>
                                         <color key="textColor" red="0.22888621789999999" green="0.22888621789999999" blue="0.22888621789999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="82C-ze-tgr">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -333,8 +319,19 @@
                                             <constraint firstItem="rka-5z-LBa" firstAttribute="top" secondItem="82C-ze-tgr" secondAttribute="top" constant="24" id="qv0-91-LL7"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-n6-pXK">
+                                        <rect key="frame" x="8" y="613" width="40" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="MWv-ar-1SF"/>
+                                            <constraint firstAttribute="height" constant="38" id="xvR-xw-1dH"/>
+                                        </constraints>
+                                        <state key="normal" image="camera"/>
+                                        <connections>
+                                            <action selector="camera:" destination="1P1-mR-lyv" eventType="touchUpInside" id="WHh-82-CQ8"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elM-dM-89F">
-                                        <rect key="frame" x="56" y="332" width="40" height="38"/>
+                                        <rect key="frame" x="56" y="613" width="40" height="38"/>
                                         <state key="normal" image="photo"/>
                                         <connections>
                                             <action selector="cameraRoll:" destination="1P1-mR-lyv" eventType="touchUpInside" id="byd-29-TVe"/>
@@ -344,6 +341,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="82C-ze-tgr" firstAttribute="centerX" secondItem="yco-Xg-wMM" secondAttribute="centerX" id="2B5-ZH-PM8"/>
+                                    <constraint firstAttribute="bottom" secondItem="zBw-n6-pXK" secondAttribute="bottom" constant="16" id="9Vb-el-UmR"/>
                                     <constraint firstItem="82C-ze-tgr" firstAttribute="width" secondItem="yco-Xg-wMM" secondAttribute="width" id="Ckv-Ih-maG"/>
                                     <constraint firstItem="KCC-9L-pIi" firstAttribute="centerX" secondItem="yco-Xg-wMM" secondAttribute="centerX" id="HJ8-Qe-K9A"/>
                                     <constraint firstItem="elM-dM-89F" firstAttribute="width" secondItem="zBw-n6-pXK" secondAttribute="width" id="NMa-6i-fxB"/>
@@ -470,12 +468,14 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="cameraButton" destination="zBw-n6-pXK" id="Pvu-2w-SRk"/>
                         <outlet property="captionTextView" destination="P6b-nj-SZD" id="daG-yA-tzn"/>
                         <outlet property="countLabel" destination="0op-66-KLu" id="ABQ-ES-EOY"/>
                         <outlet property="countLabel2" destination="P9i-QO-Dym" id="qnD-lP-kwy"/>
                         <outlet property="darkenView" destination="ioN-Oi-Jij" id="zcS-HJ-iWT"/>
                         <outlet property="infoView" destination="vNz-e0-mmk" id="H9M-qQ-NKR"/>
                         <outlet property="photoAddedView" destination="Ghv-bz-Gmd" id="8p8-ht-IXJ"/>
+                        <outlet property="photoButton" destination="elM-dM-89F" id="LcQ-fl-Dhd"/>
                         <outlet property="pickedImage" destination="5Nt-Pa-xrk" id="OzG-bp-Zh4"/>
                         <outlet property="postTextView" destination="KCC-9L-pIi" id="xMF-Sx-vD0"/>
                         <outlet property="sendButton" destination="kCw-f7-D3c" id="euj-f9-ZSA"/>

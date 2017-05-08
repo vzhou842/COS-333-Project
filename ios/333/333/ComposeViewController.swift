@@ -14,6 +14,8 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var photoButton: UIButton!
     
     // state 2: compose post has a photo added
     @IBOutlet weak var photoAddedView: UIView!
@@ -31,17 +33,19 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func removeImage(_ sender: Any) {
         photoAddedView.isHidden = true
         pickedImage.image = nil
-        postTextView.becomeFirstResponder()
+        captionTextView.text = defaultCaption
     }
     
     var captionPosition: CGFloat!
     var keyboardHeight = 300 as CGFloat
     let imagePicker = UIImagePickerController()
+    var defaultPost = "What's on your mind?"
     var defaultCaption = "Add a caption ..."
     
     @IBAction func cameraRoll(_ sender: Any) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
+        self.resignFirstResponder()
         
         present(imagePicker, animated: true, completion: nil)
     }
@@ -49,6 +53,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func camera(_ sender: Any) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .camera
+        self.resignFirstResponder()
         
         present(imagePicker, animated: true, completion: nil)
     }
@@ -80,14 +85,12 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         postTextView.delegate = self
-        postTextView.text = ""
-        postTextView.textColor = UIColor.darkGray
-        postTextView.becomeFirstResponder()
+        postTextView.text = defaultPost
+        postTextView.textColor = UIColor.lightGray
         
         captionTextView.delegate = self
         captionTextView.text = defaultCaption
-        captionTextView.textColor = UIColor.clouds()
-        captionTextView.becomeFirstResponder()
+        captionTextView.textColor = UIColor.lightGray
         
         captionPosition = captionTextView.frame.origin.y
         
@@ -115,7 +118,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
             if textView.text == "" {
-                textView.text = defaultCaption
+                if photoAddedView.isHidden == false { textView.text = defaultCaption }
+                else { textView.text = defaultPost }
+                textView.textColor = UIColor.lightGray
             }
             textView.resignFirstResponder()
             return false
@@ -124,7 +129,11 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == defaultCaption {
+        if textView.text == defaultPost {
+            textView.textColor = UIColor.darkGray
+            textView.text = ""
+        } else if textView.text == defaultCaption {
+            textView.textColor = UIColor.clouds()
             textView.text = ""
         }
     }
@@ -155,12 +164,15 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.pickedImage.image = image
             self.pickedImage.contentMode = .scaleAspectFit
             photoAddedView.isHidden = false
-            if postTextView.text != "" {
+            if postTextView.text != "" && postTextView.text != defaultPost {
                 captionTextView.text = postTextView.text
+                captionTextView.textColor = UIColor.clouds()
                 countLabel2.text = "\(200 - captionTextView.text.characters.count)"
                 if captionTextView.text.characters.count > 0 {
                     sendButton2.setTitleColor(UIColor.clouds(), for: .normal)
                 }
+            } else {
+                postTextView.text = defaultPost
             }
         }
         dismiss(animated: true, completion: nil)
@@ -170,14 +182,17 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+        }
+        
         if photoAddedView.isHidden == false {
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-                keyboardHeight = keyboardSize.height
-            }
             captionTextView.frame.origin.y = photoAddedView.frame.height - infoView.frame.origin.y - keyboardHeight - captionTextView.frame.height
-            
             darkenView.isHidden = false
             darkenView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        } else {
+            cameraButton.frame.origin.y = self.view.frame.height - keyboardHeight - cameraButton.frame.height - 8
+            photoButton.frame.origin.y = self.view.frame.height - keyboardHeight - photoButton.frame.height - 8
         }
     }
     
@@ -185,6 +200,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         if photoAddedView.isHidden == false {
             captionTextView.frame.origin.y = captionPosition
             darkenView.isHidden = true
+        } else {
+            cameraButton.frame.origin.y = self.view.frame.height - cameraButton.frame.height - 16
+            photoButton.frame.origin.y = self.view.frame.height - photoButton.frame.height - 16
         }
     }
     
