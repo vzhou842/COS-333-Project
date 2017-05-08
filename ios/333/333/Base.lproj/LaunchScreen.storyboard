@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,20 +20,20 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-white" translatesAutoresizingMaskIntoConstraints="NO" id="y6h-tL-dgt">
-                                <rect key="frame" x="137" y="283" width="100" height="100"/>
+                                <rect key="frame" x="307" y="478" width="410" height="410"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="V3h-DL-Ppg"/>
-                                    <constraint firstAttribute="height" constant="100" id="ZMg-Nw-NKk"/>
+                                    <constraint firstAttribute="width" secondItem="y6h-tL-dgt" secondAttribute="height" multiplier="1:1" id="VIT-HH-DK5"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.36862745098039218" green="0.69411764705882351" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="y6h-tL-dgt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ARi-IV-PHL"/>
+                            <constraint firstItem="y6h-tL-dgt" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.4" id="caC-oo-a46"/>
                             <constraint firstItem="y6h-tL-dgt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="hS2-jU-qIz"/>
                         </constraints>
                     </view>
