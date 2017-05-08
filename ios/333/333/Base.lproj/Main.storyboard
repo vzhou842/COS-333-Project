@@ -745,6 +745,27 @@
                                             <outlet property="votesCountLabel" destination="J7d-Fa-bm3" id="yZP-8x-aVX"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noCommentsCell" rowHeight="66" id="c5W-o1-8iS" userLabel="noCommentsCell" customClass="ReplyTableViewCell" customModule="_33" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="394" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5W-o1-8iS" id="jvg-FD-8cs">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet.  Be the first to leave a comment!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3T-m2-o2g">
+                                                    <rect key="frame" x="92.5" y="24.5" width="190" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="R3T-m2-o2g" firstAttribute="top" secondItem="jvg-FD-8cs" secondAttribute="topMargin" constant="16" id="FBQ-NL-2xx"/>
+                                                <constraint firstItem="R3T-m2-o2g" firstAttribute="centerY" secondItem="jvg-FD-8cs" secondAttribute="centerY" id="JeN-Vu-9qO"/>
+                                                <constraint firstItem="R3T-m2-o2g" firstAttribute="centerX" secondItem="jvg-FD-8cs" secondAttribute="centerX" id="dBy-fE-pwn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ev-84-NYy">
