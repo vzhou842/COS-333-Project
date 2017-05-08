@@ -25,8 +25,6 @@ class PostTableViewCell: UITableViewCell {
     //Variables
     var post: Post?
     var didVote: Bool = false
-    var lat: Float!
-    var long: Float!
     
     var didUpvote: Bool = false
     var didDownvote: Bool = false
@@ -89,7 +87,7 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = true
         
-        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
             if (self.didUpvote){
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-1)"
                 self.didUpvote = false
@@ -125,7 +123,7 @@ class PostTableViewCell: UITableViewCell {
         let object_id = post!.id
         let up = false
         
-        Networking.createVote(lat: lat, long: long, user_id: user_id, object_id: object_id, up: up, completion: {() in
+        Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {() in
             if (self.didUpvote){
                 self.numVotesLabel.text = "\(Int(self.numVotesLabel.text!)!-2)"
                 self.didUpvote = false
