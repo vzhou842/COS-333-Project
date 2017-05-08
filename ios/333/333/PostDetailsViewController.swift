@@ -23,6 +23,13 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     
+    @IBAction func refreshPost(_ sender: Any) {
+        Networking.getComments(post_id: post.id) { (comments) in
+            self.comments = comments
+            self.commentsTableView.reloadData()
+        }
+    }
+    
     //Variables
     var post: Post!
     var comments: [Comment]?
@@ -151,6 +158,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             self.comments = comments
             self.commentsTableView.reloadData()
         }
+        
+        noCommentsLabel.isHidden = true
+        commentsTableView.isHidden = false
     }
 
     @IBAction func back(_ sender: Any) {
