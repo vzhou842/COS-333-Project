@@ -159,7 +159,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let vc = segue.destination as! PostDetailsViewController
             let cell = sender as! PostTableViewCell
             vc.post = cell.post
-            Utils.getCity(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (city) in
+            let coordinates = vc.post.loc["coordinates"] as! [Float]
+            let long = coordinates[0] as! Float
+            let lat = coordinates[1] as! Float
+            Utils.getCity(lat: lat, long: long, completion: { (city) in
                 vc.cityLabel.text = city
             })
             

@@ -38,7 +38,6 @@ class Utils {
         return formatted
     }
     
-    //add completion handler for city
     static func getCity(lat: Float, long: Float, completion: @escaping (String) -> Void) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))

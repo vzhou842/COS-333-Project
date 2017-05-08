@@ -28,7 +28,6 @@ class PostTableViewCell: UITableViewCell {
     var didVote: Bool = false
     var lat: Float!
     var long: Float!
-    var city: String?
 
     
     var didUpvote: Bool = false
@@ -74,10 +73,14 @@ class PostTableViewCell: UITableViewCell {
         numVotesLabel.text = "\(post.numUpvotes)"
         let timeInterval = post.date.timeIntervalSinceNow
         timestampLabel.text = Utils.formatDate(-timeInterval)
-        Utils.getCity(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (city) in
+        
+        let coordinates = post.loc["coordinates"] as! [Float]
+        let long = coordinates[0] as! Float
+        let lat = coordinates[1] as! Float
+        Utils.getCity(lat: lat, long: long, completion: { (city) in
             self.cityLabel.text = city
-            self.city = city
         })
+        
         if let image_url = post.imageUrl {
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
                 if let image = img {
