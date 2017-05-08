@@ -37,19 +37,4 @@ class Utils {
         
         return formatted
     }
-    
-    static func getCity(lat: Float, long: Float, completion: @escaping (String) -> Void) {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))
-        
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
-            guard let addressDict = placemarks?[0].addressDictionary else {
-                return
-            }
-            
-            if let city = addressDict["City"] as? String {
-                completion(city)
-            }
-        })
-    }
 }

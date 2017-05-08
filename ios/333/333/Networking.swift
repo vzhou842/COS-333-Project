@@ -85,12 +85,7 @@ class Networking {
             if let JSON = response.result.value {
                 let jsonPosts = JSON as! [Dictionary<String, Any>]
                 let posts = jsonPosts.map({ (d: Dictionary<String, Any>) -> Post in
-                    let post = Post(d)
-                    let coordinates = post.loc["coordinates"] as! [Float]
-                    Utils.getCity(lat: coordinates[1], long: coordinates[0], completion: { (city) in
-                        post.city = city
-                    })
-                    return post
+                    return Post(d)
                 })
                 
                 completion(posts)
