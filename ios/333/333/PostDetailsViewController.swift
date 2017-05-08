@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -26,7 +26,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     var post: Post!
     var comments: [Comment]?
     var keyboardHeight = 300 as CGFloat
-    let defaultReply = "Reply ..."
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -106,34 +105,14 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             return cell
         }
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        replyTextField.text = ""
-        replyTextField.textColor = UIColor.black
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if replyTextField.text == "" {
-            replyTextField.text = defaultReply
-            replyTextField.textColor = UIColor.lightGray
-        }
-    }
-    
+
     @IBAction func onTouchSend(_ sender: Any) {
         let text = replyTextField.text
         let user_id = UIDevice.current.identifierForVendor!.uuidString
-        
-        if replyTextField.textColor == UIColor.black {
-            Networking.createComment(text: text!, user_id: user_id, post_id: post!.id)
-        }
-        
-        replyTextField.text = defaultReply
-        replyTextField.textColor = UIColor.lightGray
+
+        Networking.createComment(text: text!, user_id: user_id, post_id: post!.id)
+        replyTextField.text = nil
+        replyTextField.resignFirstResponder()
         
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
