@@ -12,7 +12,7 @@ module.exports = function(app) {
 	app.post('/api/comments', function(req, res) {
 		var data = req.body;
 
-		if (!data || !data.text || !data.user_id || !data.post_id) {
+		if (!data || !data.text || data.text.length > 500 || !data.user_id || !data.post_id) {
 			APIUtils.invalidRequest(res, JSON.stringify(req.body));
 			return;
 		}

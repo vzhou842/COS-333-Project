@@ -51,7 +51,7 @@ module.exports = function(app) {
 		var data = req.body;
 		var img_url = req.file ? req.file.cloud_storage_url : undefined;
 
-		if (!data || (!data.text && !img_url) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
+		if (!data || (!data.text && !img_url) || (data.text && data.text.length > 500) || !data.user_id || isNaN(data.lat) || isNaN(data.long)) {
 			APIUtils.invalidRequest(res, JSON.stringify(data));
 			return;
 		}
