@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -114,10 +114,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4M-Km-8Vb">
-                                                    <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
+                                                    <rect key="frame" x="309" y="-33" width="58" height="92"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upf-3e-lsM">
-                                                            <rect key="frame" x="9" y="50" width="40" height="40.5"/>
+                                                            <rect key="frame" x="9" y="50" width="40" height="41"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -573,10 +573,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-q6-EaG">
-                                                    <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
+                                                    <rect key="frame" x="309" y="-33" width="58" height="92"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOt-Nq-Qhb">
-                                                            <rect key="frame" x="9" y="50" width="40" height="40.5"/>
+                                                            <rect key="frame" x="9" y="50" width="40" height="41"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -837,6 +837,7 @@
                     <connections>
                         <outlet property="deleteButton" destination="WsP-Om-LPV" id="PYO-nn-Hzg"/>
                         <outlet property="replyTextField" destination="hHe-JK-zqR" id="ZFT-li-8xf"/>
+                        <outlet property="sendViewBottomConstraint" destination="iRJ-Hp-wSK" id="qTO-OW-bmx"/>
                         <outlet property="tableView" destination="Fev-yg-zNS" id="vKK-Vo-ees"/>
                     </connections>
                 </viewController>
