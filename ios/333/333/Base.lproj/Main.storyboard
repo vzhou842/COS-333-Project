@@ -471,9 +471,8 @@
                                             <constraint firstAttribute="height" constant="400" id="ica-dB-fD9"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-Oi-Jij">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-Oi-Jij">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add a caption ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-nj-SZD">
                                         <rect key="frame" x="37.5" y="494" width="300" height="165"/>
@@ -513,13 +512,17 @@
                             <constraint firstItem="yco-Xg-wMM" firstAttribute="height" secondItem="TWA-HM-3io" secondAttribute="height" id="BJc-4i-qRn"/>
                             <constraint firstItem="yco-Xg-wMM" firstAttribute="centerY" secondItem="TWA-HM-3io" secondAttribute="centerY" id="Dg9-8p-mSL"/>
                             <constraint firstItem="P9i-QO-Dym" firstAttribute="centerY" secondItem="0op-66-KLu" secondAttribute="centerY" id="Fi5-oQ-g3E"/>
+                            <constraint firstItem="ioN-Oi-Jij" firstAttribute="width" secondItem="TWA-HM-3io" secondAttribute="width" id="GBy-h7-RM5"/>
                             <constraint firstItem="P9i-QO-Dym" firstAttribute="height" secondItem="0op-66-KLu" secondAttribute="height" id="IjT-Sb-1yG"/>
                             <constraint firstItem="yco-Xg-wMM" firstAttribute="width" secondItem="TWA-HM-3io" secondAttribute="width" id="LjF-9t-RXJ"/>
+                            <constraint firstItem="ioN-Oi-Jij" firstAttribute="centerY" secondItem="TWA-HM-3io" secondAttribute="centerY" id="RHt-7U-oGP"/>
                             <constraint firstItem="Ghv-bz-Gmd" firstAttribute="height" secondItem="TWA-HM-3io" secondAttribute="height" id="STQ-Q1-gVX"/>
                             <constraint firstItem="P9i-QO-Dym" firstAttribute="width" secondItem="0op-66-KLu" secondAttribute="width" id="V1e-Fx-gXH"/>
                             <constraint firstItem="P9i-QO-Dym" firstAttribute="centerX" secondItem="0op-66-KLu" secondAttribute="centerX" id="awU-lU-yfe"/>
                             <constraint firstItem="Ghv-bz-Gmd" firstAttribute="centerX" secondItem="TWA-HM-3io" secondAttribute="centerX" id="bzX-1N-Wrb"/>
+                            <constraint firstItem="ioN-Oi-Jij" firstAttribute="centerX" secondItem="TWA-HM-3io" secondAttribute="centerX" id="feW-d4-jrh"/>
                             <constraint firstItem="yco-Xg-wMM" firstAttribute="centerX" secondItem="TWA-HM-3io" secondAttribute="centerX" id="gqj-yi-Xua"/>
+                            <constraint firstItem="ioN-Oi-Jij" firstAttribute="height" secondItem="TWA-HM-3io" secondAttribute="height" id="klM-Rc-DRC"/>
                             <constraint firstItem="Ghv-bz-Gmd" firstAttribute="centerY" secondItem="TWA-HM-3io" secondAttribute="centerY" id="mV7-j8-M0q"/>
                         </constraints>
                     </view>
