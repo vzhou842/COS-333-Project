@@ -14,7 +14,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var replyTextField: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
-    
+    @IBOutlet weak var sendViewBottomConstraint: NSLayoutConstraint!
+
     @IBAction func refreshPost(_ sender: Any) {
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
@@ -31,7 +32,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     //Variables
     var post: Post!
     var comments: [Comment]?
-    var keyboardHeight = 300 as CGFloat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -63,6 +63,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             deleteButton.isHidden = true
             deleteButton.isEnabled = false
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -155,6 +158,18 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
     @IBAction func back(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+
+    func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.sendViewBottomConstraint.constant = keyboardSize.height
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func keyboardWillHide(notification: Notification) {
+        self.sendViewBottomConstraint.constant = 0
+        self.view.layoutIfNeeded()
     }
 
     /*
