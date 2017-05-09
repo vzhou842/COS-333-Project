@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -117,7 +117,7 @@
                                                     <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upf-3e-lsM">
-                                                            <rect key="frame" x="9" y="50.5" width="40" height="40.5"/>
+                                                            <rect key="frame" x="9" y="50" width="40" height="40.5"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -126,7 +126,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4R-fn-oQM">
-                                                            <rect key="frame" x="9" y="0.5" width="40" height="40"/>
+                                                            <rect key="frame" x="9" y="0.0" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="96w-V1-bvd"/>
                                                                 <constraint firstAttribute="width" constant="40" id="AqI-Ch-OVt"/>
@@ -139,7 +139,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsQ-5h-69w">
-                                                            <rect key="frame" x="10" y="36.5" width="39" height="18"/>
+                                                            <rect key="frame" x="10" y="36" width="39" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -530,10 +530,25 @@
                                             <action selector="refreshPost:" destination="Z3L-d6-NOy" eventType="touchUpInside" id="1H9-w4-CFU"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsP-Om-LPV">
+                                        <rect key="frame" x="309" y="27" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="p37-9C-uam"/>
+                                            <constraint firstAttribute="width" constant="26" id="tb0-WW-mvd"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="trash">
+                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deletePost:" destination="Z3L-d6-NOy" eventType="touchUpInside" id="zwv-sH-rd9"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="6Te-Vb-9Ph" firstAttribute="leading" secondItem="eL4-EB-cYs" secondAttribute="leading" constant="8" id="0RV-xk-DD3"/>
+                                    <constraint firstItem="WsP-Om-LPV" firstAttribute="centerY" secondItem="zQG-qI-dbc" secondAttribute="centerY" id="1IS-P5-dQ0"/>
+                                    <constraint firstItem="zQG-qI-dbc" firstAttribute="leading" secondItem="WsP-Om-LPV" secondAttribute="trailing" constant="8" id="DzQ-mg-8p2"/>
                                     <constraint firstItem="6Te-Vb-9Ph" firstAttribute="top" secondItem="eL4-EB-cYs" secondAttribute="top" constant="28" id="Fyn-tI-yjF"/>
                                     <constraint firstAttribute="height" constant="64" id="OB8-zd-TjH"/>
                                     <constraint firstAttribute="trailing" secondItem="zQG-qI-dbc" secondAttribute="trailing" constant="8" id="OK7-SQ-q3b"/>
@@ -561,7 +576,7 @@
                                                     <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOt-Nq-Qhb">
-                                                            <rect key="frame" x="9" y="50.5" width="40" height="40.5"/>
+                                                            <rect key="frame" x="9" y="50" width="40" height="40.5"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -570,7 +585,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oT8-0b-Teg">
-                                                            <rect key="frame" x="9" y="0.5" width="40" height="40"/>
+                                                            <rect key="frame" x="9" y="0.0" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="lex-VG-ihM"/>
                                                                 <constraint firstAttribute="width" constant="40" id="sZd-tJ-s8Q"/>
@@ -583,7 +598,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-5P-Tjk">
-                                                            <rect key="frame" x="10" y="36.5" width="39" height="18"/>
+                                                            <rect key="frame" x="10" y="36" width="39" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -820,6 +835,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8JL-1g-Bp9"/>
                     <connections>
+                        <outlet property="deleteButton" destination="WsP-Om-LPV" id="PYO-nn-Hzg"/>
                         <outlet property="replyTextField" destination="hHe-JK-zqR" id="ZFT-li-8xf"/>
                         <outlet property="tableView" destination="Fev-yg-zNS" id="vKK-Vo-ees"/>
                     </connections>
@@ -859,6 +875,7 @@
         <image name="profile" width="96" height="96"/>
         <image name="recent" width="96" height="96"/>
         <image name="refresh" width="96" height="96"/>
+        <image name="trash" width="104" height="104"/>
         <image name="upvote" width="100" height="100"/>
     </resources>
 </document>

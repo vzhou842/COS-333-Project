@@ -13,6 +13,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     //Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var replyTextField: UITextField!
+    @IBOutlet weak var deleteButton: UIButton!
     
     @IBAction func refreshPost(_ sender: Any) {
         Networking.getComments(post_id: post.id) { (comments) in
@@ -21,6 +22,11 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             Toaster.makeToastBottom(self.view, "Refreshed!")
         }
     }
+    
+    @IBAction func deletePost(_ sender: Any) {
+        
+    }
+    
     
     //Variables
     var post: Post!
@@ -46,6 +52,17 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         replyTextField.delegate = self
+        
+        if (post.user_id == UIDevice.current.identifierForVendor!.uuidString) {
+            // should be able to delete post.
+            deleteButton.isHidden = false
+            deleteButton.isEnabled = true
+        }
+        else {
+            // don't show button, don't be able to delete post.
+            deleteButton.isHidden = true
+            deleteButton.isEnabled = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
