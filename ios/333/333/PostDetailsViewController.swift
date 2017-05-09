@@ -16,6 +16,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var sendViewBottomConstraint: NSLayoutConstraint!
 
+    //Variables
+    var delegate: FeedViewController?
+    
     @IBAction func refreshPost(_ sender: Any) {
         Networking.getComments(post_id: post.id) { (comments) in
             self.comments = comments
@@ -24,8 +27,23 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    
     @IBAction func deletePost(_ sender: Any) {
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete your post?", preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
+            print("Delete")
+            
+            Networking.deletePost(post_id: self.post.id, completion: { (posts) in
+                self.delegate?.didReturn()
+                self.navigationController?.popViewController(animated: true)
+            })
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default) { _ in
+            print("Cancel")
+        })
+        
+        present(alert, animated: true)
     }
     
     

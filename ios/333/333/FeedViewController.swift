@@ -9,7 +9,11 @@
 import UIKit
 import ReachabilitySwift
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate {
+protocol PostDetailsViewControllerDelegate {
+    func didReturn()
+}
+
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate, PostDetailsViewControllerDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
@@ -153,6 +157,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         Toaster.makeToastBottom(self.view, "Post created!")
     }
     
+    func didReturn() {
+        loadDataFromNetwork(nil)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -164,6 +172,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let vc = segue.destination as! PostDetailsViewController
             let cell = sender as! PostTableViewCell
             vc.post = cell.post
+            vc.delegate = self
             
         } else if (segue.identifier == "compose") {
             let vc = segue.destination as! ComposeViewController
