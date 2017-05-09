@@ -3,6 +3,11 @@
 var Post = require('./models/Post');
 var Utils = require('../Utils');
 var geolib = require('geolib');
+var request = require('request');
+
+// This is bad practice but since this is just a school project and we're too lazy to set it up
+// as an env var we're going to just hardcode this here.
+var GMAPS_API_KEY = 'AIzaSyCRr2EA72-WRe8Bbzq4nVQY7OYwBxo0Oe0';
 
 // Removes private / unneeded fields from a Post object and returns it.
 function cleanPost(post) {
@@ -18,9 +23,35 @@ function cleanAllPosts(posts) {
 
 // @param data Should contain all necessary user-specified fields for the post.
 function createPost(data) {
-	data.post_id = Utils.genPostID();
-	data.timestamp = new Date();
-	return (new Post(data)).save();
+	var accept, reject;
+	var promise = new Promise(function(a, r) {
+		accept = a;
+		reject = r;
+	});
+
+	// Reverse Geocode the lat/long to get a city name.
+	var lat = data.loc.coordinates[1];
+	var long = data.loc.coordinates[0];
+	request('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&result_type=locality&key=' + GMAPS_API_KEY, function(err, response, body) {
+		var loc_name;
+		if (!err && body) {
+			body = JSON.parse(body);
+			if (body.results && body.results.length) {
+				var result = body.results[0];
+				if (result.address_components && result.address_components.length) {
+					var c = result.address_components[0];
+					loc_name = c.short_name || c.long_name;
+				}
+			}
+		}
+
+		// Save the post.
+		data.loc.name = loc_name;
+		data.post_id = Utils.genPostID();
+		data.timestamp = new Date();
+		(new Post(data)).save().then(accept, reject);
+	});
+	return promise;
 }
 
 function deletePost(post_id) {
