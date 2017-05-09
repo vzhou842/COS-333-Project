@@ -17,10 +17,12 @@ class Toaster {
     }()
 
     static func makeToastBottom(_ view: UIView, _ message: String) {
+        ToastManager.shared.queueEnabled = false
         view.makeToast(message, duration: 2.0, position: ToastPosition.bottom, style: style)
     }
     
     static func makeToastTop(_ view: UIView, _ message: String) {
+        ToastManager.shared.queueEnabled = false
         view.makeToast(message, duration: 2.0, position: ToastPosition.top, style: style)
     }
 }

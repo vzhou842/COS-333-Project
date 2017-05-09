@@ -105,6 +105,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         self.loadDataFromNetwork(refreshControl)
     }
+
+    @IBAction func compose(_ sender: Any) {
+        if !Location.sharedInstance.hasLocationAuth() {
+            Toaster.makeToastBottom(self.view, "Please enable Location Services.")
+            return
+        }
+        self.performSegue(withIdentifier: "compose", sender: self)
+    }
     
     @IBAction func sortHot(_ sender: Any) {
         hotButton.layer.backgroundColor = UIColor.white.cgColor
