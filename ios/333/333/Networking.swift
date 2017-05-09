@@ -21,7 +21,7 @@ class Networking {
     }
 
     //Create a new post with the specified parameters.
-    static func createPost(text:String?, image:UIImage?, user_id:String, lat:Float, long:Float) {
+    static func createPost(text:String?, image:UIImage?, user_id:String, lat:Float, long:Float, completion: @escaping (_ success: Bool) -> Void) {
         var request = try! URLRequest(url: baseurl.asURL().appendingPathComponent("/api/posts"))
         request.httpMethod = HTTPMethod.post.rawValue
         
@@ -53,17 +53,21 @@ class Networking {
                     upload.responseJSON { response in
                         guard response.result.isSuccess else {
                             print("Error while creating post: \(String(describing: response.result.error))")
+                            completion(false)
                             return
                         }
 
                         guard let responseJSON = response.result.value as? [String: Any] else {
                             print("Invalid response received when creating post")
+                            completion(false)
                             return
                         }
                         print("Successfully created post \(String(describing: responseJSON["post_id"]))")
+                        completion(true)
                     }
                 case .failure(let encodingError):
                     print(encodingError)
+                    completion(false)
                 }
             }
         )

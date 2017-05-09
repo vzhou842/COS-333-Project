@@ -10,7 +10,7 @@ import UIKit
 import ReachabilitySwift
 
 protocol ComposeViewControllerDelegate {
-    func didComposePost()
+    func didComposePost(_ success: Bool)
 }
 
 class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
@@ -75,12 +75,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else if postTextView.text.characters.count > 200 {
             Toaster.makeToastTop(self.postTextView, "Too many characters!")
         } else if postTextView.text.characters.count > 0 {
-            let user_id = UIDevice.current.identifierForVendor!.uuidString
-            Networking.createPost(text: postTextView.text, image: nil, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
-            if let d = self.delegate {
-                d.didComposePost()
-            }
-            self.dismiss(animated: true, completion: nil)
+            createPost(text: postTextView.text, image: nil)
         }
     }
     
@@ -93,13 +88,20 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
             if captionTextView.text == defaultCaption {
                 captionTextView.text = ""
             }
-            let user_id = UIDevice.current.identifierForVendor!.uuidString
-        
-            Networking.createPost(text: captionTextView.text, image: pickedImage.image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long)
-            self.dismiss(animated: true, completion: nil)
+            createPost(text: captionTextView.text, image: pickedImage.image)
         }
     }
-    
+
+    private func createPost(text: String?, image: UIImage?) {
+        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        Networking.createPost(text: text, image: image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: {(success) in
+            if let d = self.delegate {
+                d.didComposePost(success)
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
