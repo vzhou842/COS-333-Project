@@ -18,7 +18,6 @@ class Post: NSObject {
     var numUpvotes: Int
     let date: Date
     let dateString: String
-    let loc: Dictionary<String, Any>
     var city: String = ""
     
     // Initializes the Post object from a JSON server response.
@@ -31,6 +30,9 @@ class Post: NSObject {
         numUpvotes = json["num_upvotes"] as! Int
         date = Utils.dateFormatter.date(from: (json["timestamp"] as! String))!
         dateString = Utils.niceDateFormatter.string(from: date)
-        loc = json["loc"] as! Dictionary<String, Any>
+        let loc = json["loc"] as! Dictionary<String, Any>
+        if let name = loc["name"] as! String? {
+            city = name
+        }
     }
 }
