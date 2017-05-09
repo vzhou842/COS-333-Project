@@ -19,15 +19,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app allows users to upload images taken with their camera</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app doesn&apos;t work without location</string>
+	<string>This app doesn't work without location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app doesn&apos;t work without location</string>
+	<string>This app doesn't work without location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app allows users to upload images from their photo library</string>
 	<key>UILaunchStoryboardName</key>
