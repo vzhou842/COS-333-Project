@@ -115,10 +115,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4M-Km-8Vb">
-                                                    <rect key="frame" x="313" y="254.5" width="58" height="91"/>
+                                                    <rect key="frame" x="313" y="255" width="58" height="91"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upf-3e-lsM">
-                                                            <rect key="frame" x="9" y="50" width="40" height="40"/>
+                                                            <rect key="frame" x="14" y="54" width="30" height="30"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -127,10 +127,10 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4R-fn-oQM">
-                                                            <rect key="frame" x="9" y="0.0" width="40" height="40"/>
+                                                            <rect key="frame" x="14" y="6" width="30" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="96w-V1-bvd"/>
-                                                                <constraint firstAttribute="width" constant="40" id="AqI-Ch-OVt"/>
+                                                                <constraint firstAttribute="height" constant="30" id="96w-V1-bvd"/>
+                                                                <constraint firstAttribute="width" constant="30" id="AqI-Ch-OVt"/>
                                                             </constraints>
                                                             <state key="normal" image="upvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -148,11 +148,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="CsQ-5h-69w" firstAttribute="top" secondItem="D4R-fn-oQM" secondAttribute="bottom" constant="-4" id="65Q-bL-Gpc"/>
+                                                        <constraint firstItem="CsQ-5h-69w" firstAttribute="top" secondItem="D4R-fn-oQM" secondAttribute="bottom" id="65Q-bL-Gpc"/>
                                                         <constraint firstItem="Upf-3e-lsM" firstAttribute="centerX" secondItem="D4R-fn-oQM" secondAttribute="centerX" id="6Gk-TN-Vbp"/>
                                                         <constraint firstItem="Upf-3e-lsM" firstAttribute="height" secondItem="D4R-fn-oQM" secondAttribute="height" id="Awi-X0-LJ9"/>
                                                         <constraint firstItem="Upf-3e-lsM" firstAttribute="width" secondItem="D4R-fn-oQM" secondAttribute="width" id="KUh-Tu-6LR"/>
-                                                        <constraint firstItem="Upf-3e-lsM" firstAttribute="top" secondItem="CsQ-5h-69w" secondAttribute="bottom" constant="-4" id="KeG-KZ-qAp"/>
+                                                        <constraint firstItem="Upf-3e-lsM" firstAttribute="top" secondItem="CsQ-5h-69w" secondAttribute="bottom" id="KeG-KZ-qAp"/>
                                                         <constraint firstItem="D4R-fn-oQM" firstAttribute="centerX" secondItem="w4M-Km-8Vb" secondAttribute="centerX" id="LW6-no-TRl"/>
                                                         <constraint firstItem="CsQ-5h-69w" firstAttribute="centerX" secondItem="w4M-Km-8Vb" secondAttribute="centerX" id="Ljg-Wk-dtp"/>
                                                         <constraint firstItem="CsQ-5h-69w" firstAttribute="centerY" secondItem="w4M-Km-8Vb" secondAttribute="centerY" id="Qnw-IA-qis"/>
@@ -175,7 +175,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Replies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dq8-16-VQ5">
-                                                    <rect key="frame" x="106.5" y="578.5" width="108" height="13.5"/>
+                                                    <rect key="frame" x="107" y="578.5" width="108" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="108" id="xIc-uR-S8E"/>
                                                     </constraints>
@@ -184,7 +184,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1du-va-VE6">
-                                                    <rect key="frame" x="287.5" y="578.5" width="25.5" height="13.5"/>
+                                                    <rect key="frame" x="287" y="578.5" width="26" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
                                                     <color key="textColor" red="0.36862745098039218" green="0.69411764705882351" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -206,7 +206,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="w4M-Km-8Vb" secondAttribute="trailing" constant="-4" id="Cdu-nJ-yZm"/>
                                                 <constraint firstItem="LQ2-QG-PlP" firstAttribute="top" secondItem="fdP-7P-4ng" secondAttribute="topMargin" id="DfR-m3-fm1"/>
                                                 <constraint firstItem="Bdp-1N-NkF" firstAttribute="top" secondItem="LQ2-QG-PlP" secondAttribute="bottom" constant="8" id="JhP-ut-yin"/>
-                                                <constraint firstItem="w4M-Km-8Vb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fdP-7P-4ng" secondAttribute="topMargin" constant="2" id="QxW-WG-DwD"/>
+                                                <constraint firstItem="w4M-Km-8Vb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fdP-7P-4ng" secondAttribute="topMargin" id="QxW-WG-DwD"/>
                                                 <constraint firstItem="03d-vb-Tor" firstAttribute="centerY" secondItem="Bdp-1N-NkF" secondAttribute="centerY" id="UXZ-5Q-ONA"/>
                                                 <constraint firstItem="ZCM-Jd-6eO" firstAttribute="leading" secondItem="Bdp-1N-NkF" secondAttribute="leading" id="bgG-8h-yDF"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ZCM-Jd-6eO" secondAttribute="bottom" id="ezN-GE-PNL"/>
@@ -628,10 +628,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-q6-EaG">
-                                                    <rect key="frame" x="309" y="-33" width="58" height="92"/>
+                                                    <rect key="frame" x="309" y="-32.5" width="58" height="91.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOt-Nq-Qhb">
-                                                            <rect key="frame" x="9" y="50.5" width="40" height="41"/>
+                                                            <rect key="frame" x="14" y="54" width="30" height="30.5"/>
                                                             <state key="normal" image="downvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -640,10 +640,10 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oT8-0b-Teg">
-                                                            <rect key="frame" x="9" y="0.5" width="40" height="40"/>
+                                                            <rect key="frame" x="14" y="6" width="30" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="lex-VG-ihM"/>
-                                                                <constraint firstAttribute="width" constant="40" id="sZd-tJ-s8Q"/>
+                                                                <constraint firstAttribute="height" constant="30" id="lex-VG-ihM"/>
+                                                                <constraint firstAttribute="width" constant="30" id="sZd-tJ-s8Q"/>
                                                             </constraints>
                                                             <state key="normal" image="upvote">
                                                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -653,7 +653,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-5P-Tjk">
-                                                            <rect key="frame" x="10" y="36.5" width="39" height="18"/>
+                                                            <rect key="frame" x="10" y="36" width="39" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -663,8 +663,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="91" id="1o2-ES-Byf"/>
                                                         <constraint firstItem="HOt-Nq-Qhb" firstAttribute="height" secondItem="oT8-0b-Teg" secondAttribute="height" id="Gi9-54-rL4"/>
-                                                        <constraint firstItem="UPN-5P-Tjk" firstAttribute="top" secondItem="oT8-0b-Teg" secondAttribute="bottom" constant="-4" id="POo-3B-TE1"/>
-                                                        <constraint firstItem="HOt-Nq-Qhb" firstAttribute="top" secondItem="UPN-5P-Tjk" secondAttribute="bottom" constant="-4" id="T17-Wg-CUx"/>
+                                                        <constraint firstItem="UPN-5P-Tjk" firstAttribute="top" secondItem="oT8-0b-Teg" secondAttribute="bottom" id="POo-3B-TE1"/>
+                                                        <constraint firstItem="HOt-Nq-Qhb" firstAttribute="top" secondItem="UPN-5P-Tjk" secondAttribute="bottom" id="T17-Wg-CUx"/>
                                                         <constraint firstItem="UPN-5P-Tjk" firstAttribute="centerY" secondItem="cm9-q6-EaG" secondAttribute="centerY" id="WV1-fc-pci"/>
                                                         <constraint firstAttribute="width" constant="58" id="WvI-oo-VwH"/>
                                                         <constraint firstItem="HOt-Nq-Qhb" firstAttribute="centerX" secondItem="oT8-0b-Teg" secondAttribute="centerX" id="ZQS-Uf-L4i"/>
@@ -742,16 +742,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cool post brah." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTl-1b-Boe">
-                                                    <rect key="frame" x="16" y="8" width="300" height="35.5"/>
+                                                    <rect key="frame" x="16" y="8" width="305" height="35.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUz-bf-wS4">
-                                                    <rect key="frame" x="324" y="2" width="30" height="30"/>
+                                                    <rect key="frame" x="329" y="3" width="25" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="R07-9u-EhP"/>
-                                                        <constraint firstAttribute="width" constant="30" id="xsu-ae-bTU"/>
+                                                        <constraint firstAttribute="height" constant="25" id="R07-9u-EhP"/>
+                                                        <constraint firstAttribute="width" constant="25" id="xsu-ae-bTU"/>
                                                     </constraints>
                                                     <state key="normal" image="upvote">
                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -761,16 +761,16 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-Fa-bm3">
-                                                    <rect key="frame" x="316" y="26" width="47" height="14"/>
+                                                    <rect key="frame" x="321" y="26" width="42" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tc-Vt-tac">
-                                                    <rect key="frame" x="324" y="34" width="30" height="30"/>
+                                                    <rect key="frame" x="329" y="38" width="25" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="fSU-kg-UgH"/>
-                                                        <constraint firstAttribute="height" constant="30" id="gbj-dL-xWA"/>
+                                                        <constraint firstAttribute="width" constant="25" id="fSU-kg-UgH"/>
+                                                        <constraint firstAttribute="height" constant="25" id="gbj-dL-xWA"/>
                                                     </constraints>
                                                     <state key="normal" image="downvote">
                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -790,7 +790,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="J7d-Fa-bm3" firstAttribute="top" secondItem="SUz-bf-wS4" secondAttribute="bottom" constant="-6" id="3nC-dc-ynf"/>
+                                                <constraint firstItem="J7d-Fa-bm3" firstAttribute="top" secondItem="SUz-bf-wS4" secondAttribute="bottom" constant="-2" id="3nC-dc-ynf"/>
                                                 <constraint firstItem="2tc-Vt-tac" firstAttribute="leading" secondItem="SUz-bf-wS4" secondAttribute="leading" id="AY9-Ht-4bd"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="zOn-cm-pPS" secondAttribute="bottom" constant="-2" id="JsD-qZ-8G9"/>
                                                 <constraint firstItem="SUz-bf-wS4" firstAttribute="centerX" secondItem="J7d-Fa-bm3" secondAttribute="centerX" id="Kg0-52-B5H"/>
@@ -802,7 +802,7 @@
                                                 <constraint firstItem="zTl-1b-Boe" firstAttribute="leading" secondItem="vQC-WT-wj2" secondAttribute="leadingMargin" constant="8" id="dHP-Oe-N7a"/>
                                                 <constraint firstItem="SUz-bf-wS4" firstAttribute="leading" secondItem="zTl-1b-Boe" secondAttribute="trailing" constant="8" id="etA-8o-DSN"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="J7d-Fa-bm3" secondAttribute="trailing" constant="4" id="jf4-CN-yu4"/>
-                                                <constraint firstItem="2tc-Vt-tac" firstAttribute="top" secondItem="J7d-Fa-bm3" secondAttribute="bottom" constant="-6" id="p54-zA-h9i"/>
+                                                <constraint firstItem="2tc-Vt-tac" firstAttribute="top" secondItem="J7d-Fa-bm3" secondAttribute="bottom" constant="-2" id="p54-zA-h9i"/>
                                                 <constraint firstAttribute="topMargin" secondItem="zTl-1b-Boe" secondAttribute="top" id="rTc-gR-8BV"/>
                                                 <constraint firstItem="J7d-Fa-bm3" firstAttribute="centerY" secondItem="vQC-WT-wj2" secondAttribute="centerY" id="vwz-RW-SnX"/>
                                             </constraints>
@@ -924,7 +924,7 @@
         <image name="back" width="96" height="96"/>
         <image name="camera" width="96" height="96"/>
         <image name="cancel" width="96" height="96"/>
-        <image name="downvote" width="100" height="100"/>
+        <image name="downvote" width="96" height="96"/>
         <image name="hot" width="96" height="96"/>
         <image name="photo" width="96" height="96"/>
         <image name="post" width="96" height="96"/>
@@ -932,6 +932,6 @@
         <image name="recent" width="96" height="96"/>
         <image name="refresh" width="96" height="96"/>
         <image name="trash" width="104" height="104"/>
-        <image name="upvote" width="100" height="100"/>
+        <image name="upvote" width="96" height="96"/>
     </resources>
 </document>
