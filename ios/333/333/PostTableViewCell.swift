@@ -9,7 +9,13 @@
 import UIKit
 import SDWebImage
 
+protocol PostTableViewCellDelegate {
+    func didTapImageFromCell(_ cell: PostTableViewCell)
+}
+
 class PostTableViewCell: UITableViewCell {
+    
+    var delegate: PostTableViewCellDelegate?
     
     //Outlets
     @IBOutlet weak var postCaptionLabel: UILabel!
@@ -38,20 +44,20 @@ class PostTableViewCell: UITableViewCell {
 
         postCaptionLabel.text = post.text
         setNumUpvotes(post.numUpvotes)
-        repliesLabel.text = "\(post.numComments) comments"
+        repliesLabel.text = "\(post.numComments) Comments"
         if (post.numComments == 1) {
-            repliesLabel.text = "\(post.numComments) comment"
+            repliesLabel.text = "\(post.numComments) Comment"
         }
 
         let timeInterval = post.date.timeIntervalSinceNow
-        timestampLabel.text = "\(Utils.formatDate(-timeInterval)) ago"
+        timestampLabel.text = "\(Utils.formatDate(-timeInterval))"
         
         cityLabel.text = post.city
         
         if let image_url = post.imageUrl {
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
                 if let image = img {
-                    self.postImageViewHeightConstraint.constant = self.postImageView.frame.size.width * image.size.height / image.size.width
+                    self.postImageViewHeightConstraint.constant = self.postImageView.frame.width
                     self.setNeedsUpdateConstraints()
                 } else {
                     print("Failed to set image" + e.debugDescription)
@@ -104,7 +110,7 @@ class PostTableViewCell: UITableViewCell {
         if (isVoting) {
             return
         }
-
+        
         isVoting = true
         let user_id = UIDevice.current.identifierForVendor!.uuidString
         let object_id = post.id
@@ -138,5 +144,11 @@ class PostTableViewCell: UITableViewCell {
                 self.setVotes(up: up, down: !up)
             }
         })
+    }
+    
+    @IBAction func fullImage(_ sender: Any) {
+        if let d = delegate {
+            d.didTapImageFromCell(self)
+        }
     }
 }
