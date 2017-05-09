@@ -13,7 +13,7 @@ protocol PostDetailsViewControllerDelegate {
     func didReturn()
 }
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate, PostDetailsViewControllerDelegate {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate, PostTableViewCellDelegate, PostDetailsViewControllerDelegate {
     
     //Outlets
     @IBOutlet weak var postsTableView: UITableView!
@@ -134,6 +134,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // Configure this cell for its post.
         cell.configureWithPost(posts[postIndex])
+        cell.delegate = self
         
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
@@ -149,6 +150,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "postDetails", sender: tableView.cellForRow(at: indexPath))
+    }
+    
+    // MARK: - PostTableViewCellDelegate
+    
+    func didTapImageFromCell(_ cell: PostTableViewCell) {
+        self.performSegue(withIdentifier: "showFullImage", sender: cell)
     }
     
     // MARK: - ComposeViewControllerDelegate
@@ -177,6 +184,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else if (segue.identifier == "compose") {
             let vc = segue.destination as! ComposeViewController
             vc.delegate = self
+        } else if (segue.identifier == "showFullImage") {
+            let vc = segue.destination as! ImageViewController
+            vc.image = (sender as! PostTableViewCell).postImageView.image
         }
     }
 }
