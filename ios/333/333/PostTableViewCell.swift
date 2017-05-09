@@ -61,6 +61,7 @@ class PostTableViewCell: UITableViewCell {
             postImageViewHeightConstraint.constant = 0
             self.setNeedsUpdateConstraints()
         }
+
     }
     
     func setVotes(up: Bool, down: Bool) {

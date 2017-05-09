@@ -152,6 +152,27 @@ class Networking {
             }
         }
     }
+    
+    //Delete post. Run the completion handler if successful.
+    static func deletePost(post_id:String, completion: @escaping (_ success: Bool) -> Void) {
+        
+        let parameters: Parameters = [
+            "post_id": post_id,
+        ]
+        
+        Alamofire.request("\(baseurl)/api/posts/delete", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+            
+            if let json = response.result.value {
+                print("JSON: \(json)")
+                completion(true)
+            }
+            else {
+                print("FAILURE")
+                completion(false)
+            }
+            
+        })
+    }
 }
 
 
