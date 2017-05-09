@@ -35,7 +35,13 @@ class PostTableViewCell: UITableViewCell {
     var didUpvote: Bool = false
     var didDownvote: Bool = false
     var isVoting: Bool = false
-    
+
+    override func awakeFromNib() {
+        self.preservesSuperviewLayoutMargins = false
+        self.separatorInset = UIEdgeInsets.zero
+        self.layoutMargins = UIEdgeInsets.zero
+    }
+
     func configureWithPost(_ post: Post) {
         self.post = post
 
@@ -53,21 +59,21 @@ class PostTableViewCell: UITableViewCell {
         timestampLabel.text = "\(Utils.formatDate(-timeInterval))"
         
         cityLabel.text = post.city
-        
+
         if let image_url = post.imageUrl {
+            // We have an image. Let it take up at most half the screen's height.
+            self.postImageViewHeightConstraint.constant = UIScreen.main.bounds.height / 2
+
+            // Display the image.
             postImageView.sd_setImage(with: URL(string: image_url), completed: { (img: UIImage?, e: Error?, _: SDImageCacheType, _: URL?) in
-                if let image = img {
-                    self.postImageViewHeightConstraint.constant = self.postImageView.frame.width
-                    self.setNeedsUpdateConstraints()
-                } else {
+                if (img == nil) {
                     print("Failed to set image" + e.debugDescription)
                 }
             })
         } else {
-            postImageViewHeightConstraint.constant = 0
-            self.setNeedsUpdateConstraints()
+            // No image.
+            self.postImageViewHeightConstraint.constant = 0
         }
-
     }
     
     func setVotes(up: Bool, down: Bool) {
