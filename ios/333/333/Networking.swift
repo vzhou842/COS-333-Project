@@ -123,7 +123,7 @@ class Networking {
     }
     
     //Create a new comment with the specified parameters.
-    static func createComment(text:String, user_id:String, post_id:String) {
+    static func createComment(text:String, user_id:String, post_id:String, completion: @escaping (_ success: Bool) -> Void) {
         let parameters: Parameters = [
             "text": text,
             "user_id": user_id,
@@ -131,10 +131,7 @@ class Networking {
         ]
         
         Alamofire.request("\(baseurl)/api/comments", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
-            
-            if let json = response.result.value {
-                print("JSON: \(json)")
-            }
+            completion(response.response?.statusCode == 200)
         })
     }
     

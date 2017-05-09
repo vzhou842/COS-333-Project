@@ -14,7 +14,7 @@ class Post: NSObject {
     let id: String
     let text: String?
     let imageUrl: String?
-    let numComments: Int
+    var numComments: Int
     var numUpvotes: Int
     let date: Date
     let dateString: String
