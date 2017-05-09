@@ -160,21 +160,15 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if photoAddedView.isHidden == false {
-            countLabel2.text = "\(200 - textView.text.characters.count)"
-            if 200 - textView.text.characters.count < 0 { countLabel2.textColor = UIColor.red }
-            else { countLabel2.textColor = UIColor.clouds() }
-            
-            if textView.text.characters.count == 0 { sendButton2.setTitleColor(UIColor.lightGray, for: .normal)}
-            else { sendButton2.setTitleColor(UIColor.clouds(), for: .normal) }
-        } else {
-            countLabel.text = "\(200 - textView.text.characters.count)"
-            if 200 - textView.text.characters.count < 0 { countLabel.textColor = UIColor.red }
-            else { countLabel.textColor = UIColor.clouds() }
-            
-            if textView.text.characters.count == 0 { sendButton.setTitleColor(UIColor.lightGray, for: .normal)}
-            else { sendButton.setTitleColor(UIColor.clouds(), for: .normal) }
-        }
+        let count : UILabel! = photoAddedView.isHidden ? countLabel : countLabel2
+        let send : UIButton! = photoAddedView.isHidden ? sendButton : sendButton2
+        
+        count.text = "\(200 - textView.text.characters.count)"
+        if 200 - textView.text.characters.count < 0 { count.textColor = UIColor.red }
+        else { count.textColor = UIColor.clouds() }
+        
+        if textView.text.characters.count == 0 { send.setTitleColor(UIColor.lightGray, for: .normal)}
+        else { send.setTitleColor(UIColor.clouds(), for: .normal) }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
