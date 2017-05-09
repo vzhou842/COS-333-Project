@@ -152,6 +152,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.downButton.setImage(UIImage(named: "downvote"), for: .normal)
             }
 
+            cell.opImageView.isHidden = comment.user_id != post.user_id
+
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero

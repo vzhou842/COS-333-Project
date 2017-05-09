@@ -16,7 +16,8 @@ class ReplyTableViewCell: UITableViewCell {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var timestampLabel: UILabel!
-    
+    @IBOutlet weak var opImageView: UIImageView!
+
     //Variables
     var comment: Comment?
 
