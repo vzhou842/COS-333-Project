@@ -31,7 +31,7 @@ class ReplyTableViewCell: UITableViewCell {
     
     @IBAction func onTouchUpvote(_ sender: Any) {
         if let comment = comment {
-            let user_id = UIDevice.current.identifierForVendor!.uuidString
+            let user_id = Account.sharedInstance.user_id
             let object_id = comment.comment_id
             let up = true
             
@@ -65,7 +65,7 @@ class ReplyTableViewCell: UITableViewCell {
     
     @IBAction func onTouchDownvote(_ sender: Any) {
         if let comment = comment {
-            let user_id = UIDevice.current.identifierForVendor!.uuidString
+            let user_id = Account.sharedInstance.user_id
             let object_id = comment.comment_id
             let up = false
             

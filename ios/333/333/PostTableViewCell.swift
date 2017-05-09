@@ -118,7 +118,7 @@ class PostTableViewCell: UITableViewCell {
         }
         
         isVoting = true
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let user_id = Account.sharedInstance.user_id
         let object_id = post.id
         
         Networking.createVote(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, user_id: user_id, object_id: object_id, up: up, completion: {(success) in

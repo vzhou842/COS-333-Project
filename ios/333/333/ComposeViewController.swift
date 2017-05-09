@@ -93,7 +93,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     private func createPost(text: String?, image: UIImage?) {
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let user_id = Account.sharedInstance.user_id
         Networking.createPost(text: text, image: image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: {(success) in
             if let d = self.delegate {
                 d.didComposePost(success)

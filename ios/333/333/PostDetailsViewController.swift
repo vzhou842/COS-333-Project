@@ -71,7 +71,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         
         replyTextField.delegate = self
         
-        if (post.user_id == UIDevice.current.identifierForVendor!.uuidString) {
+        if (post.user_id == Account.sharedInstance.user_id) {
             // should be able to delete post.
             deleteButton.isHidden = false
             deleteButton.isEnabled = true
@@ -162,7 +162,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
     @IBAction func onTouchSend(_ sender: Any) {
         let text = replyTextField.text
-        let user_id = UIDevice.current.identifierForVendor!.uuidString
+        let user_id = Account.sharedInstance.user_id
 
         Networking.createComment(text: text!, user_id: user_id, post_id: post!.id) { (success) in
             if (success) {
