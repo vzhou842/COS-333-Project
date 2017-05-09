@@ -156,10 +156,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - ComposeViewControllerDelegate
     
-    func didComposePost() {
-        Toaster.makeToastBottom(self.view, "Post created!")
+    func didComposePost(_ success: Bool) {
+        Toaster.makeToastBottom(self.view, success ? "Post created!" : "Failed to create post. Please try again.")
+        loadDataFromNetwork(nil)
     }
-    
+
     func didReturn() {
         loadDataFromNetwork(nil)
     }
