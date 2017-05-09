@@ -28,6 +28,7 @@
 		CC9DC0D41E9070A6004F4C67 /* _33UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0D31E9070A6004F4C67 /* _33UITests.swift */; };
 		CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */; };
 		CC9DC0E81E917B7D004F4C67 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */; };
+		F4A8F57C1EC221C800FC1E8C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A8F57B1EC221C800FC1E8C /* Account.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		CC9DC0D51E9070A6004F4C67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC9DC0E21E9176BD004F4C67 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		CC9DC0E71E917B7D004F4C67 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		F4A8F57B1EC221C800FC1E8C /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				A555DC851EAC0ACD006B9ACE /* Utils.swift */,
 				A50384091EC0C9DA0069DD8B /* Toaster.swift */,
 				A503840D1EC0D5F40069DD8B /* Location.swift */,
+				F4A8F57B1EC221C800FC1E8C /* Account.swift */,
 			);
 			path = 333;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				CC9DC0E31E9176BD004F4C67 /* FeedViewController.swift in Sources */,
 				A50384101EC0E4170069DD8B /* Comment.swift in Sources */,
 				CC27D3161E973AA300589855 /* ReplyTableViewCell.swift in Sources */,
+				F4A8F57C1EC221C800FC1E8C /* Account.swift in Sources */,
 				B1F7CA201E998B5E00A015D0 /* Networking.swift in Sources */,
 				A555DC861EAC0ACD006B9ACE /* Utils.swift in Sources */,
 				B1599CDE1EC1578500CBC839 /* ImageViewController.swift in Sources */,
