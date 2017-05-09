@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jde-l2-Tkw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -757,7 +757,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUz-bf-wS4">
-                                                    <rect key="frame" x="329" y="3" width="25" height="25"/>
+                                                    <rect key="frame" x="329" y="5" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="R07-9u-EhP"/>
                                                         <constraint firstAttribute="width" constant="25" id="xsu-ae-bTU"/>
@@ -770,13 +770,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-Fa-bm3">
-                                                    <rect key="frame" x="321" y="26" width="42" height="14"/>
+                                                    <rect key="frame" x="321" y="28" width="42" height="10"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tc-Vt-tac">
-                                                    <rect key="frame" x="329" y="38" width="25" height="25"/>
+                                                    <rect key="frame" x="329" y="36" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="fSU-kg-UgH"/>
                                                         <constraint firstAttribute="height" constant="25" id="gbj-dL-xWA"/>
@@ -819,14 +819,13 @@
                                                 <constraint firstItem="SUz-bf-wS4" firstAttribute="centerX" secondItem="J7d-Fa-bm3" secondAttribute="centerX" id="Kg0-52-B5H"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="SUz-bf-wS4" secondAttribute="trailing" constant="13" id="MaI-RN-sOq"/>
                                                 <constraint firstItem="zOn-cm-pPS" firstAttribute="top" secondItem="zTl-1b-Boe" secondAttribute="bottom" id="Mue-FU-kP9"/>
-                                                <constraint firstItem="J7d-Fa-bm3" firstAttribute="top" secondItem="vQC-WT-wj2" secondAttribute="topMargin" constant="18" id="NbC-xv-SH9"/>
                                                 <constraint firstItem="zOn-cm-pPS" firstAttribute="leading" secondItem="zTl-1b-Boe" secondAttribute="leading" id="YgS-4n-YQN"/>
-                                                <constraint firstItem="zOn-cm-pPS" firstAttribute="top" secondItem="zTl-1b-Boe" secondAttribute="bottom" constant="3" id="Z8g-iE-4Y2"/>
                                                 <constraint firstItem="2tc-Vt-tac" firstAttribute="centerX" secondItem="SUz-bf-wS4" secondAttribute="centerX" id="acF-6C-uH8"/>
                                                 <constraint firstItem="zTl-1b-Boe" firstAttribute="leading" secondItem="vQC-WT-wj2" secondAttribute="leadingMargin" id="dHP-Oe-N7a"/>
                                                 <constraint firstItem="SUz-bf-wS4" firstAttribute="leading" secondItem="zTl-1b-Boe" secondAttribute="trailing" constant="8" id="etA-8o-DSN"/>
                                                 <constraint firstItem="KH0-aH-f1M" firstAttribute="leading" secondItem="zOn-cm-pPS" secondAttribute="trailing" constant="4" id="hM5-NG-e6e"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="J7d-Fa-bm3" secondAttribute="trailing" constant="4" id="jf4-CN-yu4"/>
+                                                <constraint firstItem="SUz-bf-wS4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vQC-WT-wj2" secondAttribute="topMargin" constant="-3" id="kCs-V3-JYa"/>
                                                 <constraint firstItem="2tc-Vt-tac" firstAttribute="top" secondItem="J7d-Fa-bm3" secondAttribute="bottom" constant="-2" id="p54-zA-h9i"/>
                                                 <constraint firstAttribute="topMargin" secondItem="zTl-1b-Boe" secondAttribute="top" id="rTc-gR-8BV"/>
                                                 <constraint firstItem="J7d-Fa-bm3" firstAttribute="centerY" secondItem="vQC-WT-wj2" secondAttribute="centerY" id="vwz-RW-SnX"/>
