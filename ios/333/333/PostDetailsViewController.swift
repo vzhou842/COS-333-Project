@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class PostDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, PostTableViewCellDelegate {
     
     //Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -111,10 +111,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             
             // Configure this cell for its post.
             cell.configureWithPost(self.post)
-            
-            cell.preservesSuperviewLayoutMargins = false
-            cell.separatorInset = UIEdgeInsets.zero
-            cell.layoutMargins = UIEdgeInsets.zero
+            cell.delegate = self
             
             return cell
         } else if (indexPath.row == 1 && (comments == nil || comments!.count == 0)) {
@@ -192,15 +189,23 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.layoutIfNeeded()
     }
 
-    /*
+    // MARK: - PostTableViewCellDelegate
+
+    func didTapImageFromCell(_ cell: PostTableViewCell) {
+        self.performSegue(withIdentifier: "showFullImage", sender: cell)
+    }
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+
+        if (segue.identifier == "showFullImage") {
+            let vc = segue.destination as! ImageViewController
+            vc.image = (sender as! PostTableViewCell).postImageView.image
+        }
     }
-    */
 
 }
 

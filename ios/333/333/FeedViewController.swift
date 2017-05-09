@@ -177,7 +177,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = sender as! PostTableViewCell
             vc.post = cell.post
             vc.delegate = self
-            
         } else if (segue.identifier == "compose") {
             let vc = segue.destination as! ComposeViewController
             vc.delegate = self

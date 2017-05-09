@@ -914,6 +914,7 @@
                         <outlet property="replyTextField" destination="hHe-JK-zqR" id="ZFT-li-8xf"/>
                         <outlet property="sendViewBottomConstraint" destination="iRJ-Hp-wSK" id="qTO-OW-bmx"/>
                         <outlet property="tableView" destination="Fev-yg-zNS" id="vKK-Vo-ees"/>
+                        <segue destination="dFM-RK-B4e" kind="presentation" identifier="showFullImage" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="dYt-D6-13t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XFR-27-CDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -955,4 +956,7 @@
         <image name="trash" width="104" height="104"/>
         <image name="upvote" width="96" height="96"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="dYt-D6-13t"/>
+    </inferredMetricsTieBreakers>
 </document>
