@@ -34,7 +34,7 @@ class Utils {
         } else if number < 2073600 {
             formatted = String(format: "%.0f", Double(number) / 86400.0) + "d"
         }
-        
+
         return formatted
     }
 }

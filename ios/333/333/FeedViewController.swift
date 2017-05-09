@@ -71,6 +71,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             return
         }
+        // Check if location is not yet enabled.
+        else if !Location.sharedInstance.hasLocationAuth() {
+            Toaster.makeToastBottom(self.view, "Please enable Location Services.")
+            if let r = refreshControl {
+                r.endRefreshing()
+            }
+            return
+        }
 
         let completion = {(posts: [Post]) in
             self.posts = posts
