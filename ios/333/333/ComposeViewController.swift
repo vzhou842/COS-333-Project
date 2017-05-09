@@ -160,6 +160,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        captionTextView.frame.origin.y = photoAddedView.frame.height - keyboardHeight - captionTextView.contentSize.height
+
         let count : UILabel! = photoAddedView.isHidden ? countLabel : countLabel2
         let send : UIButton! = photoAddedView.isHidden ? sendButton : sendButton2
         
