@@ -318,6 +318,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="What's on your mind?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KCC-9L-pIi">
                                         <rect key="frame" x="8" y="72" width="359" height="533"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.22888621789999999" green="0.22888621789999999" blue="0.22888621789999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -476,6 +477,7 @@
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add a caption ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-nj-SZD">
                                         <rect key="frame" x="37.5" y="494" width="300" height="165"/>
+                                        <color key="tintColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -861,12 +863,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ev-84-NYy">
                                 <rect key="frame" x="0.0" y="621" width="375" height="46"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reply..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHe-JK-zqR">
-                                        <rect key="frame" x="8" y="8" width="307" height="30"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cW1-Wa-qYz" userLabel="Border">
+                                        <rect key="frame" x="-0.5" y="0.0" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="boB-oq-bXi"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Reply..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHe-JK-zqR">
+                                        <rect key="frame" x="16" y="8" width="299" height="30"/>
+                                        <color key="tintColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="ED3-KN-pvB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fY0-Mr-JmB">
@@ -876,20 +886,22 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Send">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="onTouchSend:" destination="Z3L-d6-NOy" eventType="touchUpInside" id="Okd-Y2-bou"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.36862745099999999" green="0.69411764710000001" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="cW1-Wa-qYz" firstAttribute="centerX" secondItem="2Ev-84-NYy" secondAttribute="centerX" id="CPg-J7-mzV"/>
                                     <constraint firstItem="hHe-JK-zqR" firstAttribute="centerY" secondItem="2Ev-84-NYy" secondAttribute="centerY" id="Gzf-Dr-GRV"/>
-                                    <constraint firstItem="hHe-JK-zqR" firstAttribute="leading" secondItem="2Ev-84-NYy" secondAttribute="leading" constant="8" id="I0c-ob-H3g"/>
+                                    <constraint firstItem="cW1-Wa-qYz" firstAttribute="top" secondItem="2Ev-84-NYy" secondAttribute="top" id="Hva-4S-0ib"/>
+                                    <constraint firstItem="hHe-JK-zqR" firstAttribute="leading" secondItem="2Ev-84-NYy" secondAttribute="leading" constant="16" id="I0c-ob-H3g"/>
                                     <constraint firstItem="fY0-Mr-JmB" firstAttribute="leading" secondItem="hHe-JK-zqR" secondAttribute="trailing" constant="8" id="cUQ-4v-byA"/>
                                     <constraint firstAttribute="trailing" secondItem="fY0-Mr-JmB" secondAttribute="trailing" constant="8" id="eYx-go-Nrm"/>
                                     <constraint firstItem="fY0-Mr-JmB" firstAttribute="centerY" secondItem="hHe-JK-zqR" secondAttribute="centerY" id="mxd-fO-70h"/>
+                                    <constraint firstItem="cW1-Wa-qYz" firstAttribute="width" secondItem="2Ev-84-NYy" secondAttribute="width" id="q61-6A-H0Q"/>
                                     <constraint firstAttribute="height" constant="46" id="yaT-g6-Kux"/>
                                 </constraints>
                             </view>
@@ -957,6 +969,6 @@
         <image name="upvote" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vD4-7p-ePt"/>
+        <segue reference="dYt-D6-13t"/>
     </inferredMetricsTieBreakers>
 </document>
