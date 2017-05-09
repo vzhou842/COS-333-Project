@@ -163,14 +163,20 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         let text = replyTextField.text
         let user_id = UIDevice.current.identifierForVendor!.uuidString
 
-        Networking.createComment(text: text!, user_id: user_id, post_id: post!.id)
+        Networking.createComment(text: text!, user_id: user_id, post_id: post!.id) { (success) in
+            if (success) {
+                self.post.numComments += 1
+                self.tableView.reloadData()
+                Networking.getComments(post_id: self.post.id) { (comments) in
+                    self.comments = comments
+                    self.tableView.reloadData()
+                }
+            } else {
+                Toaster.makeToastBottom(self.view, "Failed to create comment. Please try again.")
+            }
+        }
         replyTextField.text = nil
         replyTextField.resignFirstResponder()
-        
-        Networking.getComments(post_id: post.id) { (comments) in
-            self.comments = comments
-            self.tableView.reloadData()
-        }
     }
 
     @IBAction func back(_ sender: Any) {
