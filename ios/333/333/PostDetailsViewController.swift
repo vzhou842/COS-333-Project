@@ -83,6 +83,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
 
@@ -170,6 +171,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
                 Networking.getComments(post_id: self.post.id) { (comments) in
                     self.comments = comments
                     self.tableView.reloadData()
+                    self.scrollToBottom()
                 }
             } else {
                 Toaster.makeToastBottom(self.view, "Failed to create comment. Please try again.")
@@ -183,11 +185,22 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         navigationController?.popViewController(animated: true)
     }
 
+    private func scrollToBottom() {
+        if let comments = comments {
+            self.tableView.scrollToRow(at: IndexPath(row: comments.count, section: 0), at: UITableViewScrollPosition.bottom, animated: true)
+        }
+    }
+
     func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.sendViewBottomConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
+        scrollToBottom()
+    }
+
+    func keyboardDidShow(notification: Notification) {
+        scrollToBottom()
     }
 
     func keyboardWillHide(notification: Notification) {
