@@ -82,6 +82,8 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             deleteButton.isEnabled = false
         }
 
+        self.tableView.tableFooterView = UIView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
@@ -117,7 +119,13 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             return cell
         } else if (indexPath.row == 1 && (comments == nil || comments!.count == 0)) {
             // No Comments Yet cell.
-            return tableView.dequeueReusableCell(withIdentifier: "noCommentsCell")!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noCommentsCell")!
+            
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            return cell
         } else {
             // Comment cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: "replyTableViewCell") as! ReplyTableViewCell
