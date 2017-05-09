@@ -179,7 +179,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.sendViewBottomConstraint.constant = keyboardSize.height
             self.view.layoutIfNeeded()
         }
