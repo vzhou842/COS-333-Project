@@ -35,6 +35,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var delegate: ComposeViewControllerDelegate?
     let r = Reachability()!
+    private var isCreating = false
     
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -93,8 +94,14 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     private func createPost(text: String?, image: UIImage?) {
+        if isCreating {
+            return
+        }
+        isCreating = true
+
         let user_id = Account.sharedInstance.user_id
         Networking.createPost(text: text, image: image, user_id: user_id, lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: {(success) in
+            self.isCreating = false
             if let d = self.delegate {
                 d.didComposePost(success)
             }
