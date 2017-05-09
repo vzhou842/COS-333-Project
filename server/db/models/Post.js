@@ -11,6 +11,7 @@ var schema = new mongoose.Schema({
 	loc: {
 		type: { $type: String, default: 'Point' },
 		coordinates: [Number], // [long, lat]
+		name: String, // e.g. city name
 	},
 	radius: { $type: Number, default: 5000 }, // meters
 	num_upvotes: { $type: Number, default: 0 },
