@@ -25,6 +25,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var timeStampFormatted: Date?
     var sortedByHot: Bool = true
     var sortedByRecent: Bool = false
+    private var lastHotRefreshDate = Date(timeIntervalSince1970: 0)
+    private var lastNewRefreshDate = Date(timeIntervalSince1970: 0)
 
     //Helpers
     let r = Reachability()!
@@ -127,7 +129,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         sortedByHot = true
         sortedByRecent = false
-        //sort posts by hot
+
+        // Check if we can refresh
+        if Date().timeIntervalSince(lastHotRefreshDate) < 1 {
+            print("Rate limiting Hot Feed refresh")
+            return
+        }
+        lastHotRefreshDate = Date()
         Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
@@ -143,7 +151,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         sortedByHot = false
         sortedByRecent = true
-        //sort posts by recency
+
+        // Check if we can refresh
+        if Date().timeIntervalSince(lastNewRefreshDate) < 1 {
+            print("Rate limiting New Feed refresh")
+            return
+        }
+        lastNewRefreshDate = Date()
         Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
             self.posts = posts
             self.postsTableView.reloadData()
