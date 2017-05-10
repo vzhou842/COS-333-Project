@@ -198,6 +198,29 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func didTapImageFromCell(_ cell: PostTableViewCell) {
         self.performSegue(withIdentifier: "showFullImage", sender: cell)
     }
+
+    func removeCell(_ cell: PostTableViewCell) {
+        if cell.post == nil {
+            return
+        }
+        let posts = currentPosts()
+        let post = cell.post!
+
+        // Remove this cell from posts arrays.
+        removeIfNeeded(post, from: &hotPosts)
+        removeIfNeeded(post, from: &newPosts)
+
+        // Try animating this cell out of the current feed.
+        if let currentIndex = posts.index(of: cell.post) {
+            postsTableView.deleteRows(at: [IndexPath(row: currentIndex, section: 0)], with: .left)
+        }
+    }
+
+    private func removeIfNeeded<T: Equatable>(_ object: T, from array: inout [T]) {
+        if let index = array.index(of: object) {
+            array.remove(at: index)
+        }
+    }
     
     // MARK: - ComposeViewControllerDelegate
     

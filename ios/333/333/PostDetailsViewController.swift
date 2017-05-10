@@ -222,6 +222,9 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         self.performSegue(withIdentifier: "showFullImage", sender: cell)
     }
 
+    func removeCell(_ cell: PostTableViewCell) {
+    }
+
     // MARK: - Navigation
 
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

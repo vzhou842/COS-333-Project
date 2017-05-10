@@ -11,6 +11,7 @@ import SDWebImage
 
 protocol PostTableViewCellDelegate {
     func didTapImageFromCell(_ cell: PostTableViewCell)
+    func removeCell(_ cell: PostTableViewCell)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -128,7 +129,7 @@ class PostTableViewCell: UITableViewCell {
                 return
             }
 
-            if (self.didUpvote && up){
+            if (self.didUpvote && up) {
                 // Undo upvote.
                 self.setNumUpvotes(self.post.numUpvotes - 1)
                 self.setVotes(up: false, down: false)
@@ -148,6 +149,14 @@ class PostTableViewCell: UITableViewCell {
                 // Create vote.
                 self.setNumUpvotes(self.post.numUpvotes + (up ? 1 : -1))
                 self.setVotes(up: up, down: !up)
+            }
+
+            // Check if this post fell below the -5 vote threshold.
+            // If so, notify the delegate.
+            if (self.post.numUpvotes <= -5) {
+                if let delegate = self.delegate {
+                    delegate.removeCell(self)
+                }
             }
         })
     }
