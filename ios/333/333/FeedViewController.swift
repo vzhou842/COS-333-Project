@@ -13,6 +13,11 @@ protocol PostDetailsViewControllerDelegate {
     func didReturn()
 }
 
+enum FeedType {
+    case hot
+    case new
+}
+
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ComposeViewControllerDelegate, PostTableViewCellDelegate, PostDetailsViewControllerDelegate {
     
     //Outlets
@@ -21,10 +26,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var recentButton: UIButton!
     
     //Variables
-    var posts = [Post]()
+    var hotPosts = [Post]()
+    var newPosts = [Post]()
     var timeStampFormatted: Date?
-    var sortedByHot: Bool = true
-    var sortedByRecent: Bool = false
+    var feedType = FeedType.hot
     private var lastHotRefreshDate = Date(timeIntervalSince1970: 0)
     private var lastNewRefreshDate = Date(timeIntervalSince1970: 0)
 
@@ -39,7 +44,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }, failure: {
             Toaster.makeToastBottom(self.postsTableView, "Location Services must be enabled to use this app.")
         })
-        
+
+        // Setup tableview
         postsTableView.delegate = self
         postsTableView.dataSource = self
         postsTableView.rowHeight = UITableViewAutomaticDimension
@@ -49,10 +55,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         postsTableView.insertSubview(refreshControl, at: 0)
-        
+
+        // Style feed buttons
         recentButton.layer.cornerRadius = 8
         recentButton.layer.masksToBounds = true
-        
         hotButton.layer.cornerRadius = 8
         hotButton.layer.masksToBounds = true
         hotButton.layer.backgroundColor = UIColor.white.cgColor
@@ -65,39 +71,56 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadDataFromNetwork(_ refreshControl: UIRefreshControl?) {
-        // Check if there's no internet connection.
-        if r.currentReachabilityStatus == .notReachable {
-            Toaster.makeToastBottom(self.view, "No Internet Connection.")
-            if let r = refreshControl {
-                r.endRefreshing()
-            }
-            return
-        }
-        // Check if location is not yet enabled.
-        else if !Location.sharedInstance.hasLocationAuth() {
-            Toaster.makeToastBottom(self.view, "Please enable Location Services.")
-            if let r = refreshControl {
-                r.endRefreshing()
-            }
-            return
-        }
-
-        let completion = {(posts: [Post]) in
-            self.posts = posts
-            self.postsTableView.reloadData()
+        let completion = {
             if let refreshControl = refreshControl {
                 refreshControl.endRefreshing()
             }
         }
 
-        //Populate posts variable with posts from backend
-        if (self.sortedByHot)
-        {
-            Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: completion)
+        // Check if there's no internet connection.
+        if r.currentReachabilityStatus == .notReachable {
+            Toaster.makeToastBottom(self.view, "No Internet Connection.")
+            completion()
+            return
         }
-        else if (self.sortedByRecent)
+        // Check if location is not yet enabled.
+        else if !Location.sharedInstance.hasLocationAuth() {
+            Toaster.makeToastBottom(self.view, "Please enable Location Services.")
+            completion()
+            return
+        }
+
+        if (feedType == .hot)
         {
-            Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: completion)
+            // Check if we can refresh hot posts
+            if Date().timeIntervalSince(lastHotRefreshDate) < 1 {
+                print("Rate limiting Hot Feed refresh")
+                completion()
+                return
+            }
+            lastHotRefreshDate = Date()
+
+            Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: {(posts: [Post]) in
+                self.hotPosts = posts
+                self.postsTableView.reloadData()
+                completion()
+            })
+        }
+        else if (feedType == .new)
+        {
+            // Check if we can refresh new posts
+            if Date().timeIntervalSince(lastNewRefreshDate) < 1 {
+                print("Rate limiting New Feed refresh")
+                completion()
+                return
+            }
+            lastNewRefreshDate = Date()
+
+            Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: {(posts: [Post]) in
+                self.newPosts = posts
+                self.postsTableView.reloadData()
+                completion()
+            })
         }
     }
     
@@ -126,20 +149,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
         recentButton.layer.backgroundColor = UIColor.clear.cgColor
         recentButton.setImage(UIImage(named: "recent"), for: .normal)
-        
-        sortedByHot = true
-        sortedByRecent = false
 
-        // Check if we can refresh
-        if Date().timeIntervalSince(lastHotRefreshDate) < 1 {
-            print("Rate limiting Hot Feed refresh")
-            return
-        }
-        lastHotRefreshDate = Date()
-        Networking.getHotPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
-            self.posts = posts
-            self.postsTableView.reloadData()
-        })
+        feedType = .hot
+        postsTableView.reloadData()
+        loadDataFromNetwork(nil)
     }
     
     @IBAction func sortRecent(_ sender: Any) {
@@ -148,25 +161,21 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         recentButton.setImage(UIImage(named: "sortRecent"), for: .normal)
         hotButton.layer.backgroundColor = UIColor.clear.cgColor
         hotButton.setImage(UIImage(named: "hot"), for: .normal)
-        
-        sortedByHot = false
-        sortedByRecent = true
 
-        // Check if we can refresh
-        if Date().timeIntervalSince(lastNewRefreshDate) < 1 {
-            print("Rate limiting New Feed refresh")
-            return
-        }
-        lastNewRefreshDate = Date()
-        Networking.getNewPosts(lat: Location.sharedInstance.lat, long: Location.sharedInstance.long, completion: { (posts) in
-            self.posts = posts
-            self.postsTableView.reloadData()
-        })
+        feedType = .new
+        postsTableView.reloadData()
+        loadDataFromNetwork(nil)
+    }
+
+    func currentPosts() -> [Post] {
+        return feedType == .hot ? hotPosts : newPosts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell") as! PostTableViewCell
         let postIndex = indexPath.row
+
+        let posts = currentPosts()
         
         // Configure this cell for its post.
         cell.configureWithPost(posts[postIndex])
@@ -176,7 +185,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return currentPosts().count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
