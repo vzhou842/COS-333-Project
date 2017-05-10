@@ -113,8 +113,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.performSegue(withIdentifier: "compose", sender: self)
     }
+
+    func scrollToTop() {
+        self.postsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
     
     @IBAction func sortHot(_ sender: Any) {
+        self.scrollToTop()
         hotButton.layer.backgroundColor = UIColor.white.cgColor
         hotButton.setImage(UIImage(named: "sortHot"), for: .normal)
         recentButton.layer.backgroundColor = UIColor.clear.cgColor
@@ -130,6 +135,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sortRecent(_ sender: Any) {
+        self.scrollToTop()
         recentButton.layer.backgroundColor = UIColor.white.cgColor
         recentButton.setImage(UIImage(named: "sortRecent"), for: .normal)
         hotButton.layer.backgroundColor = UIColor.clear.cgColor
