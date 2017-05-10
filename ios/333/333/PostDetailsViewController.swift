@@ -223,6 +223,11 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func removeCell(_ cell: PostTableViewCell) {
+        // Ignore
+    }
+
+    func showNoInternetNotif() {
+        Toaster.makeToastBottom(self.view, "No Internet Connection.")
     }
 
     // MARK: - Navigation

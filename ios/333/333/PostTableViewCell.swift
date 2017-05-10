@@ -8,10 +8,12 @@
 
 import UIKit
 import SDWebImage
+import ReachabilitySwift
 
 protocol PostTableViewCellDelegate {
     func didTapImageFromCell(_ cell: PostTableViewCell)
     func removeCell(_ cell: PostTableViewCell)
+    func showNoInternetNotif()
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -36,6 +38,7 @@ class PostTableViewCell: UITableViewCell {
     var didUpvote: Bool = false
     var didDownvote: Bool = false
     var isVoting: Bool = false
+    let r = Reachability()!
 
     override func awakeFromNib() {
         self.preservesSuperviewLayoutMargins = false
@@ -115,6 +118,14 @@ class PostTableViewCell: UITableViewCell {
     func vote(up: Bool) {
         // If we're currently already sending a vote to the server, ignore this new vote.
         if (isVoting) {
+            return
+        }
+
+        // If there's no internet connection, show a toast.
+        if r.currentReachabilityStatus == .notReachable {
+            if let d = delegate {
+                d.showNoInternetNotif()
+            }
             return
         }
         

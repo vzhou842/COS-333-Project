@@ -232,6 +232,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func didReturn() {
         loadDataFromNetwork(nil)
     }
+
+    func showNoInternetNotif() {
+        Toaster.makeToastBottom(self.view, "No Internet Connection.")
+    }
     
     // MARK: - Navigation
 
