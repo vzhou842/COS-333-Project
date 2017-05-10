@@ -222,7 +222,7 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             keyboardHeight = keyboardSize.height
         }
         if photoAddedView.isHidden == false {
