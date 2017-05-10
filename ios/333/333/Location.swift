@@ -46,8 +46,10 @@ class Location: NSObject, CLLocationManagerDelegate {
             print("Location Authorized.")
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
-            lat = Float(locationManager.location!.coordinate.latitude)
-            long = Float(locationManager.location!.coordinate.longitude)
+            if let loc = locationManager.location {
+                lat = Float(loc.coordinate.latitude)
+                long = Float(loc.coordinate.longitude)
+            }
             if let s = success {
                 s()
                 success = nil

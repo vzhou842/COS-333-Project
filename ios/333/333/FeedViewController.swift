@@ -140,7 +140,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func scrollToTop() {
-        self.postsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        if currentPosts().count > 0 {
+            self.postsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
     }
     
     @IBAction func sortHot(_ sender: Any) {
