@@ -18,36 +18,6 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
     //Variables
     var delegate: FeedViewController?
-    
-    @IBAction func refreshPost(_ sender: Any) {
-        Networking.getComments(post_id: post.id) { (comments) in
-            self.comments = comments
-            self.tableView.reloadData()
-            Toaster.makeToastBottom(self.view, "Refreshed!")
-        }
-    }
-    
-    
-    @IBAction func deletePost(_ sender: Any) {
-        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete your post?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
-            print("Delete")
-            
-            Networking.deletePost(post_id: self.post.id, completion: { (posts) in
-                self.delegate?.didReturn()
-                self.navigationController?.popViewController(animated: true)
-            })
-        })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default) { _ in
-            print("Cancel")
-        })
-        
-        present(alert, animated: true)
-    }
-    
-    
-    //Variables
     var post: Post!
     var comments: [Comment]?
     
@@ -64,10 +34,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.estimatedRowHeight = 300
 
         // Load comments
-        Networking.getComments(post_id: post.id) { (comments) in
-            self.comments = comments
-            self.tableView.reloadData()
-        }
+        refreshComments(nil)
         
         replyTextField.delegate = self
         
@@ -93,7 +60,18 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    func refreshComments(_ completion: (() -> Void)?) {
+        Networking.getComments(post_id: self.post.id) { (comments) in
+            self.comments = comments
+            self.post.numComments = comments.count
+            self.tableView.reloadData()
+            if let c = completion {
+                c()
+            }
+        }
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         self.view.endEditing(true)
@@ -115,7 +93,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             // Configure this cell for its post.
             cell.configureWithPost(self.post)
             cell.delegate = self
-            
+
             return cell
         } else if (indexPath.row == 1 && (comments == nil || comments!.count == 0)) {
             // No Comments Yet cell.
@@ -176,9 +154,7 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
             if (success) {
                 self.post.numComments += 1
                 self.tableView.reloadData()
-                Networking.getComments(post_id: self.post.id) { (comments) in
-                    self.comments = comments
-                    self.tableView.reloadData()
+                self.refreshComments {
                     self.scrollToBottom()
                 }
             } else {
@@ -191,6 +167,30 @@ class PostDetailsViewController: UIViewController, UITableViewDataSource, UITabl
 
     @IBAction func back(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+
+    @IBAction func refreshPost(_ sender: Any) {
+        refreshComments {
+            Toaster.makeToastBottom(self.view, "Refreshed!")
+        }
+    }
+
+    @IBAction func deletePost(_ sender: Any) {
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete your post?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
+            print("Delete")
+
+            Networking.deletePost(post_id: self.post.id, completion: { (posts) in
+                self.delegate?.didReturn()
+                self.navigationController?.popViewController(animated: true)
+            })
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default) { _ in
+            print("Cancel")
+        })
+
+        present(alert, animated: true)
     }
 
     private func scrollToBottom() {
