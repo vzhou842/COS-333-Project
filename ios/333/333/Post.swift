@@ -8,7 +8,6 @@
 
 import Foundation
 
-// Posts are immutable objects.
 class Post: NSObject {
     let user_id: String
     let id: String
