@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 
 class Networking {
+
+    private init() {}
     
     static let baseurl = "https://robin333.herokuapp.com"
 
