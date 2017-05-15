@@ -71,12 +71,13 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func sendPost(_ sender: Any) {
+        let text = postTextView.text!
         if r.currentReachabilityStatus == .notReachable {
             Toaster.makeToastTop(self.postTextView, "No Internet Connection.")
-        } else if postTextView.text.characters.count > 200 {
+        } else if text.characters.count > 200 {
             Toaster.makeToastTop(self.postTextView, "Too many characters!")
-        } else if postTextView.text.characters.count > 0 {
-            createPost(text: postTextView.text, image: nil)
+        } else if text.characters.count > 0 && text != defaultPost {
+            createPost(text: text, image: nil)
         }
     }
     
@@ -86,10 +87,9 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else if captionTextView.text.characters.count > 200 {
             Toaster.makeToastTop(self.pickedImage, "Too many characters!")
         } else {
-            if captionTextView.text == defaultCaption {
-                captionTextView.text = ""
-            }
-            createPost(text: captionTextView.text, image: pickedImage.image)
+            var text = captionTextView.text
+            if text == defaultCaption { text = "" }
+            createPost(text: text, image: pickedImage.image)
         }
     }
 
